@@ -1,9 +1,9 @@
-package uo.sdi.business;
+package com.sdi.business;
 
 import java.util.List;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.model.User;
 
 public interface AdminService {
 

@@ -1,12 +1,12 @@
-package uo.sdi.business.impl.user.command;
+package com.sdi.business.impl.user.command;
 
-import uo.sdi.business.exception.BusinessCheck;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.util.UserCheck;
-import uo.sdi.dto.User;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.UserDao;
+import com.sdi.business.exception.BusinessCheck;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.business.impl.util.UserCheck;
+import com.sdi.model.User;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.UserDao;
 
 public class UpdateUserDetailsCommand implements Command<Void> {
 

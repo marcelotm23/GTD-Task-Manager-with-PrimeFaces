@@ -1,13 +1,13 @@
-package uo.sdi.persistence.impl;
+package com.sdi.persistence.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import uo.sdi.dto.Category;
-import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.util.JdbcTemplate;
-import uo.sdi.persistence.util.RowMapper;
+import com.sdi.model.Category;
+import com.sdi.persistence.CategoryDao;
+import com.sdi.persistence.util.JdbcTemplate;
+import com.sdi.persistence.util.RowMapper;
 
 public class CategoryDaoJdbcImpl implements CategoryDao {
 

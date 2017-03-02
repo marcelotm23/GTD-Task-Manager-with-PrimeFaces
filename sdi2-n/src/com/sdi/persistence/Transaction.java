@@ -1,4 +1,4 @@
-package uo.sdi.persistence;
+package com.sdi.persistence;
 
 /**
  * Every isolated call to a DAO method is run in its own and self contained

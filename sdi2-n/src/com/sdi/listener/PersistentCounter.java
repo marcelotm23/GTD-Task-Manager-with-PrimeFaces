@@ -1,4 +1,4 @@
-package uo.sdi.listener;
+package com.sdi.listener;
 
 import java.io.FileOutputStream;
 import java.util.Properties;

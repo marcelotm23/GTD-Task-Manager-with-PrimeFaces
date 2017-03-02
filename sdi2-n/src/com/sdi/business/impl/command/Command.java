@@ -1,6 +1,6 @@
-package uo.sdi.business.impl.command;
+package com.sdi.business.impl.command;
 
-import uo.sdi.business.exception.BusinessException;
+import com.sdi.business.exception.BusinessException;
 
 public interface Command<T> {
 

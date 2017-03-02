@@ -1,8 +1,8 @@
-package uo.sdi.dto.util;
+package com.sdi.model.util;
 
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
-import uo.sdi.dto.User;
+import com.sdi.model.Category;
+import com.sdi.model.Task;
+import com.sdi.model.User;
 
 
 public class Cloner {

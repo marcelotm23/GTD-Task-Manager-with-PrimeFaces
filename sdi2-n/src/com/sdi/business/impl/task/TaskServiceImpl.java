@@ -1,21 +1,21 @@
-package uo.sdi.business.impl.task;
+package com.sdi.business.impl.task;
 
 import java.util.List;
 
-import uo.sdi.business.TaskService;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.command.CommandExecutor;
-import uo.sdi.business.impl.task.command.CreateCategoryCommand;
-import uo.sdi.business.impl.task.command.CreateTaskCommand;
-import uo.sdi.business.impl.task.command.DeleteCategoryCommand;
-import uo.sdi.business.impl.task.command.DuplicateCategoryCommand;
-import uo.sdi.business.impl.task.command.MarkTaskAsFinishedCommand;
-import uo.sdi.business.impl.task.command.UpdateCategoryCommand;
-import uo.sdi.business.impl.task.command.UpdateTaskCommand;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
-import uo.sdi.persistence.Persistence;
+import com.sdi.business.TaskService;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.business.impl.command.CommandExecutor;
+import com.sdi.business.impl.task.command.CreateCategoryCommand;
+import com.sdi.business.impl.task.command.CreateTaskCommand;
+import com.sdi.business.impl.task.command.DeleteCategoryCommand;
+import com.sdi.business.impl.task.command.DuplicateCategoryCommand;
+import com.sdi.business.impl.task.command.MarkTaskAsFinishedCommand;
+import com.sdi.business.impl.task.command.UpdateCategoryCommand;
+import com.sdi.business.impl.task.command.UpdateTaskCommand;
+import com.sdi.model.Category;
+import com.sdi.model.Task;
+import com.sdi.persistence.Persistence;
 
 public class TaskServiceImpl implements TaskService {
 

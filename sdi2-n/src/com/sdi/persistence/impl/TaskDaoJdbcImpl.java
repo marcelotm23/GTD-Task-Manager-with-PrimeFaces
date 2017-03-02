@@ -1,14 +1,14 @@
-package uo.sdi.persistence.impl;
+package com.sdi.persistence.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import uo.sdi.dto.Task;
-import uo.sdi.persistence.TaskDao;
-import uo.sdi.persistence.util.JdbcTemplate;
-import uo.sdi.persistence.util.RowMapper;
+import com.sdi.model.Task;
+import com.sdi.persistence.TaskDao;
+import com.sdi.persistence.util.JdbcTemplate;
+import com.sdi.persistence.util.RowMapper;
 
 public class TaskDaoJdbcImpl implements TaskDao {
 

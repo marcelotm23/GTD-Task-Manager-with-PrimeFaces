@@ -1,4 +1,4 @@
-package uo.sdi.business.exception;
+package com.sdi.business.exception;
 
 public class BusinessCheck {
 

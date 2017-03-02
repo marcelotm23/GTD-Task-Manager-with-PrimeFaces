@@ -1,18 +1,18 @@
-package uo.sdi.business.impl.task.command;
+package com.sdi.business.impl.task.command;
 
 import java.util.List;
 
-import uo.sdi.business.exception.BusinessCheck;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
-import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
-import uo.sdi.dto.util.Cloner;
-import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.TaskDao;
+import com.sdi.business.exception.BusinessCheck;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.model.Category;
+import com.sdi.model.Task;
+import com.sdi.model.User;
+import com.sdi.model.types.UserStatus;
+import com.sdi.model.util.Cloner;
+import com.sdi.persistence.CategoryDao;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.TaskDao;
 
 public class DuplicateCategoryCommand implements Command<Long> {
 

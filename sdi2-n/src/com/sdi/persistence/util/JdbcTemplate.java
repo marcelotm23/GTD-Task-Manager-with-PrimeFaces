@@ -1,4 +1,4 @@
-package uo.sdi.persistence.util;
+package com.sdi.persistence.util;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import uo.sdi.persistence.PersistenceException;
+import com.sdi.persistence.PersistenceException;
 
 /**
  * Provides template methods to execute DML statements and queries with one

@@ -1,9 +1,9 @@
-package uo.sdi.persistence;
+package com.sdi.persistence;
 
 import java.util.List;
 
-import uo.sdi.dto.Category;
-import uo.sdi.persistence.util.GenericDao;
+import com.sdi.model.Category;
+import com.sdi.persistence.util.GenericDao;
 
 public interface CategoryDao extends GenericDao<Category, Long> {
 

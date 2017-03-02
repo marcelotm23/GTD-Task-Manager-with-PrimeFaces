@@ -1,8 +1,8 @@
-package uo.sdi.business.impl.task.command;
+package com.sdi.business.impl.task.command;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.persistence.Persistence;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.persistence.Persistence;
 
 public class DeleteCategoryCommand implements Command<Void> {
 

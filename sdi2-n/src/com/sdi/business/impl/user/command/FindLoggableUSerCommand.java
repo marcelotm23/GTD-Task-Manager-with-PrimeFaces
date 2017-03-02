@@ -1,10 +1,10 @@
-package uo.sdi.business.impl.user.command;
+package com.sdi.business.impl.user.command;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
-import uo.sdi.persistence.Persistence;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.model.User;
+import com.sdi.model.types.UserStatus;
+import com.sdi.persistence.Persistence;
 
 public class FindLoggableUSerCommand<T> implements Command<User> {
 

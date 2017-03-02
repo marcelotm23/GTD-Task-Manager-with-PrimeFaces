@@ -1,9 +1,9 @@
-package uo.sdi.persistence;
+package com.sdi.persistence;
 
-import uo.sdi.persistence.impl.CategoryDaoJdbcImpl;
-import uo.sdi.persistence.impl.TaskDaoJdbcImpl;
-import uo.sdi.persistence.impl.TransactionJdbcImpl;
-import uo.sdi.persistence.impl.UserDaoJdbcImpl;
+import com.sdi.persistence.impl.CategoryDaoJdbcImpl;
+import com.sdi.persistence.impl.TaskDaoJdbcImpl;
+import com.sdi.persistence.impl.TransactionJdbcImpl;
+import com.sdi.persistence.impl.UserDaoJdbcImpl;
 
 public class Persistence {
 	

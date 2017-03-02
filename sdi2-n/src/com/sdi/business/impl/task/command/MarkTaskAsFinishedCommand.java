@@ -1,12 +1,12 @@
-package uo.sdi.business.impl.task.command;
+package com.sdi.business.impl.task.command;
 
 import alb.util.date.DateUtil;
-import uo.sdi.business.exception.BusinessCheck;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.dto.Task;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.TaskDao;
+import com.sdi.business.exception.BusinessCheck;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.model.Task;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.TaskDao;
 
 public class MarkTaskAsFinishedCommand implements Command<Void> {
 

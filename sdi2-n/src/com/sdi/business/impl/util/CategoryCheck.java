@@ -1,11 +1,11 @@
-package uo.sdi.business.impl.util;
+package com.sdi.business.impl.util;
 
-import uo.sdi.business.exception.BusinessCheck;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
-import uo.sdi.persistence.Persistence;
+import com.sdi.business.exception.BusinessCheck;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.model.Category;
+import com.sdi.model.User;
+import com.sdi.model.types.UserStatus;
+import com.sdi.persistence.Persistence;
 
 public class CategoryCheck {
 

@@ -1,4 +1,4 @@
-package uo.sdi.listener;
+package com.sdi.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

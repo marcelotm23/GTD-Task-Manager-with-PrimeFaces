@@ -1,8 +1,8 @@
-package uo.sdi.business.impl.user.command;
+package com.sdi.business.impl.user.command;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.dto.User;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.model.User;
 
 public class FindByLoginAndPasswordCommand implements Command<User> {
 

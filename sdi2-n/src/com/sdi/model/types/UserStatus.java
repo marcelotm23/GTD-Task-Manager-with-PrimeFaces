@@ -1,4 +1,4 @@
-package uo.sdi.dto.types;
+package com.sdi.model.types;
 
 public enum UserStatus {
 

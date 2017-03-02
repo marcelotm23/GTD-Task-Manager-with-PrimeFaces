@@ -1,4 +1,4 @@
-package uo.sdi.persistence.util;
+package com.sdi.persistence.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

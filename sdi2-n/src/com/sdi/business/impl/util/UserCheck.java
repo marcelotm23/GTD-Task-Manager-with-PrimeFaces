@@ -1,12 +1,12 @@
-package uo.sdi.business.impl.util;
+package com.sdi.business.impl.util;
 
 import java.util.regex.Pattern;
 
-import uo.sdi.business.exception.BusinessCheck;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.UserDao;
+import com.sdi.business.exception.BusinessCheck;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.model.User;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.UserDao;
 
 public class UserCheck {
 

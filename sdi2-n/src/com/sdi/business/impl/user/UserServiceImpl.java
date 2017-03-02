@@ -1,12 +1,12 @@
-package uo.sdi.business.impl.user;
+package com.sdi.business.impl.user;
 
-import uo.sdi.business.UserService;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.CommandExecutor;
-import uo.sdi.business.impl.user.command.FindLoggableUSerCommand;
-import uo.sdi.business.impl.user.command.RegisterUserCommand;
-import uo.sdi.business.impl.user.command.UpdateUserDetailsCommand;
-import uo.sdi.dto.User;
+import com.sdi.business.UserService;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.CommandExecutor;
+import com.sdi.business.impl.user.command.FindLoggableUSerCommand;
+import com.sdi.business.impl.user.command.RegisterUserCommand;
+import com.sdi.business.impl.user.command.UpdateUserDetailsCommand;
+import com.sdi.model.User;
 
 public class UserServiceImpl implements UserService {
 

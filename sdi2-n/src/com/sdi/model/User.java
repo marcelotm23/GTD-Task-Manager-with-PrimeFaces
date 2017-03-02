@@ -1,6 +1,6 @@
-package uo.sdi.dto;
+package com.sdi.model;
 
-import uo.sdi.dto.types.UserStatus;
+import com.sdi.model.types.UserStatus;
 
 /**
  * An implementation of the DTO pattern

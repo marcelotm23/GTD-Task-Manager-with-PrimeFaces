@@ -1,4 +1,4 @@
-package uo.sdi.persistence;
+package com.sdi.persistence;
 
 /**
  * This is a non checked exception. It indicates technical issues in the

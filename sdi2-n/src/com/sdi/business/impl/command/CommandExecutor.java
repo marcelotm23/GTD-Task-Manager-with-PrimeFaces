@@ -1,9 +1,9 @@
-package uo.sdi.business.impl.command;
+package com.sdi.business.impl.command;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.persistence.PersistenceException;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.Transaction;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.persistence.PersistenceException;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.Transaction;
 
 public class CommandExecutor<T> {
 	

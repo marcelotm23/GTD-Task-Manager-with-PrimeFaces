@@ -1,10 +1,10 @@
-package uo.sdi.business;
+package com.sdi.business;
 
 import java.util.List;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.model.Category;
+import com.sdi.model.Task;
 
 public interface TaskService {
 

@@ -1,4 +1,4 @@
-package uo.sdi.persistence.util;
+package com.sdi.persistence.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
-import uo.sdi.persistence.PersistenceException;
+import com.sdi.persistence.PersistenceException;
 
 public class Jdbc {
 	private static final String DATABASE_PROPERTIES_FILE = "database.properties";

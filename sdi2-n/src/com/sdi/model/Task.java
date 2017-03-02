@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package com.sdi.model;
 
 import java.util.Date;
 

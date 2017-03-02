@@ -1,16 +1,16 @@
-package uo.sdi.business.impl.admin;
+package com.sdi.business.impl.admin;
 
 import java.util.List;
 
-import uo.sdi.business.AdminService;
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
-import uo.sdi.business.impl.admin.command.DisableUserCommand;
-import uo.sdi.business.impl.admin.command.EnableUserCommand;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.business.impl.command.CommandExecutor;
-import uo.sdi.dto.User;
-import uo.sdi.persistence.Persistence;
+import com.sdi.business.AdminService;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.admin.command.DeepDeleteUserCommand;
+import com.sdi.business.impl.admin.command.DisableUserCommand;
+import com.sdi.business.impl.admin.command.EnableUserCommand;
+import com.sdi.business.impl.command.Command;
+import com.sdi.business.impl.command.CommandExecutor;
+import com.sdi.model.User;
+import com.sdi.persistence.Persistence;
 
 public class AdminServiceImpl implements AdminService {
 

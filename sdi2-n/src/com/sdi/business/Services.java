@@ -1,8 +1,8 @@
-package uo.sdi.business;
+package com.sdi.business;
 
-import uo.sdi.business.impl.admin.AdminServiceImpl;
-import uo.sdi.business.impl.task.TaskServiceImpl;
-import uo.sdi.business.impl.user.UserServiceImpl;
+import com.sdi.business.impl.admin.AdminServiceImpl;
+import com.sdi.business.impl.task.TaskServiceImpl;
+import com.sdi.business.impl.user.UserServiceImpl;
 
 public class Services {
 

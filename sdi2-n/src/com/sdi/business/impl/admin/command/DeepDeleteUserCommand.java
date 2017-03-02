@@ -1,11 +1,11 @@
-package uo.sdi.business.impl.admin.command;
+package com.sdi.business.impl.admin.command;
 
-import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
-import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.Persistence;
-import uo.sdi.persistence.TaskDao;
-import uo.sdi.persistence.UserDao;
+import com.sdi.business.exception.BusinessException;
+import com.sdi.business.impl.command.Command;
+import com.sdi.persistence.CategoryDao;
+import com.sdi.persistence.Persistence;
+import com.sdi.persistence.TaskDao;
+import com.sdi.persistence.UserDao;
 
 public class DeepDeleteUserCommand implements Command<Void> {
 
