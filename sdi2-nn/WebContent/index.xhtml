@@ -12,6 +12,26 @@
 
 	<ui:define name="cuerpo">
 		<h:form id="form-principal">
+			<p:panelGrid columns="2" cellpadding="5">
+       <h:outputLabel for="username" value="Usuario:" />
+       <p:inputText id="username" value="#{userLoginView.username}" 
+       required="true" label="username" />
+       
+
+       <h:outputLabel for="password" value="Constraseña:" />
+       <p:password id="password" value="#{userLoginView.password}" 
+       required="true" label="password" />
+
+	   <h:outputLabel />
+	   <p:commandButton value="Login" 
+           actionListener="#{userLoginView.login}" />
+       <f:facet name="footer">
+           <p>¿No tienes cuenta? Crea una.</p>
+       	   <p:commandButton value="Registrarse" 
+           actionListener="#{userLoginView.login}" />
+       </f:facet>
+       
+     </p:panelGrid>
 		</h:form>
 	</ui:define>
 
