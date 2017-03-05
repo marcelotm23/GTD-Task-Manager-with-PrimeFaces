@@ -8,13 +8,14 @@ import com.sdi.model.User;
 public class Cloner {
 
 	public static User clone(User u) {
-		return new User()
-			.setId( 		u.getId() )
-			.setEmail( 		u.getEmail() )
-			.setIsAdmin(	u.getIsAdmin() )
-			.setLogin( 		u.getLogin() )
-			.setPassword( 	u.getPassword() )
-			.setStatus( 	u.getStatus() );
+		User user=new User();
+		user.setId( 		u.getId() );
+		user.setEmail( 		u.getEmail() );
+		user.setIsAdmin(	u.getIsAdmin() );
+		user.setLogin( 		u.getLogin() );
+		user.setPassword( 	u.getPassword() );
+		user.setStatus( 	u.getStatus() );
+		return user;
 	}
 	
 	public static Task clone(Task t) {

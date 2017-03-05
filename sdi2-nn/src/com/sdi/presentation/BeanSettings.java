@@ -17,10 +17,10 @@ public class BeanSettings implements Serializable {
 	private static final Locale SPANISH = new Locale("es");
 	private Locale locale = new Locale("es");
 	//uso de inyección de dependencia
-	@ManagedProperty(value="#{alumno}")  
-	private BeanAlumno alumno;
-	public BeanAlumno getAlumno() { return alumno; }
-	public void setAlumno(BeanAlumno alumno) {this.alumno = alumno;} 
+	@ManagedProperty(value="#{usuario}")  
+	private BeanUsuario usuario;
+	public BeanUsuario getUsuario() { return usuario; }
+	public void setUsuario(BeanUsuario usuario) {this.usuario = usuario;} 
 
 	public Locale getLocale() {
 		// Aqui habria que cambiar algo de código para coger locale del
@@ -39,8 +39,8 @@ public class BeanSettings implements Serializable {
 		  locale = SPANISH; 
 		  try {
 		    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale); 
-		    if (alumno != null) 
-		     alumno.iniciaAlumno(null);
+		    //if (usuario != null) 
+		     //usuario.iniciaAlumno(null);
 		  } catch (Exception ex){
 		    ex.printStackTrace();
 		  } 
@@ -50,8 +50,8 @@ public class BeanSettings implements Serializable {
 		  locale = ENGLISH; 
 		  try {
 		    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale); 
-		    if (alumno != null) 
-		     alumno.iniciaAlumno(null);
+		    //if (usuario != null) 
+		     //usuario.iniciaAlumno(null);
 		  } catch (Exception ex){
 		    ex.printStackTrace();
 		  } 
@@ -70,18 +70,18 @@ public class BeanSettings implements Serializable {
 	@PostConstruct
 	public void init() {
 	  System.out.println("BeanSettings - PostConstruct");
-	  //Buscamos el alumno en la sesión. Esto es un patrón factoría claramente.
-	  alumno = 
+	  //Buscamos el usuario en la sesión. Esto es un patrón factoría claramente.
+	  usuario = 
 	    
-	(BeanAlumno)FacesContext.getCurrentInstance().getExternalContext().getSessionMap(
-	).get(new String("alumno")); 
+	(BeanUsuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap(
+	).get(new String("usuario")); 
 
 	  //si no existe lo creamos e inicializamos
-	  if (alumno == null) { 
+	  if (usuario == null) { 
 	    System.out.println("BeanSettings - No existia");
-	    alumno = new BeanAlumno();
+	    usuario = new BeanUsuario();
 	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(
-	"alumno", alumno);
+	"alumno", usuario);
 	  } 
 	}
 	//Es sólo a modo de traza.

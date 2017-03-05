@@ -1,19 +1,16 @@
 package com.sdi.presentation;
 
 import java.io.Serializable;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.bean.*;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
-import com.sdi.business.AlumnosService;
 import com.sdi.business.Services;
 import com.sdi.business.UserService;
-import com.sdi.infrastructure.Factories;
-import com.sdi.model.Alumno;
 import com.sdi.model.User;
 
 @ManagedBean(name = "controller")
@@ -31,12 +28,12 @@ public class BeanUsuarios implements Serializable {
 	private BeanUsuario usuario;
 
 	
-	public BeanUsuario getAlumno() {
+	public BeanUsuario getUsuario() {
 		return usuario;
 	}
 
-	public void setAlumno(BeanUsuario alumno) {
-		this.usuario = alumno;
+	public void setUsuario(BeanUsuario usuario) {
+		this.usuario = usuario;
 	}
 
 	private User[] usuarios = null;
@@ -57,9 +54,8 @@ public class BeanUsuarios implements Serializable {
 				userService = Services.getUserService();
 				User userByLogin = userService.findLoggableUser(usuario.getLogin(),
 						usuario.getPassword());
-				usuario.setUsuario(userByLogin);
-	//				
-					return "exito"; // Nos vamos a la vista de listado.
+				usuario.setUsuario(userByLogin);			
+				return "exito"; // Nos vamos a la vista de listado.
 			}else{
 				return "error";
 			}
@@ -83,15 +79,15 @@ public class BeanUsuarios implements Serializable {
 		System.out.println("BeanAlumnos - PostConstruct");
 		// Buscamos el alumno en la sesión. Esto es un patrón factoría
 		// claramente.
-//		usuario = (BeanAlumno) FacesContext.getCurrentInstance()
-//				.getExternalContext().getSessionMap().get(new String("alumno"));
+		usuario = (BeanUsuario) FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get(new String("usuario"));
 //		// si no existe lo creamos e inicializamos
-//		if (usuario == null) {
-//			System.out.println("BeanAlumnos - No existia");
-//			usuario = new BeanAlumno();
-//		}
+		if (usuario == null) {
+			System.out.println("BeanUsuarios - No existia");
+			usuario = new BeanUsuario();
+		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.put("alumno", usuario);
+				.put("usuario", usuario);
 	}
 
 	@PreDestroy

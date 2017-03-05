@@ -15,12 +15,14 @@ public class UserDaoJdbcImpl implements UserDao {
 	public class UserMapper implements RowMapper<User> {
 		@Override
 		public User toObject(ResultSet rs) throws SQLException {
-			return new User().setId(rs.getLong("id"))
-					.setLogin(rs.getString("login"))
-					.setPassword(rs.getString("password"))
-					.setEmail(rs.getString("email"))
-					.setIsAdmin(rs.getBoolean("isAdmin"))
-					.setStatus(UserStatus.valueOf(rs.getString("status")));
+			User user= new User();
+			user.setId(rs.getLong("id"));
+			user.setLogin(rs.getString("login"));
+			user.setPassword(rs.getString("password"));
+			user.setEmail(rs.getString("email"));
+			user.setIsAdmin(rs.getBoolean("isAdmin"));
+			user.setStatus(UserStatus.valueOf(rs.getString("status")));
+			return user;
 		}
 	}
 

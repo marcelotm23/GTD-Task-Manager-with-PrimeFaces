@@ -16,7 +16,7 @@
 	</managed-bean> 
 	<managed-bean>
 		<managed-bean-name>controller</managed-bean-name>
-		<managed-bean-class>com.sdi.presentation.BeanAlumnos</managed-bean-class>
+		<managed-bean-class>com.sdi.presentation.BeanUsuarios</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
