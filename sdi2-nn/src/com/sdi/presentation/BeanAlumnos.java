@@ -13,7 +13,7 @@ import com.sdi.business.AlumnosService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Alumno;
 
-@ManagedBean(name = "controller")
+@ManagedBean(name = "controlleralum")
 @SessionScoped
 public class BeanAlumnos implements Serializable {
 	private static final long serialVersionUID = 55555L;
@@ -78,10 +78,10 @@ public class BeanAlumnos implements Serializable {
 		try {
 			// Acceso a la implementacion de la capa de negocio
 			// a trav��s de la factor��a
-			service = Factories.services.createAlumnosService();
+//			service = Factories.services.createAlumnosService();
 			// De esta forma le damos informaci��n a toArray para poder hacer el
 			// casting a Alumno[]
-			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
+//			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
 
 			return "exito"; // Nos vamos a la vista listado.xhtml
 
@@ -97,11 +97,11 @@ public class BeanAlumnos implements Serializable {
 		try {
 			// Acceso a la implementacion de la capa de negocio
 			// a trav��s de la factor��a
-			service = Factories.services.createAlumnosService();
+//			service = Factories.services.createAlumnosService();
 			// Aliminamos el alumno seleccionado en la tabla
-			service.deleteAlumno(alumno.getId());
+//			service.deleteAlumno(alumno.getId());
 			// Actualizamos el javabean de alumnos inyectado en la tabla.
-			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
+//			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
 			return "exito"; // Nos vamos a la vista de listado.
 
 		} catch (Exception e) {
@@ -116,10 +116,10 @@ public class BeanAlumnos implements Serializable {
 		try {
 			// Acceso a la implementacion de la capa de negocio
 			// a trav��s de la factor��a
-			service = Factories.services.createAlumnosService();
+//			service = Factories.services.createAlumnosService();
 			// Recargamos el alumno seleccionado en la tabla de la base de datos
 			// por si hubiera cambios.
-			alumno = (BeanAlumno) service.findById(alumno.getId());
+//			alumno = (BeanAlumno) service.findById(alumno.getId());
 			return "exito"; // Nos vamos a la vista de Edición.
 
 		} catch (Exception e) {
@@ -134,16 +134,16 @@ public class BeanAlumnos implements Serializable {
 		try {
 			// Acceso a la implementacion de la capa de negocio
 			// a trav��s de la factor��a
-			service = Factories.services.createAlumnosService();
+//			service = Factories.services.createAlumnosService();
 			// Salvamos o actualizamos el alumno segun sea una operacion de alta
 			// o de edici��n
-			if (alumno.getId() == null) {
-				service.saveAlumno(alumno);
-			} else {
-				service.updateAlumno(alumno);
-			}
-			// Actualizamos el javabean de alumnos inyectado en la tabla
-			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
+//			if (alumno.getId() == null) {
+//				service.saveAlumno(alumno);
+//			} else {
+//				service.updateAlumno(alumno);
+//			}
+//			// Actualizamos el javabean de alumnos inyectado en la tabla
+//			alumnos = (Alumno[]) service.getAlumnos().toArray(new Alumno[0]);
 			return "exito"; // Nos vamos a la vista de listado.
 
 		} catch (Exception e) {

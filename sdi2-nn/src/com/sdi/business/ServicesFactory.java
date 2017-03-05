@@ -2,6 +2,10 @@ package com.sdi.business;
 
 public interface ServicesFactory {
 	
-	AlumnosService createAlumnosService();
+	UserService createUserService();
+	
+	AdminService createAdminService();
+	
+	TaskService createTaskService();
 
 }
