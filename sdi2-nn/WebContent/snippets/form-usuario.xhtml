@@ -4,8 +4,19 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 	<p:panelGrid id="Grid" columns="2" cellpadding="5">
-  #{msgs.login} 
-  <h:panelGroup>
+	 #{msgs.correo}
+		  <h:panelGroup>
+					<p:inputText value="#{usuario.email}" required="true"
+						requiredMessage="#{msgs.formCrearCuenta_correo_requiredMessage}"
+						validatorMessage="#{msgs.formCrearCuenta_correo_validatorMessage}"
+						id="correo">
+						<f:validateRegex pattern=".+@.+\.[a-z]+" />
+					</p:inputText>
+					<p:message for="correo" />
+		</h:panelGroup>
+		
+	  #{msgs.login} 
+	  <h:panelGroup>
 			<p:inputText value="#{usuario.login}" required="true"
 				requiredMessage="#{msgs.formCrearCuenta_login_requiredMessage}"
 				validatorMessage="#{msgs.formCrearCuenta_login_validatorMessage}"
@@ -15,40 +26,29 @@
 			<p:message for="login" />
 		</h:panelGroup>
   
-  #{msgs.password} 
-  <h:panelGroup>
+	  #{msgs.password} 
+	  <h:panelGroup>
 			<p:password value="#{usuario.password}" required="true"
 				requiredMessage="#{msgs.formCrearCuenta_password_requiredMessage}"
 				validatorMessage="#{msgs.formCrearCuenta_password_validatorMessage}"
 				id="password" feedback="true" match="passwordAgain">
 				<f:validateLength minimum="8" />
-			</p:inputText>
+			</p:password>
 			<p:message for="password" />
 		</h:panelGroup>
   
-  #{msgs.passwordAgain}
-  <h:panelGroup>
+	  #{msgs.passwordAgain}
+	  <h:panelGroup>
 			<p:password value="#{usuario.password}" required="true"
 				requiredMessage="#{msgs.formCrearCuenta_passwordAgain_requiredMessage}"
 				validatorMessage="#{msgs.formCrearCuenta_passwordAgain_validatorMessage}"
 				id="passwordAgain">
 				<f:validateLength minimum="8"  />
-			</p:inputText>
-			<p:message for="iduser" />
-		</h:panelGroup>  
-  
-  #{msgs.correo}
-  <h:panelGroup>
-			<p:inputText value="#{alumno.email}" required="true"
-				requiredMessage="#{msgs.formAlta_correo_requiredMessage}"
-				validatorMessage="#{msgs.formAlta_correo_validatorMessage}"
-				id="correo">
-				<f:validateRegex pattern=".+@.+\.[a-z]+" />
-			</p:inputText>
-			<p:message for="correo" />
-		</h:panelGroup>
-		<p:commandButton value="#{msgs.botonSalvar}"
-		action="#{controller.salva}" update="Grid" process="@form"> 
-		</p:commandButton> 
+			</p:password>
+			<p:message for="passwordAgain" />
+	  </h:panelGroup>  
+ 	  <p:commandButton value="#{msgs.botonSalvar}"
+		 update="Grid" process="@form"> 
+	  </p:commandButton> 
 	</p:panelGrid>
 </ui:composition>
