@@ -26,12 +26,8 @@
 			<to-view-id>/error.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>alta</from-outcome>
-			<to-view-id>/altaForm.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/listado.xhtml</to-view-id>
+			<from-outcome>crearCuenta</from-outcome>
+			<to-view-id>/crearCuenta.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -55,11 +51,11 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/altaForm.xhtml</from-view-id>
+		<from-view-id>/crearCuenta.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{controller.salva}</from-action>
+			<from-action>#{controller.crearCuenta}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/listado.xhtml</to-view-id>
+			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -78,7 +74,7 @@
 			<to-view-id>/listado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>crearCuenta</from-outcome>
+			<from-outcome>registrarse</from-outcome>
 			<to-view-id>/crearCuenta.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import com.sdi.business.Services;
 import com.sdi.business.UserService;
 import com.sdi.model.User;
+import com.sdi.model.types.UserStatus;
 
 @ManagedBean(name = "controller")
 @SessionScoped
@@ -69,15 +70,11 @@ public class BeanUsuarios implements Serializable {
 		UserService userService;
 		try {
 			
-			if(usuario!=null){
+			
 				userService = Services.getUserService();
-				User userByLogin = userService.findLoggableUser(usuario.getLogin(),
-						usuario.getPassword());
-				usuario.setUsuario(userByLogin);			
-				return "exito"; // Nos vamos a la vista de listado.
-			}else{
-				return "error";
-			}
+				usuario.setStatus(UserStatus.ENABLED);
+				userService.registerUser(usuario);
+				return "exito"; 
 
 		} catch (Exception e) {
 			e.printStackTrace();

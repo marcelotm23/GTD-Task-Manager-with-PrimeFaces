@@ -31,7 +31,11 @@
 			<p:password value="#{usuario.password}" required="true"
 				requiredMessage="#{msgs.formCrearCuenta_password_requiredMessage}"
 				validatorMessage="#{msgs.formCrearCuenta_password_validatorMessage}"
-				id="password" feedback="true" match="passwordAgain">
+				id="password" feedback="true" match="passwordAgain"
+				promptLabel="#{msgs.promptPasswordMesg}" 
+				weakLabel="#{msgs.weakPasswordLabel}"
+                    goodLabel="#{msgs.goodPasswordLabel}"
+                     strongLabel="#{msgs.strongPasswordLabel}">
 				<f:validateLength minimum="8" />
 			</p:password>
 			<p:message for="password" />
@@ -48,7 +52,7 @@
 			<p:message for="passwordAgain" />
 	  </h:panelGroup>  
  	  <p:commandButton value="#{msgs.botonSalvar}"
-		 update="Grid" process="@form"> 
+		 action="#{controller.crearCuenta}" update="Grid" process="@form"> 
 	  </p:commandButton> 
 	</p:panelGrid>
 </ui:composition>

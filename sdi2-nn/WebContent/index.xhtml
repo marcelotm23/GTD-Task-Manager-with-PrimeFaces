@@ -15,19 +15,20 @@
 			<p:panelGrid columns="2" cellpadding="5">
        <h:outputLabel for="username" value="#{msgs.user_login}" />
        <p:inputText id="username"  
-       required="true" label="username" value="#{usuario.login}"/>
+       required="false" label="username" value="#{usuario.login}"/>
        
 
        <h:outputLabel for="password" value="#{msgs.password_login}" />
        <p:password id="password"  
-       required="true" label="password" value="#{usuario.password}"/>
+       required="false" label="password" value="#{usuario.password}"/>
 
 	   <h:outputLabel />
 	   <p:commandButton value="Login" 
            action="#{controller.login}" />
        <f:facet name="footer">
            <p>¿No tienes cuenta? Crea una.</p>
-       	   <p:commandButton value="Registrarse" action="crearCuenta" />
+       	   <p:commandButton value="Registrarse" action="registrarse" 
+       	   type="submit"/>
        </f:facet>
        
      </p:panelGrid>
