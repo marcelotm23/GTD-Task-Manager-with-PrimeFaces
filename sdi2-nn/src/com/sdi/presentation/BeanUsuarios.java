@@ -64,6 +64,25 @@ public class BeanUsuarios implements Serializable {
 			e.printStackTrace();
 			return "error"; // Nos vamos a la vista de error.
 		}
+	}
+	public String crearCuenta() {
+		UserService userService;
+		try {
+			
+			if(usuario!=null){
+				userService = Services.getUserService();
+				User userByLogin = userService.findLoggableUser(usuario.getLogin(),
+						usuario.getPassword());
+				usuario.setUsuario(userByLogin);			
+				return "exito"; // Nos vamos a la vista de listado.
+			}else{
+				return "error";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
 
 	}
 

@@ -1,10 +1,8 @@
 package com.sdi.presentation;
 import java.io.Serializable;
-import java.util.ResourceBundle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import com.sdi.model.User;
@@ -16,7 +14,7 @@ public class BeanUsuario extends User implements Serializable {
   private static final long serialVersionUID = 55556L;
   
   public BeanUsuario() {
-    iniciaAlumno(null);
+    iniciaUsuario(null);
   }
 //Este método es necesario para copiar el alumno a editar cuando
 //se pincha el enlace Editar en la vista listado.xhtml. Podría sustituirse 
@@ -30,7 +28,7 @@ public class BeanUsuario extends User implements Serializable {
     setStatus(usuario.getStatus());
   }
   
-  public void iniciaAlumno(ActionEvent event) {
+  public void iniciaUsuario(ActionEvent event) {
           setId(null);
           setLogin("");
           setEmail("");
