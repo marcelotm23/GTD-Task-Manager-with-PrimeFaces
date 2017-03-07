@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import com.sdi.business.Services;
 import com.sdi.business.UserService;
+import com.sdi.model.Task;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
 
@@ -27,7 +28,7 @@ public class BeanUsuarios implements Serializable {
 	// uso de inyección de dependencia
 	@ManagedProperty(value = "#{usuario}")
 	private BeanUsuario usuario;
-
+	private Task[] tareas = null;
 	
 	public BeanUsuario getUsuario() {
 		return usuario;
@@ -37,14 +38,14 @@ public class BeanUsuarios implements Serializable {
 		this.usuario = usuario;
 	}
 
-	private User[] usuarios = null;
+	
 
-	public User[] getUsuarios() {
-		return (usuarios);
+	public Task[] getTareas() {
+		return (tareas);
 	}
 
-	public void setUsuarios(User[] usuarios) {
-		this.usuarios = usuarios;
+	public void setTareas(Task[] tareas) {
+		this.tareas = tareas;
 	}
 	
 	public String login() {
@@ -92,7 +93,7 @@ public class BeanUsuarios implements Serializable {
 	// ya estaba construido y en @PostConstruct SI.
 	@PostConstruct
 	public void init() {
-		System.out.println("BeanAlumnos - PostConstruct");
+		System.out.println("BeanUsuarios - PostConstruct");
 		// Buscamos el alumno en la sesión. Esto es un patrón factoría
 		// claramente.
 		usuario = (BeanUsuario) FacesContext.getCurrentInstance()
@@ -108,6 +109,6 @@ public class BeanUsuarios implements Serializable {
 
 	@PreDestroy
 	public void end() {
-		System.out.println("BeanAlumnos - PreDestroy");
+		System.out.println("BeanUsuarios - PreDestroy");
 	}
 }

@@ -9,32 +9,38 @@
 	<ui:define name="titulo">
     #{msgs.tituloOperacionListado}
   </ui:define>
-
+<!-- <th>Titulo</th>
+		<th>Comentarios</th>
+		<th>Fecha planeada</th>
+		<th>Fecha finalizada</th>
+		<th>Editar</th>
+<th>Finalizar</th> -->
 	<ui:define name="cuerpo">
 		<h:form>
 			<p:panel header="#{msgs.tituloOperacionListado}">
 				<p:dataTable id="tablalistado" var="valumno" 
-				value="#{controller.alumnos}" border="1">
+				value="#{controller.tareas}" border="1"
+				emptyMessage="#{msgs.tablaTareasSinTareas}">
 					<p:column>
-						<f:facet name="header">#{msgs.tablaNombre}</f:facet>#{valumno.nombre}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{valumno.nombre}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaApellidos}</f:facet>#{valumno.apellidos}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{valumno.apellidos}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaIdUser}</f:facet>#{valumno.iduser}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>#{valumno.iduser}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaCorreo}</f:facet>#{valumno.email}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>#{valumno.email}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaBaja}</f:facet>
-						<p:commandLink action="#{controller.baja(valumno)}" type="submit"
+						<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
+						<p:commandLink action="#{controller.editar}" type="submit"
 							value="#{msgs.tablaBaja}" immediate="true"
 							update="tablalistado">
 						</p:commandLink>
 					</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaEditar}</f:facet>
+						<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
 						<p:commandLink action="editar" type="submit"
-							value="#{msgs.tablaEditar}"
-							actionListener="#{alumno.setAlumno(valumno)}" immediate="true">
+							value="#{msgs.finalizar}"
+							actionListener="#{usuario.setAlumno(usuario)}" immediate="true">
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>

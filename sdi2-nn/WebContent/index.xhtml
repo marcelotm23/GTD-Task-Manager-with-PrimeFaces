@@ -23,12 +23,12 @@
        required="false" label="password" value="#{usuario.password}"/>
 
 	   <h:outputLabel />
-	   <p:commandButton value="Login" 
-           action="#{controller.login}" />
+	   <p:commandButton id="btnLogin" value="Login" 
+           action="#{controller.login}" type="submit"/>
        <f:facet name="footer">
            <p>¿No tienes cuenta? Crea una.</p>
-       	   <p:commandButton value="Registrarse" action="registrarse" 
-       	   type="submit"/>
+       	   <p:commandButton id="btnRegistrarse" value="Registrarse" 
+       	   action="registrarse" type="submit"/>
        </f:facet>
        
      </p:panelGrid>
