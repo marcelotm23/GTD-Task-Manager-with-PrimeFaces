@@ -17,6 +17,13 @@
 <th>Finalizar</th> -->
 	<ui:define name="cuerpo">
 		<h:form>
+		<p:menu toggleable="true">
+        <p:submenu label="#{msgs.categoriasMenu}">
+            <p:menuitem value="#{msgs.categoriaInbox}" actionListener="#{controller.mostrarTareas}" update="tablalistado" icon="ui-icon-home" />
+            <p:menuitem value="#{msgs.categoriaHoy}" actionListener="#{controller.mostrarTareasHoy}" update="tablalistado" icon="ui-icon-star"/>
+            <p:menuitem value="#{msgs.categoriaSemana}" actionListener="#{controller.mostrarTareasSemana}" update="tablalistado" icon="ui-icon-star"/>
+        </p:submenu>
+    	</p:menu>
 			<p:panel header="#{msgs.tituloOperacionListado}">
 				<p:dataTable id="tablalistado" var="tarea" 
 				value="#{controller.tareas}" border="1"
