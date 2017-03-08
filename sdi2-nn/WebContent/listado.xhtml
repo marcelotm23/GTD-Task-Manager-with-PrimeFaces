@@ -18,17 +18,17 @@
 	<ui:define name="cuerpo">
 		<h:form>
 			<p:panel header="#{msgs.tituloOperacionListado}">
-				<p:dataTable id="tablalistado" var="valumno" 
+				<p:dataTable id="tablalistado" var="tarea" 
 				value="#{controller.tareas}" border="1"
 				emptyMessage="#{msgs.tablaTareasSinTareas}">
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{valumno.nombre}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{tarea.title}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{valumno.apellidos}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{tarea.comments}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>#{valumno.iduser}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>#{tarea.planned}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>#{valumno.email}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>#{tarea.finished}</p:column>
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
 						<p:commandLink action="#{controller.editar}" type="submit"
@@ -39,8 +39,8 @@
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
 						<p:commandLink action="editar" type="submit"
-							value="#{msgs.finalizar}"
-							actionListener="#{usuario.setAlumno(usuario)}" immediate="true">
+							value="#{msgs.tablaTareasFinalizar}"
+							actionListener="#{controller.finalizar}" immediate="true">
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>

@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import com.sdi.business.Services;
+import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
 import com.sdi.model.Task;
 import com.sdi.model.User;
@@ -56,7 +57,8 @@ public class BeanUsuarios implements Serializable {
 				userService = Services.getUserService();
 				User userByLogin = userService.findLoggableUser(usuario.getLogin(),
 						usuario.getPassword());
-				usuario.setUsuario(userByLogin);			
+				usuario.setUsuario(userByLogin);
+				mostrarTareas();
 				return "exito"; // Nos vamos a la vista de listado.
 			}else{
 				return "error";
@@ -67,6 +69,20 @@ public class BeanUsuarios implements Serializable {
 			return "error"; // Nos vamos a la vista de error.
 		}
 	}
+	public String mostrarTareas() {
+		TaskService taskService;
+		try {
+				taskService = Services.getTaskService();
+				tareas=taskService.findInboxTasksByUserId(usuario.getId()).toArray(new Task[0]);
+				return "exito"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+
+	}
+
 	public String crearCuenta() {
 		UserService userService;
 		try {
@@ -83,7 +99,6 @@ public class BeanUsuarios implements Serializable {
 		}
 
 	}
-
 	// Se inicia correctamente el MBean inyectado si JSF lo hubiera crea
 	// y en caso contrario se crea. (hay que tener en cuenta que es un Bean de
 	// sesión)
