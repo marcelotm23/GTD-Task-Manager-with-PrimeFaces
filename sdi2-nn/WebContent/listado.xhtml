@@ -26,9 +26,17 @@
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{tarea.comments}</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>#{tarea.planned}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
+						<h:outputText value="#{tarea.planned}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+						</p:column>
 					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>#{tarea.finished}</p:column>
+						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
+						<h:outputText value="#{tarea.finished}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
 						<p:commandLink action="#{controller.editar}" type="submit"
