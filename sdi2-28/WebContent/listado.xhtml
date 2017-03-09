@@ -28,17 +28,17 @@
 				<p:dataTable id="tablalistado" var="tarea" 
 				value="#{controller.tareas}" border="1"
 				emptyMessage="#{msgs.tablaTareasSinTareas}">
-					<p:column>
+					<p:column sortBy="#{tarea.title}">
 						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{tarea.title}</p:column>
-					<p:column>
+					<p:column sortBy="#{tarea.comments}">
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{tarea.comments}</p:column>
-					<p:column>
+					<p:column sortBy="#{tarea.planned}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 						<h:outputText value="#{tarea.planned}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 						</p:column>
-					<p:column>
+					<p:column sortBy="#{tarea.finished}">
 						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
 						<h:outputText value="#{tarea.finished}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />

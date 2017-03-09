@@ -1,6 +1,7 @@
 package com.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -29,7 +30,7 @@ public class BeanUsuarios implements Serializable {
 	// uso de inyección de dependencia
 	@ManagedProperty(value = "#{usuario}")
 	private BeanUsuario usuario;
-	private Task[] tareas = null;
+	private List<Task> tareas = null;
 	
 	public BeanUsuario getUsuario() {
 		return usuario;
@@ -41,11 +42,11 @@ public class BeanUsuarios implements Serializable {
 
 	
 
-	public Task[] getTareas() {
+	public List<Task> getTareas() {
 		return (tareas);
 	}
 
-	public void setTareas(Task[] tareas) {
+	public void setTareas(List<Task> tareas) {
 		this.tareas = tareas;
 	}
 	
@@ -73,7 +74,7 @@ public class BeanUsuarios implements Serializable {
 		TaskService taskService;
 		try {
 				taskService = Services.getTaskService();
-				tareas=taskService.findInboxTasksByUserId(usuario.getId()).toArray(new Task[0]);
+				tareas=taskService.findInboxTasksByUserId(usuario.getId());
 				return "exito"; 
 
 		} catch (Exception e) {
