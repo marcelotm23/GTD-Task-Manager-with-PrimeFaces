@@ -12,7 +12,7 @@
 
 	<ui:define name="cuerpo">
 		<h:form id="form-principal">
-			<p:panelGrid columns="2" cellpadding="5">
+			<p:panelGrid id="loginFields" columns="2" cellpadding="5">
        <h:outputLabel for="username" value="#{msgs.user_login}" />
        <p:inputText id="username"  
        required="false" label="username" value="#{usuario.login}"/>
@@ -28,7 +28,7 @@
       
        <f:facet name="footer">
            <p>¿No tienes cuenta? Crea una.</p>
-       	   <p:link id="btnRegistrarse" value="Registrarse" href="/crearCuenta.xhtml"/>
+       	   <p:link id="linkRegistrarse" value="Registrarse" href="/crearCuenta.xhtml"/>
        </f:facet>
        
      </p:panelGrid>

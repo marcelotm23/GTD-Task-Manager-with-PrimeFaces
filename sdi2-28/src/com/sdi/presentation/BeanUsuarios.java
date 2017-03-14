@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import com.sdi.business.Services;
 import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
+import com.sdi.infrastructure.Factories;
 import com.sdi.model.Task;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
@@ -87,12 +88,11 @@ public class BeanUsuarios implements Serializable {
 	public String crearCuenta() {
 		UserService userService;
 		try {
-			
-			
-				userService = Services.getUserService();
-				usuario.setStatus(UserStatus.ENABLED);
-				userService.registerUser(usuario);
-				return "exito"; 
+			//userService = Services.getUserService();
+			userService=Factories.services.createUserService();
+			usuario.setStatus(UserStatus.ENABLED);
+			userService.registerUser(usuario);
+			return "exito"; 
 
 		} catch (Exception e) {
 			e.printStackTrace();

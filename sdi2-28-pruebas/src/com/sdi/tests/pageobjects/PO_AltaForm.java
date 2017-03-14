@@ -8,26 +8,27 @@ public class PO_AltaForm {
 
 	
 	
-   public void rellenaFormulario(WebDriver driver, String pnombre, String papellidos, String piduser, String pemail)
+   public void rellenaFormulario(WebDriver driver, String pemail, String plogin, String ppassword, String ppasswordAgain)
    {
-		WebElement nombre = driver.findElement(By.id("form-principal:nombre"));
-		nombre.click();
-		nombre.clear();
-		nombre.sendKeys(pnombre);
-		WebElement apellidos = driver.findElement(By.id("form-principal:apellidos"));
-		apellidos.click();
-		apellidos.clear();
-		apellidos.sendKeys(papellidos);
-		WebElement iduser = driver.findElement(By.id("form-principal:iduser"));
-		iduser.click();
-		iduser.clear();
-		iduser.sendKeys(piduser);
-		WebElement idcorreo = driver.findElement(By.id("form-principal:correo"));
+	   	WebElement idcorreo = driver.findElement(By.id("form-principal:correo"));
 		idcorreo.click();
 		idcorreo.clear();
 		idcorreo.sendKeys(pemail);
-		//Pulsar el boton de Alta.
-		By boton = By.id("form-principal:boton");
+		WebElement login = driver.findElement(By.id("form-principal:login"));
+		login.click();
+		login.clear();
+		login.sendKeys(plogin);
+		WebElement password = driver.findElement(By.id("form-principal:password"));
+		password.click();
+		password.clear();
+		password.sendKeys(ppassword);
+		WebElement passwordAgain = driver.findElement(By.id("form-principal:passwordAgain"));
+		passwordAgain.click();
+		passwordAgain.clear();
+		passwordAgain.sendKeys(ppasswordAgain);
+		
+		//Pulsar el boton de guardar.
+		By boton = By.id("form-principal:btnGuardar");
 		driver.findElement(boton).click();	   
    }
 	

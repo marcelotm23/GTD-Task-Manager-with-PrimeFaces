@@ -27,7 +27,8 @@
 			<p:panel header="#{msgs.tituloOperacionListado}">
 				<p:dataTable id="tablalistado" var="tarea" 
 				value="#{controller.tareas}" border="1"
-				emptyMessage="#{msgs.tablaTareasSinTareas}">
+				emptyMessage="#{msgs.tablaTareasSinTareas}"
+				paginator="true" rows="5">
 					<p:column sortBy="#{tarea.title}">
 						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{tarea.title}</p:column>
 					<p:column sortBy="#{tarea.comments}">
