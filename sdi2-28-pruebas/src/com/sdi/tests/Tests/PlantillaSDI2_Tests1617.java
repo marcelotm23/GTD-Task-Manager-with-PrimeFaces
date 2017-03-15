@@ -171,7 +171,25 @@ public class PlantillaSDI2_Tests1617 {
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
 	@Test
 	public void prueba14() {
-		assertTrue(false);
+		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
+		// Vamos a rellenar el formulario
+		String nombreUsuario=creaNombreUsuarioRandom();
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"prueba14.com",
+				nombreUsuario, "prueba14", "prueba14");
+
+		// Esperamos a que se cargue la pagina de login
+		// concretamente los campos de login
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+
+		// Comprobamos que aparezca la pantalla de registro con el mensaje de error
+		SeleniumUtils.textoPresentePagina(driver, "El campo \"Correo\" presenta "
+				+ "formato inválido (usuario@servidor.dominio)");
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Login");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
+		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
 	}
 
 	// PR15: Crear una cuenta de usuario normal con Password incorrecta.
