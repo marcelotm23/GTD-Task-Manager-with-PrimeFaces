@@ -73,8 +73,9 @@ public class BeanSettings implements Serializable {
 	  //Buscamos el usuario en la sesión. Esto es un patrón factoría claramente.
 	  usuario = 
 	    
-	(BeanUsuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap(
-	).get(new String("usuario")); 
+	(BeanUsuario)FacesContext.getCurrentInstance()
+		.getExternalContext()
+		.getSessionMap().get(new String("usuario")); 
 
 	  //si no existe lo creamos e inicializamos
 	  if (usuario == null) { 

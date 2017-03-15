@@ -147,7 +147,21 @@ public class PlantillaSDI2_Tests1617 {
 	// PR13: Crear una cuenta de usuario normal con login repetido.
 	@Test
 	public void prueba13() {
-		assertTrue(false);
+		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
+		// Vamos a rellenar el formulario
+		String nombreUsuario=creaNombreUsuarioRandom();
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"@prueba13.com",
+				nombreUsuario, "prueba13", "prueba13");
+
+		// Esperamos a que se cargue la pagina de login
+		// concretamente los campos de login
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "loginFields", 10);
+
+		// Comprobamos que aparezca la pantalla de login
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.

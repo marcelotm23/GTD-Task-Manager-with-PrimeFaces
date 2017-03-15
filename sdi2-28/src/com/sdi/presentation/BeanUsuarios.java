@@ -2,9 +2,12 @@ package com.sdi.presentation;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -13,6 +16,7 @@ import javax.faces.context.FacesContext;
 import com.sdi.business.Services;
 import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
+import com.sdi.business.exception.BusinessException;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Task;
 import com.sdi.model.User;
@@ -94,7 +98,16 @@ public class BeanUsuarios implements Serializable {
 			userService.registerUser(usuario);
 			return "exito"; 
 
-		} catch (Exception e) {
+		}
+		catch(BusinessException b){
+			FacesContext context = FacesContext.getCurrentInstance();
+			ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");
+			String message = bundle.getString(b.getMessage());
+	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  message) );
+	        
+	        return null;
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // Nos vamos a la vista de error.
 		}

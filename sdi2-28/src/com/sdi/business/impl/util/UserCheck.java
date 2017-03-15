@@ -33,7 +33,7 @@ public class UserCheck {
 	public static void notRepeatedLogin(User user) throws BusinessException {
 		UserDao uDao = Persistence.getUserDao();
 		User u = uDao.findByLogin(user.getLogin());
-		BusinessCheck.isNull(u, "The login is already used");
+		BusinessCheck.isNull(u, "errorUsuarioRegistrado");
 	}
 
 	private static boolean isValidEmail(String email) {
