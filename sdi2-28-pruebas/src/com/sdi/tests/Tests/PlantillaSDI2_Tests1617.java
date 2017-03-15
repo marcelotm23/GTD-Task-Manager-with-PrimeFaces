@@ -151,17 +151,21 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
 		// Vamos a rellenar el formulario
-		String nombreUsuario=creaNombreUsuarioRandom();
+		String nombreUsuario="usuario1";
 		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"@prueba13.com",
 				nombreUsuario, "prueba13", "prueba13");
 
 		// Esperamos a que se cargue la pagina de login
 		// concretamente los campos de login
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "loginFields", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
 
-		// Comprobamos que aparezca la pantalla de login
-		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
-		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		// Comprobamos que aparezca la pantalla de registro con el error
+		SeleniumUtils.textoPresentePagina(driver, "Error");
+		SeleniumUtils.textoPresentePagina(driver, "El login del usuario ya está registrado");
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Login");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
+		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
