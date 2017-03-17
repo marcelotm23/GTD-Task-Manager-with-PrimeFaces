@@ -26,15 +26,12 @@ import com.sdi.model.types.UserStatus;
 @SessionScoped
 public class BeanUsuarios implements Serializable {
 	private static final long serialVersionUID = 55555L;
-	// Se añade este atributo de entidad para recibir el usuario concreto
-	// que se ha logeado
-	// Es necesario inicializarlo para que al entrar desde el formulario de
-	// AltaForm.xml se puedan
-	// dejar los avalores en un objeto existente.
-	// private Alumno alumno = new Alumno();
-	// uso de inyección de dependencia
+
+	
 	@ManagedProperty(value = "#{usuario}")
 	private BeanUsuario usuario;
+	@ManagedProperty(value = "#{tarea}")
+	private BeanTarea tarea;
 	private List<Task> tareas = null;
 	
 	public BeanUsuario getUsuario() {
@@ -88,6 +85,32 @@ public class BeanUsuarios implements Serializable {
 		}
 
 	}
+	public String mostrarTareasHoy() {
+		TaskService taskService;
+		try {
+				taskService = Services.getTaskService();
+				tareas=taskService.findTodayTasksByUserId(usuario.getId());
+				return "exito"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+
+	}
+	public String mostrarTareasSemana() {
+		TaskService taskService;
+		try {
+				taskService = Services.getTaskService();
+				tareas=taskService.findWeekTasksByUserId(usuario.getId());
+				return "exito"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+
+	}
 
 	public String crearCuenta() {
 		UserService userService;
@@ -112,6 +135,23 @@ public class BeanUsuarios implements Serializable {
 			return "error"; // Nos vamos a la vista de error.
 		}
 
+	}
+	
+	public String editarTarea(){
+		TaskService service;
+		try {
+			// Acceso a la implementacion de la capa de negocio
+			// a trav��s de la factor��a
+			service = Factories.services.createTaskService();
+			// Recargamos la tarea seleccionado en la tabla de la base de datos
+			// por si hubiera cambios.
+			tarea = (BeanTarea) service.findTaskById(tarea.getId());
+			return "exito"; // Nos vamos a la vista de Edición.
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
 	}
 	// Se inicia correctamente el MBean inyectado si JSF lo hubiera crea
 	// y en caso contrario se crea. (hay que tener en cuenta que es un Bean de

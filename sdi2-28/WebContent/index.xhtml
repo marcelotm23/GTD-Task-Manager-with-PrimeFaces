@@ -27,8 +27,9 @@
            action="#{controller.login}" type="submit"/>
       
        <f:facet name="footer">
-           <p>¿No tienes cuenta? Crea una.</p>
-       	   <p:link id="linkRegistrarse" value="Registrarse" href="/crearCuenta.xhtml"/>
+           <p>#{msgs.mensajeRegistrarse}</p>
+       	   <p:commandLink id="linkRegistrarse" value="#{msgs.enlaceRegistrarse}"
+       	    action="/crearCuenta.xhtml"/>
        </f:facet>
        
      </p:panelGrid>

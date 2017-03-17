@@ -25,38 +25,41 @@
         </p:submenu>
     	</p:menu>
 			<p:panel header="#{msgs.tituloOperacionListado}">
-				<p:dataTable id="tablalistado" var="tarea" 
+				<p:dataTable id="tablalistado" var="vtarea" 
 				value="#{controller.tareas}" border="1"
 				emptyMessage="#{msgs.tablaTareasSinTareas}"
 				paginator="true" rows="5">
-					<p:column sortBy="#{tarea.title}">
-						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{tarea.title}</p:column>
-					<p:column sortBy="#{tarea.comments}">
-						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{tarea.comments}</p:column>
-					<p:column sortBy="#{tarea.planned}">
+					<p:column sortBy="#{vtarea.title}">
+						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
+					<p:column sortBy="#{vtarea.comments}">
+						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
+					<p:column sortBy="#{vtarea.planned}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
-						<h:outputText value="#{tarea.planned}">
+						<h:outputText value="#{vtarea.planned}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 						</p:column>
-					<p:column sortBy="#{tarea.finished}">
+					<p:column sortBy="#{vtarea.finished}">
 						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
-						<h:outputText value="#{tarea.finished}">
+						<h:outputText value="#{vtarea.finished}">
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 					</p:column>
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
-						<p:commandLink action="#{controller.editar}" type="submit"
-							value="#{msgs.tablaBaja}" immediate="true"
-							update="tablalistado">
+						<p:commandLink action="#{controller.editarTarea}" type="submit"
+							value="#{msgs.tablaTareasEditar}" 
+							actionListener="#{tarea.setTarea(vtarea)}" 
+							immediate="true"
+							>
 						</p:commandLink>
 					</p:column>
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
 						<p:commandLink action="editar" type="submit"
 							value="#{msgs.tablaTareasFinalizar}"
-							actionListener="#{controller.finalizar}" immediate="true">
+							actionListener="#{controller.finalizar}" 
+							immediate="true" update="tablalistado">
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
