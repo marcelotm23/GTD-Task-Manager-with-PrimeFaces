@@ -15,16 +15,17 @@
 			<p:panelGrid id="loginFields" columns="2" cellpadding="5">
        <h:outputLabel for="username" value="#{msgs.user_login}" />
        <p:inputText id="username"  
-       required="false" label="username" value="#{usuario.login}"/>
+       required="false" label="username" value="#{login.username}"/>
        
 
        <h:outputLabel for="password" value="#{msgs.password_login}" />
        <p:password id="password"  
-       required="false" label="password" value="#{usuario.password}"/>
+       required="false" label="password" value="#{login.password}"/>
 
 	   <h:outputLabel />
+	   <h:outputText id="msgAlta" value="#{msgs[login.result]}"></h:outputText>
 	   <p:commandButton id="btnLogin" value="Login" 
-           action="#{controller.login}" type="submit"/>
+           action="#{login.verify}" type="submit"/>
       
        <f:facet name="footer">
            <p>#{msgs.mensajeRegistrarse}</p>
