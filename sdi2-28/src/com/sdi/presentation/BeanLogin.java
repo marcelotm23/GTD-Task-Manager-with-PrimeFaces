@@ -28,7 +28,7 @@ public class BeanLogin implements Serializable {
 		User user = login.findLoggableUser(username, password);
 		if (user != null) {
 			putUserInSession(user);
-			System.out.println("Exito.Name-"+username);
+			setResult("login_form_result_valid");
 			return "exito";
 		}
 		setResult("login_form_result_error");

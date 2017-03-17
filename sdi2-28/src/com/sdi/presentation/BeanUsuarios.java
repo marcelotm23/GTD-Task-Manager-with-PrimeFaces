@@ -41,8 +41,6 @@ public class BeanUsuarios implements Serializable {
 		this.usuario = usuario;
 	}
 
-	
-
 	public List<Task> getTareas() {
 		return (tareas);
 	}
@@ -50,7 +48,7 @@ public class BeanUsuarios implements Serializable {
 	public void setTareas(List<Task> tareas) {
 		this.tareas = tareas;
 	}
-	
+	/*
 	public String login() {
 		UserService userService;
 		try {
@@ -70,7 +68,7 @@ public class BeanUsuarios implements Serializable {
 			e.printStackTrace();
 			return "error"; // Nos vamos a la vista de error.
 		}
-	}
+	}*/
 	public String mostrarTareas() {
 		TaskService taskService;
 		try {
@@ -172,8 +170,11 @@ public class BeanUsuarios implements Serializable {
 //		// si no existe lo creamos e inicializamos
 		if (usuario == null) {
 			System.out.println("BeanUsuarios - No existia");
-			usuario = new BeanUsuario();
+			usuario=new BeanUsuario();
+			usuario.setUsuario((User) FacesContext.getCurrentInstance()
+					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
 			tarea = new  BeanTarea();
+			mostrarTareas();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);

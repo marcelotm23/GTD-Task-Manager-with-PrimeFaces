@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<p:panelGrid id="loginFields" columns="2" cellpadding="5">
+       <h:outputLabel for="username" value="#{msgs.user_login}" />
+       <p:inputText id="username"  
+       required="false" label="username" value="#{login.username}"/>
+       
+
+       <h:outputLabel for="password" value="#{msgs.password_login}" />
+       <p:password id="password"  
+       required="false" label="password" value="#{login.password}"/>
+
+	   <h:outputLabel />
+	   <h:outputText id="msgAlta" value="#{msgs[login.result]}"></h:outputText>
+	   <h:outputLabel />
+	   <p:commandButton id="btnLogin" value="Login" 
+           action="#{login.verify}" type="submit" update="msgAlta"/>
+      
+       <f:facet name="footer">
+           <p>#{msgs.mensajeRegistrarse}</p>
+       	   <p:commandLink id="linkRegistrarse" value="#{msgs.enlaceRegistrarse}"
+       	    action="/crearCuenta.xhtml"/>
+       </f:facet>
+       
+     </p:panelGrid>
+</ui:composition>

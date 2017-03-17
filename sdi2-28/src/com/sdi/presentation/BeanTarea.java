@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 import com.sdi.model.Task;
-import com.sdi.model.types.UserStatus;
 
 @ManagedBean(name = "tarea")
 @SessionScoped

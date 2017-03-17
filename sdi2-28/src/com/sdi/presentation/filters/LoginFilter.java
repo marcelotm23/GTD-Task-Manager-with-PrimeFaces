@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/restricted/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/index.xhtml") })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, 
+urlPatterns = { "/restricted/*" }, 
+initParams = { @WebInitParam(name = "LoginParam", value = "/index.xhtml") })
 public class LoginFilter implements Filter {
 
 	// Necesitamos acceder a los parámetros de inicialización en
