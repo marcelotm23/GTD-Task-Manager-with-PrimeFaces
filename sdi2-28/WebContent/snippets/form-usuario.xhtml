@@ -12,7 +12,7 @@
 						id="correo">
 						<f:validateRegex pattern=".+@.+\.[a-z]+" />
 					</p:inputText>
-					<p:message for="correo" />
+					<p:message for="correo"/>
 		</h:panelGroup>
 		
 	  #{msgs.login} 
@@ -23,7 +23,7 @@
 				id="login">
 				<f:validateLength maximum="20" />
 			</p:inputText>
-			<p:message for="login" />
+			<p:message for="login"/>
 		</h:panelGroup>
   
 	  #{msgs.password} 
@@ -38,7 +38,7 @@
                      strongLabel="#{msgs.strongPasswordLabel}">
 				<f:validateLength minimum="8" />
 			</p:password>
-			<p:message for="password" />
+			<p:message for="password"/>
 		</h:panelGroup>
   
 	  #{msgs.passwordAgain}
@@ -49,7 +49,7 @@
 				id="passwordAgain">
 				<f:validateLength minimum="8"  />
 			</p:password>
-			<p:message for="passwordAgain" />
+			<p:message for="passwordAgain"/>
 	  </h:panelGroup>  
  	  <p:commandButton value="#{msgs.botonSalvar}" id="btnGuardar"
 		 action="#{controller.crearCuenta}" 

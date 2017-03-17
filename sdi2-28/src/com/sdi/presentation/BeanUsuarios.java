@@ -103,7 +103,7 @@ public class BeanUsuarios implements Serializable {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");
 			String message = bundle.getString(b.getMessage());
-	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  message) );
+	        context.addMessage("businessMesg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  message) );
 	        
 	        return null;
 		}
