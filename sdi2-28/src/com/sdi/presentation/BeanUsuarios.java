@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -77,6 +76,7 @@ public class BeanUsuarios implements Serializable {
 		try {
 				taskService = Services.getTaskService();
 				tareas=taskService.findInboxTasksByUserId(usuario.getId());
+				System.out.println("TAREAS:"+tareas);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -167,13 +167,18 @@ public class BeanUsuarios implements Serializable {
 		// claramente.
 		usuario = (BeanUsuario) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get(new String("usuario"));
+		tarea = (BeanTarea) FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get(new String("tarea"));
 //		// si no existe lo creamos e inicializamos
 		if (usuario == null) {
 			System.out.println("BeanUsuarios - No existia");
 			usuario = new BeanUsuario();
+			tarea = new  BeanTarea();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+		.put("tarea", tarea);
 	}
 
 	@PreDestroy

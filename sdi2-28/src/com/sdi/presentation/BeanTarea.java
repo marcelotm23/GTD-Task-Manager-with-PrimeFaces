@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import com.sdi.model.Task;
+import com.sdi.model.types.UserStatus;
 
 @ManagedBean(name = "tarea")
 @SessionScoped
@@ -13,7 +15,6 @@ public class BeanTarea extends Task implements Serializable {
 	private static final long serialVersionUID = 55556L;
 
 	public BeanTarea() {
-		
 	}
 
 	// Este método es necesario para copiar la tarea a editar cuando
@@ -28,6 +29,7 @@ public class BeanTarea extends Task implements Serializable {
 			setPlanned(tarea.getPlanned());
 			setUserId(tarea.getUserId());
 			setFinished(tarea.getFinished());
+			setCreated(tarea.getCreated());
 		}
 	}
 
