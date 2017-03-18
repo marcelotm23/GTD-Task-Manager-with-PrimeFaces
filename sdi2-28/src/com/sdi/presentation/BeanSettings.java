@@ -16,18 +16,25 @@ public class BeanSettings implements Serializable {
 	private static final Locale ENGLISH = new Locale("en");
 	private static final Locale SPANISH = new Locale("es");
 	private Locale locale = new Locale("es");
+	private String country="es";
 	//uso de inyección de dependencia
 	@ManagedProperty(value="#{usuario}")  
 	private BeanUsuario usuario;
 	public BeanUsuario getUsuario() { return usuario; }
 	public void setUsuario(BeanUsuario usuario) {this.usuario = usuario;} 
-
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	} 
 	public Locale getLocale() {
 		// Aqui habria que cambiar algo de código para coger locale del
 		// navegador
 		// la primera vez que se accede a getLocale(), de momento dejamos como
 		// idioma de
 		// partida “es”
+		
 		return (locale);
 	}
 
@@ -36,7 +43,8 @@ public class BeanSettings implements Serializable {
 //		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 //	}
 	public void setSpanish(ActionEvent event) { 
-		  locale = SPANISH; 
+		  locale = SPANISH;
+		  setCountry("es");
 		  try {
 		    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale); 
 		    //if (usuario != null) 
@@ -48,6 +56,7 @@ public class BeanSettings implements Serializable {
 
 	public void setEnglish(ActionEvent event) { 
 		  locale = ENGLISH; 
+		  setCountry("en");
 		  try {
 		    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale); 
 		    //if (usuario != null) 
@@ -90,5 +99,6 @@ public class BeanSettings implements Serializable {
 	public void end()
 	{
 	  System.out.println("BeanSettings - PreDestroy");
-	} 
+	}
+	
 }

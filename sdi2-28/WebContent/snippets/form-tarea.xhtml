@@ -4,52 +4,38 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 	<p:panelGrid id="Grid" columns="2" cellpadding="5">
-	 #{msgs.correo}
+	 #{msgs.tituloTarea}
 		  <h:panelGroup>
-					<p:inputText value="#{usuario.email}" required="true"
-						requiredMessage="#{msgs.formCrearCuenta_correo_requiredMessage}"
-						validatorMessage="#{msgs.formCrearCuenta_correo_validatorMessage}"
-						id="correo">
-						<f:validateRegex pattern=".+@.+\.[a-z]+" />
+					<p:inputText value="#{tarea.title}" required="true"
+						requiredMessage="#{msgs.formEditarTarea_titulo_requiredMessage}"
+						validatorMessage="#{msgs.formEditarTarea_titulo_validatorMessage}"
+						id="titulo">
 					</p:inputText>
-					<p:message for="correo"/>
+					<p:message for="titulo"/>
 		</h:panelGroup>
 		
-	  #{msgs.login} 
+	  #{msgs.comentarioTarea} 
 	  <h:panelGroup>
-			<p:inputText value="#{usuario.login}" required="true"
-				requiredMessage="#{msgs.formCrearCuenta_login_requiredMessage}"
-				validatorMessage="#{msgs.formCrearCuenta_login_validatorMessage}"
-				id="login">
-				<f:validateLength maximum="20" />
+			<p:inputText value="#{tarea.comments}" 
+				id="comments">
 			</p:inputText>
-			<p:message for="login"/>
+			<p:message for="comments"/>
 		</h:panelGroup>
   
-	  #{msgs.password} 
+	  #{msgs.fechaPlaneadaTarea} 
 	  <h:panelGroup>
-			<p:password value="#{usuario.password}" required="true"
-				requiredMessage="#{msgs.formCrearCuenta_password_requiredMessage}"
-				validatorMessage="#{msgs.formCrearCuenta_password_validatorMessage}"
-				id="password" feedback="true" match="passwordAgain"
-				promptLabel="#{msgs.promptPasswordMesg}" 
-				weakLabel="#{msgs.weakPasswordLabel}"
-                    goodLabel="#{msgs.goodPasswordLabel}"
-                     strongLabel="#{msgs.strongPasswordLabel}">
-				<f:validateLength minimum="8" />
-			</p:password>
-			<p:message for="password"/>
+			<p:calendar id="planned" value="#{tarea.planned}"
+			locale="#{settings.country}" showOn="button" />
+			<p:message for="planned"/>
 		</h:panelGroup>
   
-	  #{msgs.passwordAgain}
+	  #{msgs.categoriaTarea}
 	  <h:panelGroup>
-			<p:password value="#{usuario.password}" required="true"
-				requiredMessage="#{msgs.formCrearCuenta_passwordAgain_requiredMessage}"
-				validatorMessage="#{msgs.formCrearCuenta_passwordAgain_validatorMessage}"
-				id="passwordAgain">
-				<f:validateLength minimum="8"  />
-			</p:password>
-			<p:message for="passwordAgain"/>
+			<p:selectOneMenu id="category" value="#{dropdownView.city}" style="width:150px">
+                <f:selectItem itemLabel="#{msgs.categoriaNinguna}" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{categoria.categorias}" />
+            </p:selectOneMenu>
+			<p:message for="category"/>
 	  </h:panelGroup>  
  	  <p:commandButton value="#{msgs.botonSalvar}" id="btnGuardar"
 		 action="#{controller.crearCuenta}" 

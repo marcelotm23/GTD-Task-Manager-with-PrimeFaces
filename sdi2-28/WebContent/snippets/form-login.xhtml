@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
-	<p:panelGrid id="loginFields" columns="2" cellpadding="5">
+	<p:panelGrid id="loginFields" columns="2" cellpadding="5"
+	style="margin: 0 auto;">
        <h:outputLabel for="username" value="#{msgs.user_login}" />
        <p:inputText id="username"  
        required="false" label="username" value="#{login.username}"/>

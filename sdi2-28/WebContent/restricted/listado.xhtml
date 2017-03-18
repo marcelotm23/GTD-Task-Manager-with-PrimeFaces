@@ -4,12 +4,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/template-general.xhtml">
-
+	
 
 	<ui:define name="titulo">
     #{msgs.tituloOperacionListado}
   </ui:define>
-<!-- <th>Titulo</th>
+	<!-- <th>Titulo</th>
 		<th>Comentarios</th>
 		<th>Fecha planeada</th>
 		<th>Fecha finalizada</th>
@@ -17,56 +17,71 @@
 <th>Finalizar</th> -->
 	<ui:define name="cuerpo">
 		<h:form>
-		<p:menu toggleable="true">
-        <p:submenu label="#{msgs.categoriasMenu}">
-            <p:menuitem value="#{msgs.categoriaInbox}" actionListener="#{controller.mostrarTareas}" update="tablalistado" icon="ui-icon-home" />
-            <p:menuitem value="#{msgs.categoriaHoy}" actionListener="#{controller.mostrarTareasHoy}" update="tablalistado" icon="ui-icon-star"/>
-            <p:menuitem value="#{msgs.categoriaSemana}" actionListener="#{controller.mostrarTareasSemana}" update="tablalistado" icon="ui-icon-star"/>
-        </p:submenu>
-    	</p:menu>
-			<p:panel header="#{msgs.tituloOperacionListado}">
-				<p:dataTable id="tablalistado" var="vtarea" 
-				value="#{controller.tareas}" border="1"
-				emptyMessage="#{msgs.tablaTareasSinTareas}"
-				paginator="true" rows="5">
-					<p:column sortBy="#{vtarea.title}">
-						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
-					<p:column sortBy="#{vtarea.comments}">
-						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
-					<p:column sortBy="#{vtarea.planned}">
-						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
-						<h:outputText value="#{vtarea.planned}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-						</p:column>
-					<p:column sortBy="#{vtarea.finished}">
-						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
-						<h:outputText value="#{vtarea.finished}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-					</p:column>
-					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
-						<p:commandLink action="editar" type="submit"
-							value="#{msgs.tablaTareasEditar}" 
-							actionListener="#{tarea.setTarea(vtarea)}" 
-							immediate="true"
-							>
-						</p:commandLink>
-					</p:column>
-					<p:column>
-						<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
-						<p:commandLink action="editar" type="submit"
-							value="#{msgs.tablaTareasFinalizar}"
-							actionListener="#{controller.finalizar}" 
-							immediate="true" update="tablalistado">
-						</p:commandLink>
-					</p:column>
-				</p:dataTable>
-			</p:panel>
+			<p:layout>
+
+				<p:layout style="min-width:400px;min-height:200px;" fullPage="true">
+					<p:layoutUnit position="west" size="250" minSize="100">
+						<p:menu toggleable="true">
+							<p:submenu label="#{msgs.categoriasMenu}">
+								<p:menuitem value="#{msgs.categoriaInbox}"
+									actionListener="#{controller.mostrarTareas}"
+									update="tablalistado" icon="ui-icon-home" />
+								<p:menuitem value="#{msgs.categoriaHoy}"
+									actionListener="#{controller.mostrarTareasHoy}"
+									update="tablalistado" icon="ui-icon-star" />
+								<p:menuitem value="#{msgs.categoriaSemana}"
+									actionListener="#{controller.mostrarTareasSemana}"
+									update="tablalistado" icon="ui-icon-star" />
+							</p:submenu>
+						</p:menu>
+					</p:layoutUnit>
+					<p:layoutUnit position="center">
+						<p:panel header="#{msgs.tituloOperacionListado}">
+							<p:dataTable id="tablalistado" var="vtarea"
+								value="#{controller.tareas}" border="1"
+								emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
+								rows="5">
+								<p:column sortBy="#{vtarea.title}">
+									<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
+								<p:column sortBy="#{vtarea.comments}">
+									<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
+								<p:column sortBy="#{vtarea.planned}">
+									<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
+									<h:outputText value="#{vtarea.planned}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+								<p:column sortBy="#{vtarea.finished}">
+									<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
+									<h:outputText value="#{vtarea.finished}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<f:facet name="header">#{msgs.tablaTareasEditar}</f:facet>
+									<p:commandLink action="editar" type="submit"
+										value="#{msgs.tablaTareasEditar}"
+										actionListener="#{tarea.setTarea(vtarea)}" immediate="true">
+									</p:commandLink>
+								</p:column>
+								<p:column>
+									<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
+									<p:commandLink action="editar" type="submit"
+										value="#{msgs.tablaTareasFinalizar}"
+										actionListener="#{controller.finalizar}" immediate="true"
+										update="tablalistado">
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:layoutUnit>
+				</p:layout>
+			</p:layout>
 		</h:form>
 	</ui:define>
 	<ui:define name="pie">
-		<ui:include src="/snippets/pie-casa.xhtml" />
+		<p:layoutUnit position="south">
+			<ui:include src="/snippets/pie-casa.xhtml" />
+		</p:layoutUnit>
 	</ui:define>
 </ui:composition>
