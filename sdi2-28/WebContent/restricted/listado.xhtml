@@ -40,7 +40,7 @@
 							<p:dataTable id="tablalistado" var="vtarea"
 								value="#{controller.tareas}" border="1"
 								emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
-								rows="5">
+								rows="8">
 								<p:column sortBy="#{vtarea.title}">
 									<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
 								<p:column sortBy="#{vtarea.comments}">
