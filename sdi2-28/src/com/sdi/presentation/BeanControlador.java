@@ -1,6 +1,7 @@
 package com.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import alb.util.date.DateUtil;
 
 import com.sdi.business.Services;
 import com.sdi.business.TaskService;
@@ -34,6 +37,7 @@ public class BeanControlador implements Serializable {
 	private BeanTarea tarea;
 	private List<Task> tareas = null;
 	private List<Category> categorias = null;
+	private Date today=DateUtil.today();
 	public BeanUsuario getUsuario() {
 		return usuario;
 	}
@@ -217,5 +221,13 @@ public class BeanControlador implements Serializable {
 	@PreDestroy
 	public void end() {
 		System.out.println("BeanUsuarios - PreDestroy");
+	}
+
+	public Date getToday() {
+		return today;
+	}
+
+	public void setToday(Date today) {
+		this.today = today;
 	}
 }

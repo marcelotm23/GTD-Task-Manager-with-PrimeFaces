@@ -45,7 +45,9 @@
 									<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
 								<p:column sortBy="#{vtarea.comments}">
 									<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
-								<p:column sortBy="#{vtarea.planned}">
+								<p:column sortBy="#{vtarea.planned}" 
+								styleClass="#{vtarea.planned lt controller.today ? 'columnColor' : ''}"
+								>
 									<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 									<h:outputText value="#{vtarea.planned}">
 										<f:convertDateTime pattern="dd/MM/yyyy" />
