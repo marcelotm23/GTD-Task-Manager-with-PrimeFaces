@@ -16,7 +16,7 @@
 	</managed-bean> 
 	<managed-bean>
 		<managed-bean-name>controller</managed-bean-name>
-		<managed-bean-class>com.sdi.presentation.BeanUsuarios</managed-bean-class>
+		<managed-bean-class>com.sdi.presentation.BeanControlador</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
@@ -30,20 +30,13 @@
 			<to-view-id>/crearCuenta.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{controller.listado}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listado.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+	
 	<navigation-rule>
 		<from-view-id>/restricted/listado.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{controller.baja(valumno)}</from-action>
+			<from-action>#{login.logout}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listado.xhtml</to-view-id>
+			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>editar</from-outcome>
@@ -76,6 +69,14 @@
 		<navigation-case>
 			<from-outcome>registrarse</from-outcome>
 			<to-view-id>/crearCuenta.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/editarTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.salvaTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listado.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

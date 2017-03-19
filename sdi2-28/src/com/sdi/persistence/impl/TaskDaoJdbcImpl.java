@@ -16,15 +16,17 @@ public class TaskDaoJdbcImpl implements TaskDao {
 
 		@Override
 		public Task toObject(ResultSet rs) throws SQLException {
-			return new Task().setId(rs.getLong("id"))
-					.setTitle(rs.getString("title"))
-					.setComments(rs.getString("comments"))
-					.setCreated(toDate(rs.getDate("created")))
-					.setPlanned(toDate(rs.getDate("planned")))
-					.setFinished(toDate(rs.getDate("finished")))
-					.setCategoryId((Long) rs.getObject("category_id")) // may be
-																		// null
-					.setUserId(rs.getLong("user_id"));
+			Task task = new Task();
+			task.setId(rs.getLong("id"));
+			task.setTitle(rs.getString("title"));
+			task.setComments(rs.getString("comments"));
+			task.setCreated(toDate(rs.getDate("created")));
+			task.setPlanned(toDate(rs.getDate("planned")));
+			task.setFinished(toDate(rs.getDate("finished")));
+			task.setCategoryId((Long) rs.getObject("category_id")); // may be
+																// null
+			task.setUserId(rs.getLong("user_id"));
+			return task;
 		}
 
 		private Date toDate(java.sql.Date date) throws SQLException {

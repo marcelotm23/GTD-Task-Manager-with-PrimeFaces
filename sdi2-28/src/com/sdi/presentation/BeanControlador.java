@@ -17,13 +17,14 @@ import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
 import com.sdi.business.exception.BusinessException;
 import com.sdi.infrastructure.Factories;
+import com.sdi.model.Category;
 import com.sdi.model.Task;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
 
 @ManagedBean(name = "controller")
 @SessionScoped
-public class BeanUsuarios implements Serializable {
+public class BeanControlador implements Serializable {
 	private static final long serialVersionUID = 55555L;
 
 	
@@ -32,13 +33,21 @@ public class BeanUsuarios implements Serializable {
 	@ManagedProperty(value = "#{tarea}")
 	private BeanTarea tarea;
 	private List<Task> tareas = null;
-	
+	private List<Category> categorias = null;
 	public BeanUsuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(BeanUsuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Category> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Category> categorias) {
+		this.categorias = categorias;
 	}
 
 	public List<Task> getTareas() {
@@ -150,6 +159,29 @@ public class BeanUsuarios implements Serializable {
 			e.printStackTrace();
 			return "error"; // Nos vamos a la vista de error.
 		}
+	}
+	public String salvaTarea() {
+		TaskService service;
+		try {
+			// Acceso a la implementacion de la capa de negocio
+			// a trav��s de la factor��a
+			service = Factories.services.createTaskService();
+			// Salvamos o actualizamos la tarea segun sea una operacion de alta
+			// o de edición
+			if (tarea.getId() == null) {
+				service.createTask(tarea);
+			} else {
+				service.updateTask(tarea);
+			}
+			// Actualizamos el javabean de alumnos inyectado en la tabla
+			tareas=service.findInboxTasksByUserId(usuario.getId());
+			return "exito"; // Nos vamos a la vista de listado.
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+
 	}
 	// Se inicia correctamente el MBean inyectado si JSF lo hubiera crea
 	// y en caso contrario se crea. (hay que tener en cuenta que es un Bean de

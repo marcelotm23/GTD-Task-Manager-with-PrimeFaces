@@ -31,14 +31,14 @@
   
 	  #{msgs.categoriaTarea}
 	  <h:panelGroup>
-			<p:selectOneMenu id="category" value="#{dropdownView.city}" style="width:150px">
+			<p:selectOneMenu id="category" value="#{tarea.categoryId}" style="width:150px">
                 <f:selectItem itemLabel="#{msgs.categoriaNinguna}" itemValue="" noSelectionOption="true" />
-                <f:selectItems value="#{categoria.categorias}" />
+                <f:selectItems value="#{controller.categorias}" />
             </p:selectOneMenu>
 			<p:message for="category"/>
 	  </h:panelGroup>  
  	  <p:commandButton value="#{msgs.botonSalvar}" id="btnGuardar"
-		 action="#{controller.crearCuenta}" 
+		 action="#{controller.salvaTarea}" 
 		 update="form-cabecera:growl Grid" 
 		 process="@form"> 
 	  </p:commandButton> 

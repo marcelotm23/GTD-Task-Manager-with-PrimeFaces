@@ -53,7 +53,8 @@ public class DuplicateCategoryCommand implements Command<Long> {
 
 		List<Task> tasks = tDao.findTasksByCategoryId( catId );
 		for(Task t: tasks) {
-			Task copy = Cloner.clone(t).setCategoryId( copyId );
+			Task copy = Cloner.clone(t);
+			copy.setCategoryId( copyId );
 			tDao.save( copy );
 		}
 	}

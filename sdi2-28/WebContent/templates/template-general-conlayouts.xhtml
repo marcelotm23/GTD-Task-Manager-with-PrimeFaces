@@ -4,9 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	
+	xmlns:p="http://primefaces.org/ui">
+
 <f:view locale="#{settings.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
@@ -18,7 +17,8 @@
 				<br /> <br />
 				<h2>#{msgs.tituloAplicacion2}</h2>
 			</center>
-			<p:growl id="growl" for="businessMesg" showDetail="true" sticky="true" />
+			<p:growl id="growl" for="businessMesg" showDetail="true"
+				sticky="true" />
 			<br />
 			<br />
 			<table border="5" align="center">
@@ -35,8 +35,8 @@
 					<p:menuitem value="#{msgs.enlaceAlta}" action="alta"
 						actionListener="#{alumno.iniciaAlumno}" />
 				</p:submenu>
-				<p:submenu name="options" style="float:right" 
-				label="#{msgs.textoIdioma}">
+				<p:submenu name="options" style="float:right"
+					label="#{msgs.textoIdioma}">
 					<p:menuitem value="#{msgs.enlaceIdiomaES}"
 						actionListener="#{settings.setSpanish}" immediate="true"
 						update="@all">
@@ -49,11 +49,13 @@
 			</p:menubar>
 
 		</h:form>
-	<p:layout>
-		<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
+		<p:layout>
+			<p:layout fullPage="true">
+				<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
 
-		<ui:insert name="pie">#{msgs.tituloPie}</ui:insert>
-	</p:layout>
+				<ui:insert name="pie">#{msgs.tituloPie}</ui:insert>
+			</p:layout>
+		</p:layout>
 	</h:body>
 </f:view>
 </html>

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
@@ -35,7 +36,16 @@ public class BeanLogin implements Serializable {
 		System.out.println("Name-"+username);
 		return "fallo";
 	}
-
+	public String logout() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+		.getExternalContext().getSession(false);
+		if(session!=null){
+			session.invalidate();
+			return "exito";
+		}
+		return "error";
+		
+	}
 	private void putUserInSession(User user) {
 		Map<String, Object> session = FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap();

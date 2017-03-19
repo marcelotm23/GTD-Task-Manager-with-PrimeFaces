@@ -19,15 +19,16 @@ public class Cloner {
 	}
 	
 	public static Task clone(Task t) {
-		return new Task()
-			.setCategoryId( t.getCategoryId() )
-			.setComments( 	t.getComments() )
-			.setCreated( 	t.getCreated() )
-			.setFinished( 	t.getFinished() )
-			.setId( 		t.getId() )
-			.setPlanned( 	t.getPlanned() )
-			.setTitle( 		t.getTitle() )
-			.setUserId( 	t.getUserId() );
+		Task task = new Task();
+		task.setCategoryId( t.getCategoryId() );
+		task.setComments( 	t.getComments() );
+		task.setCreated( 	t.getCreated() );
+		task.setFinished( 	t.getFinished() );
+		task.setId( 		t.getId() );
+		task.setPlanned( 	t.getPlanned() );
+		task.setTitle( 		t.getTitle() );
+		task.setUserId( 	t.getUserId() );
+		return task;
 	}
 
 	public static Category clone(Category c) {

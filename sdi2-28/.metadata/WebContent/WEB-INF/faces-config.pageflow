@@ -15,7 +15,7 @@
   <links id="pf14897556413359" target="pf148975564133510" source="pf14897556413357" outcome="exito" fromaction="#{login.verify}"/>
   <links id="pf14897556413356" target="pf14897556413354" source="pf14897556413357" outcome="registrarse"/>
   <links id="pf14897698351610" target="pf14897698351611" source="pf148975564133510" outcome="editar"/>
-  <links id="pf148975564133511" target="pf148975564133510" source="pf148975564133510" outcome="exito" fromaction="#{controller.baja(valumno)}">
+  <links id="pf148975564133511" target="pf148975564133510" source="pf148975564133510" outcome="exito" fromaction="#{login.logout}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
