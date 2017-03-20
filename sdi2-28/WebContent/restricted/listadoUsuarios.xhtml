@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="titulo">
+    #{msgs.tituloListadoUsuarios}
+  	</ui:define>
+
+	<ui:define name="cuerpo">
+		<p:panel header="#{msgs.tituloListadoUsuarios}">
+			<p:dataTable id="tablalistado" var="vusuario"
+				value="#{controller.usuarios}" border="1">
+				<p:column>
+					<f:facet name="header">#{msgs.tablaEmail}</f:facet>#{valumno.email}</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaLogin}</f:facet>#{valumno.login}</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaStatus}</f:facet>#{valumno.status}</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaCambiarStatus}</f:facet>
+					<p:commandLink action="#{controller.cambiarEstado(vusuario)}"
+						type="submit" value="#{msgs.tablaCambiar}" immediate="true"
+						update="tablalistado">
+					</p:commandLink>
+				</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.tablaEliminar}</f:facet>
+					<p:commandButton action="#{controller.eliminarUsuario(vusuario)}"
+						type="submit" value="#{msgs.tablaEliminar}" immediate="true"
+						update="tablalistado">
+						<p:confirm header="#{msgs.tablaConfirmacion}"
+							message="#{msgs.tablaMensajeConfirmacion}" icon="ui-icon-alert"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+	<ui:define name="pie">
+		<ui:include src="/snippets/pie-casa.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -1,6 +1,7 @@
 package com.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.faces.context.FacesContext;
 
 import alb.util.date.DateUtil;
 
+import com.sdi.business.AdminService;
 import com.sdi.business.Services;
 import com.sdi.business.TaskService;
 import com.sdi.business.UserService;
@@ -38,6 +40,8 @@ public class BeanControlador implements Serializable {
 	private List<Task> tareas = null;
 	private List<Category> categorias = null;
 	private Date today=DateUtil.today();
+	private User[] usuarios = null;
+	
 	public BeanUsuario getUsuario() {
 		return usuario;
 	}
@@ -229,5 +233,70 @@ public class BeanControlador implements Serializable {
 
 	public void setToday(Date today) {
 		this.today = today;
+	}
+
+	public User[] getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(User[] usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public String listadoUsuarios() {
+		AdminService service;
+		
+		try {
+			service = Factories.services.createAdminService();
+			
+			usuarios = (User[]) service.findAllUsers().toArray();
+			
+			List<User> aux = new ArrayList<>();
+			
+			for(int i = 0; i < usuarios.length; i++) {
+				if(!usuarios[i].getIsAdmin()) {
+					aux.add(usuarios[i]);
+				}
+			}
+			
+			usuarios = (User[]) aux.toArray();
+			
+			return "exito";
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+	
+	public String cambiarEstado(User usuario) {
+		AdminService service;
+		
+		try {
+			service = Factories.services.createAdminService();
+			
+			service.disableUser(usuario.getId());
+			
+			return "exito";
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+	
+	public String eliminarUsuario(User usuario) {
+		AdminService service;
+		
+		try {
+			service = Factories.services.createAdminService();
+			
+			service.deepDeleteUser(usuario.getId());
+			
+			return "exito";
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 }
