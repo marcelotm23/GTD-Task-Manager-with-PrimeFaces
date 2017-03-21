@@ -11,29 +11,31 @@
 
 	<ui:define name="cuerpo">
 		<p:panel header="#{msgs.tituloListadoUsuarios}">
+			<p:commandButton value="Reiniciar base de datos" id="reiniciarBaseDeDatos"
+				update="form-cabecera:growl" 
+				action="#{controller.reiniciarBaseDeDatos}"
+				immediate="true" />
 			<p:dataTable id="tablalistado" var="vusuario"
 				value="#{controller.usuarios}" border="1">
 				<p:column>
-					<f:facet name="header">#{msgs.tablaEmail}</f:facet>#{valumno.email}</p:column>
+					<f:facet name="header">#{msgs.tablaEmail}</f:facet>#{vusuario.email}</p:column>
 				<p:column>
-					<f:facet name="header">#{msgs.tablaLogin}</f:facet>#{valumno.login}</p:column>
+					<f:facet name="header">#{msgs.tablaLogin}</f:facet>#{vusuario.login}</p:column>
 				<p:column>
-					<f:facet name="header">#{msgs.tablaStatus}</f:facet>#{valumno.status}</p:column>
+					<f:facet name="header">#{msgs.tablaStatus}</f:facet>#{vusuario.status}</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.tablaCambiarStatus}</f:facet>
 					<p:commandLink action="#{controller.cambiarEstado(vusuario)}"
 						type="submit" value="#{msgs.tablaCambiar}" immediate="true"
-						update="tablalistado">
+						update="tablalistado form-cabecera:growl">
 					</p:commandLink>
 				</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.tablaEliminar}</f:facet>
-					<p:commandButton action="#{controller.eliminarUsuario(vusuario)}"
+					<p:commandLink action="#{controller.eliminarUsuario(vusuario)}"
 						type="submit" value="#{msgs.tablaEliminar}" immediate="true"
-						update="tablalistado">
-						<p:confirm header="#{msgs.tablaConfirmacion}"
-							message="#{msgs.tablaMensajeConfirmacion}" icon="ui-icon-alert"/>
-					</p:commandButton>
+						update="tablalistado form-cabecera:growl">
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 		</p:panel>

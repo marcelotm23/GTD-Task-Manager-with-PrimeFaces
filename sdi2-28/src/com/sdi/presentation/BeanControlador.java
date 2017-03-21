@@ -15,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import alb.util.date.DateUtil;
+import alb.util.log.Log;
 
 import com.sdi.business.AdminService;
 import com.sdi.business.Services;
@@ -41,7 +42,7 @@ public class BeanControlador implements Serializable {
 	private List<Task> tareas = null;
 	private List<Category> categorias = null;
 	private Date today=DateUtil.today();
-	private User[] usuarios = null;
+	private List<User> usuarios = null;
 	
 	public BeanUsuario getUsuario() {
 		return usuario;
@@ -66,6 +67,7 @@ public class BeanControlador implements Serializable {
 	public void setTareas(List<Task> tareas) {
 		this.tareas = tareas;
 	}
+	
 	/*
 	public String login() {
 		UserService userService;
@@ -87,6 +89,7 @@ public class BeanControlador implements Serializable {
 			return "error"; // Nos vamos a la vista de error.
 		}
 	}*/
+	
 	public String mostrarTareas() {
 		TaskService taskService;
 		try {
@@ -151,7 +154,7 @@ public class BeanControlador implements Serializable {
 
 		}
 		catch(BusinessException b){
-			MessageToUser.writeGrowlMessage(b.getMessage());
+			MessageToUser.writeGrowlMessageERROR(b.getMessage());
 	        return null;
 		}
 		catch (Exception e) {
@@ -205,7 +208,7 @@ public class BeanControlador implements Serializable {
 			} else {
 				service.updateTask(tarea);
 			}
-			// Actualizamos el javabean de alumnos inyectado en la tabla
+			// Actualizamos el javabean de tareas inyectado en la tabla
 			tareas=service.findInboxTasksByUserId(usuario.getId());
 			return "exito"; // Nos vamos a la vista de listado.
 
@@ -239,6 +242,7 @@ public class BeanControlador implements Serializable {
 					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
 			tarea = new  BeanTarea();
 			mostrarTareas();
+			listadoUsuarios();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);
@@ -259,11 +263,11 @@ public class BeanControlador implements Serializable {
 		this.today = today;
 	}
 
-	public User[] getUsuarios() {
+	public List<User> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(User[] usuarios) {
+	public void setUsuarios(List<User> usuarios) {
 		this.usuarios = usuarios;
 	}
 	
@@ -273,19 +277,20 @@ public class BeanControlador implements Serializable {
 		try {
 			service = Factories.services.createAdminService();
 			
-			usuarios = (User[]) service.findAllUsers().toArray();
+			usuarios = service.findAllUsers();
 			
 			List<User> aux = new ArrayList<>();
 			
-			for(int i = 0; i < usuarios.length; i++) {
-				if(!usuarios[i].getIsAdmin()) {
-					aux.add(usuarios[i]);
+			for(User user : usuarios) {
+				if(!user.getIsAdmin()) {
+					aux.add(user);
 				}
 			}
 			
-			usuarios = (User[]) aux.toArray();
+			usuarios = aux;
 			
 			return "exito";
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -298,8 +303,13 @@ public class BeanControlador implements Serializable {
 		try {
 			service = Factories.services.createAdminService();
 			
-			service.disableUser(usuario.getId());
+			if(usuario.getStatus().equals(UserStatus.DISABLED))
+				service.enableUser(usuario.getId());
+			else
+				service.disableUser(usuario.getId());
 			
+			listadoUsuarios();
+			MessageToUser.writeGrowlMessageINFO("modificadoEstadoUsuario");
 			return "exito";
 			
 		} catch(Exception e) {
@@ -313,9 +323,10 @@ public class BeanControlador implements Serializable {
 		
 		try {
 			service = Factories.services.createAdminService();
-			
 			service.deepDeleteUser(usuario.getId());
 			
+			listadoUsuarios();
+			MessageToUser.writeGrowlMessageINFO("eliminadoUsuario");
 			return "exito";
 			
 		} catch(Exception e) {
@@ -323,4 +334,103 @@ public class BeanControlador implements Serializable {
 			return "error";
 		}
 	}
+	
+//	@SuppressWarnings("deprecation")
+//	public String reiniciarBaseDeDatos() {
+//		AdminService adminService;
+//		UserService userService;
+//		TaskService taskService;
+//		
+//		try {
+//			// Eliminar a los usuarios, sus tareas y sus categorias
+//			adminService = Factories.services.createAdminService();
+//			userService = Factories.services.createUserService();
+//			taskService = Factories.services.createTaskService();
+//			
+//			for(User user : usuarios) {
+//				adminService.deepDeleteUser(user.getId());
+//			}
+//			
+//			// Crear usuarios
+//			for(int i = 1; i < 4; i++) {
+//				User aux = new User();
+//				aux.setLogin("user"+i);
+//				aux.setEmail("user"+i+"@user.com");
+//				aux.setStatus(UserStatus.ENABLED);
+//				aux.setPassword("user"+i);
+//				aux.setIsAdmin(false);
+//				userService.registerUser(aux);
+//			}
+//			
+//			listadoUsuarios();
+//			
+//			int contadorCategoria = 1;
+//			
+//			// Crear categorias y tareas
+//			for(User user : usuarios) {
+//				Category aux = new Category();
+//				aux.setUserId(user.getId());
+//				aux.setName("categoria"+contadorCategoria);
+//				taskService.createCategory(aux);
+//				List<Category> listCategory = taskService.findCategoriesByUserId(user.getId());
+//				Category category = listCategory.get(listCategory.size()-1);
+//				for(int i = 1; i < 11; i++) {
+//					Task auxTask = new Task();
+//					auxTask.setTitle("tarea"+i);
+//					auxTask.setCreated(new Date());
+//					auxTask.setUserId(user.getId());
+//					Date date = DateUtil.now();
+//					date.setDate(date.getDate()+6);
+//					auxTask.setPlanned(date);
+//					taskService.createTask(auxTask);
+//				}
+//				int contador = 1;
+//				for(int i = 1; i < 11; i++) {
+//					Task auxTask = new Task();
+//					auxTask.setTitle("tarea"+contador);
+//					auxTask.setCreated(new Date());
+//					auxTask.setUserId(user.getId());
+//					Date date = DateUtil.now();
+//					auxTask.setPlanned(date);
+//					taskService.createTask(auxTask);
+//					contador++;
+//				}
+//				contador = 1;
+//				if(contadorCategoria != 3) {
+//					for(int i = 1; i < 4; i++) {
+//						Task auxTask = new Task();
+//						auxTask.setTitle("tarea"+contador);
+//						auxTask.setCreated(new Date());
+//						auxTask.setUserId(user.getId());
+//						Date date = DateUtil.now();
+//						date.setDate(date.getDate()-6);
+//						auxTask.setPlanned(date);
+//						auxTask.setCategoryId(category.getId());
+//						taskService.createTask(auxTask);
+//						contador++;
+//					}
+//				} else {
+//					for(int i = 1; i < 5; i++) {
+//						Task auxTask = new Task();
+//						auxTask.setTitle("tarea"+contador);
+//						auxTask.setCreated(new Date());
+//						auxTask.setUserId(user.getId());
+//						Date date = DateUtil.now();
+//						date.setDate(date.getDate()-6);
+//						auxTask.setPlanned(date);
+//						auxTask.setCategoryId(category.getId());
+//						taskService.createTask(auxTask);
+//						contador++;
+//					}
+//				}
+//			}
+//			
+//			MessageToUser.writeGrowlMessageINFO("baseDeDatosReiniciada");
+//			return "exito";
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			return "error";
+//		}
+//	}
 }

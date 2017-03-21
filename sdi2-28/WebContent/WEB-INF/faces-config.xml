@@ -63,6 +63,37 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- Admin -->
+	<!-- Opciones -->
+	<navigation-rule>
+		<from-view-id>/restrictedAdmin/*</from-view-id>
+		<navigation-case>
+			<from-action>#{login.logout}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{controller.listado}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restrictedAdmin/listadoUsuarios.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Listado de usuarios -->
+	<navigation-rule>
+		<from-view-id>/restrictedAdmin/listadoUsuarios.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.cambiarEstado}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listadoUsuarios.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{controller.eliminarUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listadoUsuarios.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!-- Listado de tareas -->
 	<navigation-rule>
 		<from-view-id>/restricted/listadoTareas.xhtml</from-view-id>

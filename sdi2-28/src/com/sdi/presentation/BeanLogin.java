@@ -30,12 +30,12 @@ public class BeanLogin implements Serializable {
 		User user = login.findLoggableUser(username, password);
 		if (user != null) {
 			putUserInSession(user);
-			
 			return "exito";
 		}
-		MessageToUser.writeGrowlMessage("login_form_result_error");
+		MessageToUser.writeGrowlMessageERROR("login_form_result_error");
 		return "fallo";
 	}
+	
 	public String logout() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 		.getExternalContext().getSession(false);
@@ -46,6 +46,7 @@ public class BeanLogin implements Serializable {
 		return "error";
 		
 	}
+	
 	private void putUserInSession(User user) {
 		Map<String, Object> session = FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap();
