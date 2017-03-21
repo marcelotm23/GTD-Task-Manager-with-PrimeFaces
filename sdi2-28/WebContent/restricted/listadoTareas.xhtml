@@ -79,9 +79,11 @@
 								</p:column>
 								<p:column>
 									<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
-									<p:commandLink action="editar" type="submit"
+									<p:commandLink  type="submit"
 										value="#{msgs.tablaTareasFinalizar}"
-										actionListener="#{controller.finalizar}" immediate="true"
+										action="#{controller.finalizarTarea}"
+										actionListener="#{tarea.setTarea(vtarea)}"
+										 immediate="true"
 										update="tablalistado">
 									</p:commandLink>
 								</p:column>

@@ -177,6 +177,21 @@ public class BeanControlador implements Serializable {
 			return "error"; // Nos vamos a la vista de error.
 		}
 	}
+	public String finalizarTarea(){
+		TaskService taskService;
+		try {
+			// Acceso a la implementacion de la capa de negocio
+			// a trav��s de la factoría
+			taskService = Factories.services.createTaskService();
+			taskService.markTaskAsFinished(tarea.getId());
+			tareas=taskService.findInboxTasksByUserId(usuario.getId());
+			return "exito"; // Actualizamos el listado de tareas.
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+	}
 	public String salvaTarea() {
 		TaskService service;
 		try {
