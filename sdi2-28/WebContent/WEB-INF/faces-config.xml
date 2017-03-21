@@ -9,6 +9,7 @@
 		<var>msgs</var>
 	</resource-bundle>
 </application>
+	<!-- Managed Beans -->
 	<managed-bean>
   		<managed-bean-name>settings</managed-bean-name>
   		<managed-bean-class>com.sdi.presentation.BeanSettings</managed-bean-class>
@@ -19,6 +20,8 @@
 		<managed-bean-class>com.sdi.presentation.BeanControlador</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<!-- Reglas de navegacion -->
+	<!-- Anonimo -->
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -30,36 +33,7 @@
 			<to-view-id>/crearCuenta.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/restricted/listadoTareas.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{login.logout}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{controller.finalizarTarea}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/crearCuenta.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{controller.crearCuenta}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/restricted/editForm.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{controller.salva}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+	<!-- Pantalla principal -->
 	<navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
@@ -72,6 +46,38 @@
 			<to-view-id>/crearCuenta.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- Usuario -->
+	<!-- Opciones -->
+	<navigation-rule>
+		<from-view-id>/restricted/*</from-view-id>
+		<navigation-case>
+			<from-action>#{login.logout}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{controller.mostrarTareas}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Listado de tareas -->
+	<navigation-rule>
+		<from-view-id>/restricted/listadoTareas.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.finalizarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Editar tarea -->
 	<navigation-rule>
 		<from-view-id>/restricted/editarTarea.xhtml</from-view-id>
 		<navigation-case>
@@ -80,4 +86,25 @@
 			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- Registrarse -->
+	<navigation-rule>
+		<from-view-id>/crearCuenta.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.crearCuenta}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- NO IMPLEMENTADO, seria el editarUsuario -->
+	<navigation-rule>
+		<from-view-id>/restricted/editForm.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.salva}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 </faces-config>
