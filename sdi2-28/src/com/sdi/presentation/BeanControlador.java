@@ -26,6 +26,7 @@ import com.sdi.model.Category;
 import com.sdi.model.Task;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
+import com.sdi.presentation.util.MessageToUser;
 
 @ManagedBean(name = "controller")
 @SessionScoped
@@ -126,6 +127,18 @@ public class BeanControlador implements Serializable {
 		}
 
 	}
+	public String cargarCategoriasUsuario(){
+		TaskService taskService;
+		try {
+				taskService = Services.getTaskService();
+				categorias=taskService.findCategoriesByUserId(usuario.getId());
+				return "exito"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+	}
 
 	public String crearCuenta() {
 		UserService userService;
@@ -138,11 +151,7 @@ public class BeanControlador implements Serializable {
 
 		}
 		catch(BusinessException b){
-			FacesContext context = FacesContext.getCurrentInstance();
-			ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");
-			String message = bundle.getString(b.getMessage());
-	        context.addMessage("businessMesg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  message) );
-	        
+			MessageToUser.writeGrowlMessage(b.getMessage());
 	        return null;
 		}
 		catch (Exception e) {

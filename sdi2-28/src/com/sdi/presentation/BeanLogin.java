@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
+import com.sdi.presentation.util.MessageToUser;
 
 @ManagedBean(name = "login")
 @SessionScoped
@@ -29,11 +30,10 @@ public class BeanLogin implements Serializable {
 		User user = login.findLoggableUser(username, password);
 		if (user != null) {
 			putUserInSession(user);
-			setResult("login_form_result_valid");
+			
 			return "exito";
 		}
-		setResult("login_form_result_error");
-		System.out.println("Name-"+username);
+		MessageToUser.writeGrowlMessage("login_form_result_error");
 		return "fallo";
 	}
 	public String logout() {

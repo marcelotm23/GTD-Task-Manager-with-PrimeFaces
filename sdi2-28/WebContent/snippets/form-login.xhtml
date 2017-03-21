@@ -13,12 +13,12 @@
        <h:outputLabel for="password" value="#{msgs.password_login}" />
        <p:password id="password"  
        required="false" label="password" value="#{login.password}"/>
-
+		<!--
 	   <h:outputLabel />
-	   <h:outputText id="msgAlta" value="#{msgs[login.result]}"></h:outputText>
-	   <h:outputLabel />
+	     <h:outputText id="msgAlta" value="#{msgs[login.result]}"></h:outputText>
+	   <h:outputLabel />-->
 	   <p:commandButton id="btnLogin" value="Login" 
-           action="#{login.verify}" type="submit" update="msgAlta"/>
+           action="#{login.verify}" type="submit" update="form-cabecera:growl"/>
       
        <f:facet name="footer">
            <p>#{msgs.mensajeRegistrarse}</p>
