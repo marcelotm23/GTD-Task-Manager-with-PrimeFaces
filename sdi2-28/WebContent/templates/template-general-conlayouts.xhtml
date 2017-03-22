@@ -32,13 +32,7 @@
 				</tr>
 			</table>
 			<p:menubar>
-				<p:submenu label="#{msgs.tituloOpciones}" icon="ui-icon-document">
-					<p:menuitem value="#{msgs.enlaceListado}"
-						action="#{controller.mostrarTareas}" />
-					<p:separator />
-					<p:menuitem value="#{msgs.enlaceAlta}" action="alta"
-						actionListener="#{alumno.iniciaAlumno}" />
-				</p:submenu>
+				<ui:include src="/snippets/menu-opciones-usuario.xhtml" />
 				<p:submenu name="options" style="float:right"
 					label="#{msgs.textoIdioma}">
 					<p:menuitem value="#{msgs.enlaceIdiomaES}"

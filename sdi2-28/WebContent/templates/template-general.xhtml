@@ -10,9 +10,7 @@
 <f:view locale="#{settings.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
-		<style>
-		.columnColor { background: red; color: floralwhite;}
-		</style>
+		
 		<script type="text/javascript">
 		PrimeFaces.locales['es'] = {
 			closeText : 'Cerrar',
@@ -63,14 +61,7 @@
 				</tr>
 			</table>
 			<p:menubar>
-				<p:submenu label="#{msgs.tituloOpciones}" icon="ui-icon-document">
-					<p:menuitem value="#{msgs.enlaceListado}"
-						action="#{controller.mostrarTareas}"
-					 />
-					<p:separator />
-					<p:menuitem value="#{msgs.enlaceCerrarSesion}" 
-						action="#{login.logout}" />
-				</p:submenu>
+				<ui:include src="/snippets/menu-opciones-usuario.xhtml" />
 				<p:submenu name="options" style="float:right" 
 				label="#{msgs.textoIdioma}">
 					<p:menuitem value="#{msgs.enlaceIdiomaES}"
