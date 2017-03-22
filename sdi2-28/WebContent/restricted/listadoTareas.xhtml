@@ -28,23 +28,13 @@
 									update="tablalistado" icon="ui-icon-home" />
 								<p:menuitem value="#{msgs.categoriaHoy}"
 									actionListener="#{controller.mostrarTareasHoy}"
-									update="tablalistado" icon="ui-icon-star" />
+									update="tablalistado" icon="ui-icon-calendar" />
 								<p:menuitem value="#{msgs.categoriaSemana}"
 									actionListener="#{controller.mostrarTareasSemana}"
-									update="tablalistado" icon="ui-icon-star" />
-							</p:submenu>
-							<p:submenu >
-								<p:menuitem value="#{msgs.categoriaInbox}"
-									actionListener="#{controller.mostrarTareas}"
-									update="tablalistado" icon="ui-icon-home" />
-								<p:menuitem value="#{msgs.categoriaHoy}"
-									actionListener="#{controller.mostrarTareasHoy}"
-									update="tablalistado" icon="ui-icon-star" />
-								<p:menuitem value="#{msgs.categoriaSemana}"
-									actionListener="#{controller.mostrarTareasSemana}"
-									update="tablalistado" icon="ui-icon-star" />
+									update="tablalistado" icon="ui-icon-calendar" />
 							</p:submenu>
 						</p:menu>
+						<p:menu model="#{menuCategorias.model}" />
 					</p:layoutUnit>
 					<p:layoutUnit position="center">
 						<p:panel header="#{msgs.tituloOperacionListado}">

@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
+import org.primefaces.event.MenuActionEvent;
+import org.primefaces.model.menu.MenuItem;
 
 import alb.util.date.DateUtil;
-import alb.util.log.Log;
 
 import com.sdi.business.AdminService;
 import com.sdi.business.Services;
@@ -68,34 +69,27 @@ public class BeanControlador implements Serializable {
 		this.tareas = tareas;
 	}
 	
-	/*
-	public String login() {
-		UserService userService;
+	public String cargarTareasCategoria(ActionEvent event){
+		TaskService taskService;
 		try {
-			
-			if(usuario!=null){
-				userService = Services.getUserService();
-				User userByLogin = userService.findLoggableUser(usuario.getLogin(),
-						usuario.getPassword());
-				usuario.setUsuario(userByLogin);
-				mostrarTareas();
-				return "exito"; // Nos vamos a la vista de listado.
-			}else{
-				return "error";
-			}
+			 MenuItem menuItem = ((MenuActionEvent) event).getMenuItem();
+			    Long catId = Long.parseLong(menuItem.getParams().get("catSelecId").get(0));
+				taskService = Services.getTaskService();
+				tareas=taskService.findTasksByCategoryId(catId);
+				return "exito"; 
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // Nos vamos a la vista de error.
 		}
-	}*/
+	} 
 	
 	public String mostrarTareas() {
 		TaskService taskService;
 		try {
 				taskService = Services.getTaskService();
 				tareas=taskService.findInboxTasksByUserId(usuario.getId());
-				System.out.println("TAREAS:"+tareas);
+		
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -241,13 +235,14 @@ public class BeanControlador implements Serializable {
 			usuario.setUsuario((User) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
 			tarea = new  BeanTarea();
-			mostrarTareas();
+			
 			listadoUsuarios();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 		.put("tarea", tarea);
+		mostrarTareas();
 	}
 
 	@PreDestroy
