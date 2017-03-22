@@ -9,6 +9,10 @@
 <f:view locale="#{settings.locale}">
 	<h:head>
 		<title>#{msgs.tituloHead}</title>
+		<style>
+		.columnColor { background: red; color: floralwhite;}
+		.listadoTareasAncho { width: auto !important;}
+		</style>
 	</h:head>
 	<h:body>
 		<h:form id="form-cabecera">
@@ -50,11 +54,11 @@
 
 		</h:form>
 		<p:layout>
-			<p:layout fullPage="true">
+			
 				<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
 
-				<ui:insert name="pie">#{msgs.tituloPie}</ui:insert>
-			</p:layout>
+				<!--  <ui:insert name="pie">#{msgs.tituloPie}</ui:insert>-->
+	
 		</p:layout>
 	</h:body>
 </f:view>
