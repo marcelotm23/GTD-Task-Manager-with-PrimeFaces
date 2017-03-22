@@ -54,7 +54,7 @@ public class MenuCategoriasUsuario {
 				item.setIcon("ui-icon-tag");
 				item.setCommand("#{controller.cargarTareasCategoria}");
 				item.setParam("catSelecId", c.getId());
-				item.setUpdate("tablalistado");
+				item.setUpdate("formlistado:tablalistado");
 				secondSubmenu.addElement(item);
 			}
 		}

@@ -42,6 +42,7 @@ public class BeanControlador implements Serializable {
 	@ManagedProperty(value = "#{tarea}")
 	private BeanTarea tarea;
 	private List<Task> tareas = null;
+	private List<Task> tareasFiltradas = null;
 	private List<Category> categorias = null;
 	private Date today=DateUtil.today();
 	private List<User> usuarios = null;
@@ -77,6 +78,7 @@ public class BeanControlador implements Serializable {
 			    Long catId = Long.parseLong(menuItem.getParams().get("catSelecId").get(0));
 				taskService = Services.getTaskService();
 				tareas=taskService.findTasksByCategoryId(catId);
+				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -90,7 +92,7 @@ public class BeanControlador implements Serializable {
 		try {
 				taskService = Services.getTaskService();
 				tareas=taskService.findInboxTasksByUserId(usuario.getId());
-		
+				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -104,6 +106,7 @@ public class BeanControlador implements Serializable {
 		try {
 				taskService = Services.getTaskService();
 				tareas=taskService.findTodayTasksByUserId(usuario.getId());
+				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -117,6 +120,7 @@ public class BeanControlador implements Serializable {
 		try {
 				taskService = Services.getTaskService();
 				tareas=taskService.findWeekTasksByUserId(usuario.getId());
+				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -235,6 +239,8 @@ public class BeanControlador implements Serializable {
 			usuario=new BeanUsuario();
 			usuario.setUsuario((User) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
+		}
+		if(tarea == null){
 			tarea = new  BeanTarea();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
@@ -345,5 +351,13 @@ public class BeanControlador implements Serializable {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+
+	public List<Task> getTareasFiltradas() {
+		return tareasFiltradas;
+	}
+
+	public void setTareasFiltradas(List<Task> tareasFiltradas) {
+		this.tareasFiltradas = tareasFiltradas;
 	}
 }

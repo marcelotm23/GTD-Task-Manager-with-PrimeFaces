@@ -18,13 +18,13 @@
 					<p:submenu>
 						<p:menuitem value="#{msgs.categoriaInbox}"
 							actionListener="#{controller.mostrarTareas}"
-							update="tablalistado" icon="ui-icon-home" />
+							update="formlistado:tablalistado" icon="ui-icon-home" />
 						<p:menuitem value="#{msgs.categoriaHoy}"
 							actionListener="#{controller.mostrarTareasHoy}"
-							update="tablalistado" icon="ui-icon-calendar" />
+							update="formlistado:tablalistado" icon="ui-icon-calendar" />
 						<p:menuitem value="#{msgs.categoriaSemana}"
 							actionListener="#{controller.mostrarTareasSemana}"
-							update="tablalistado" icon="ui-icon-calendar" />
+							update="formlistado:tablalistado" icon="ui-icon-calendar" />
 					</p:submenu>
 				</p:menu>
 				<p:menu model="#{menuCategorias.model}" />
@@ -32,10 +32,12 @@
 		</p:layoutUnit>
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
 			<p:panel header="#{msgs.tituloOperacionListado}">
+			<h:form id="formlistado">
 				<p:dataTable id="tablalistado" var="vtarea"
 					value="#{controller.tareas}" border="1"
 					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
-					rows="8" styleClass="listadoTareasAncho">
+					rows="8" styleClass="listadoTareasAncho" 
+					filteredValue="#{controller.tareasFiltradas}">
 					
 					<p:column sortBy="#{vtarea.title}" filterBy="#{vtarea.title}"
 					filterMatchMode="contains" >
@@ -67,10 +69,11 @@
 						<p:commandLink type="submit" value="#{msgs.tablaTareasFinalizar}"
 							action="#{controller.finalizarTarea}"
 							actionListener="#{tarea.setTarea(vtarea)}" immediate="true"
-							update="tablalistado">
+							update="formlistado:tablalistado">
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
+				</h:form>
 			</p:panel>
 		</p:layoutUnit>
 	</ui:define>
