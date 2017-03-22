@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.MenuActionEvent;
 import org.primefaces.model.menu.MenuItem;
 
@@ -74,7 +75,8 @@ public class BeanControlador implements Serializable {
 	public String cargarTareasCategoria(ActionEvent event){
 		TaskService taskService;
 		try {
-			 MenuItem menuItem = ((MenuActionEvent) event).getMenuItem();
+				resetTablaTareas();
+				MenuItem menuItem = ((MenuActionEvent) event).getMenuItem();
 			    Long catId = Long.parseLong(menuItem.getParams().get("catSelecId").get(0));
 				taskService = Services.getTaskService();
 				tareas=taskService.findTasksByCategoryId(catId);
@@ -90,9 +92,9 @@ public class BeanControlador implements Serializable {
 	public String mostrarTareas() {
 		TaskService taskService;
 		try {
+				resetTablaTareas();
 				taskService = Services.getTaskService();
 				tareas=taskService.findInboxTasksByUserId(usuario.getId());
-				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -104,9 +106,10 @@ public class BeanControlador implements Serializable {
 	public String mostrarTareasHoy() {
 		TaskService taskService;
 		try {
+				resetTablaTareas();
 				taskService = Services.getTaskService();
 				tareas=taskService.findTodayTasksByUserId(usuario.getId());
-				setTareasFiltradas(null);
+				
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -115,12 +118,17 @@ public class BeanControlador implements Serializable {
 		}
 
 	}
+
+	private void resetTablaTareas() {
+		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formlistado:tablalistado");
+		dataTable.resetValue();
+	}
 	public String mostrarTareasSemana() {
 		TaskService taskService;
 		try {
+				resetTablaTareas();
 				taskService = Services.getTaskService();
 				tareas=taskService.findWeekTasksByUserId(usuario.getId());
-				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
