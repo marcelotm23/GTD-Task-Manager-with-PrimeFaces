@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="/templates/template-general.xhtml">
+	template="/templates/template-general-admin.xhtml">
 
 	<ui:define name="titulo">
     #{msgs.tituloListadoUsuarios}
@@ -12,16 +12,16 @@
 	<ui:define name="cuerpo">
 		<p:panel header="#{msgs.tituloListadoUsuarios}">
 			<p:commandButton value="Reiniciar base de datos" id="reiniciarBaseDeDatos"
-				update="form-cabecera:growl" 
+				update="tablalistado form-cabecera:growl" 
 				action="#{controller.reiniciarBaseDeDatos}"
 				immediate="true" />
 			<p:dataTable id="tablalistado" var="vusuario"
 				value="#{controller.usuarios}" border="1">
-				<p:column>
+				<p:column sortBy="#{vusuario.email}">
 					<f:facet name="header">#{msgs.tablaEmail}</f:facet>#{vusuario.email}</p:column>
-				<p:column>
+				<p:column sortBy="#{vusuario.login}">
 					<f:facet name="header">#{msgs.tablaLogin}</f:facet>#{vusuario.login}</p:column>
-				<p:column>
+				<p:column sortBy="#{vusuario.status}">
 					<f:facet name="header">#{msgs.tablaStatus}</f:facet>#{vusuario.status}</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.tablaCambiarStatus}</f:facet>

@@ -52,6 +52,17 @@ public class TaskServiceImpl implements TaskService {
 			}
 		});
 	}
+	
+	@Override
+	public Category findCategoryByUserIdAndName(final Long id, final String name)
+			throws BusinessException {
+		return new CommandExecutor<Category>().execute(new Command<Category>() {
+			@Override
+			public Category execute() throws BusinessException {
+				return Persistence.getCategoryDao().findByUserIdAndName(id, name);
+			}
+		});
+	}
 
 	@Override
 	public List<Category> findCategoriesByUserId(final Long id)

@@ -21,6 +21,9 @@ public interface TaskService {
 	public List<Category> findCategoriesByUserId(Long id)
 			throws BusinessException;
 
+	public Category findCategoryByUserIdAndName(Long id, String name)
+			throws BusinessException;
+
 	public Long createTask(Task task) throws BusinessException;
 
 	public void deleteTask(Long id) throws BusinessException;

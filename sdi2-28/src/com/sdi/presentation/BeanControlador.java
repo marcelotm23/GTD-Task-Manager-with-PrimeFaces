@@ -29,6 +29,7 @@ import com.sdi.model.Task;
 import com.sdi.model.User;
 import com.sdi.model.types.UserStatus;
 import com.sdi.presentation.util.MessageToUser;
+import com.sdi.presentation.util.ReinicioBBDD;
 
 @ManagedBean(name = "controller")
 @SessionScoped
@@ -235,14 +236,13 @@ public class BeanControlador implements Serializable {
 			usuario.setUsuario((User) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap().get(new String("LOGGEDIN_USER")));
 			tarea = new  BeanTarea();
-			
-			listadoUsuarios();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 		.put("tarea", tarea);
 		mostrarTareas();
+		listadoUsuarios();
 	}
 
 	@PreDestroy
@@ -330,102 +330,20 @@ public class BeanControlador implements Serializable {
 		}
 	}
 	
-//	@SuppressWarnings("deprecation")
-//	public String reiniciarBaseDeDatos() {
-//		AdminService adminService;
-//		UserService userService;
-//		TaskService taskService;
-//		
-//		try {
-//			// Eliminar a los usuarios, sus tareas y sus categorias
-//			adminService = Factories.services.createAdminService();
-//			userService = Factories.services.createUserService();
-//			taskService = Factories.services.createTaskService();
-//			
-//			for(User user : usuarios) {
-//				adminService.deepDeleteUser(user.getId());
-//			}
-//			
-//			// Crear usuarios
-//			for(int i = 1; i < 4; i++) {
-//				User aux = new User();
-//				aux.setLogin("user"+i);
-//				aux.setEmail("user"+i+"@user.com");
-//				aux.setStatus(UserStatus.ENABLED);
-//				aux.setPassword("user"+i);
-//				aux.setIsAdmin(false);
-//				userService.registerUser(aux);
-//			}
-//			
-//			listadoUsuarios();
-//			
-//			int contadorCategoria = 1;
-//			
-//			// Crear categorias y tareas
-//			for(User user : usuarios) {
-//				Category aux = new Category();
-//				aux.setUserId(user.getId());
-//				aux.setName("categoria"+contadorCategoria);
-//				taskService.createCategory(aux);
-//				List<Category> listCategory = taskService.findCategoriesByUserId(user.getId());
-//				Category category = listCategory.get(listCategory.size()-1);
-//				for(int i = 1; i < 11; i++) {
-//					Task auxTask = new Task();
-//					auxTask.setTitle("tarea"+i);
-//					auxTask.setCreated(new Date());
-//					auxTask.setUserId(user.getId());
-//					Date date = DateUtil.now();
-//					date.setDate(date.getDate()+6);
-//					auxTask.setPlanned(date);
-//					taskService.createTask(auxTask);
-//				}
-//				int contador = 1;
-//				for(int i = 1; i < 11; i++) {
-//					Task auxTask = new Task();
-//					auxTask.setTitle("tarea"+contador);
-//					auxTask.setCreated(new Date());
-//					auxTask.setUserId(user.getId());
-//					Date date = DateUtil.now();
-//					auxTask.setPlanned(date);
-//					taskService.createTask(auxTask);
-//					contador++;
-//				}
-//				contador = 1;
-//				if(contadorCategoria != 3) {
-//					for(int i = 1; i < 4; i++) {
-//						Task auxTask = new Task();
-//						auxTask.setTitle("tarea"+contador);
-//						auxTask.setCreated(new Date());
-//						auxTask.setUserId(user.getId());
-//						Date date = DateUtil.now();
-//						date.setDate(date.getDate()-6);
-//						auxTask.setPlanned(date);
-//						auxTask.setCategoryId(category.getId());
-//						taskService.createTask(auxTask);
-//						contador++;
-//					}
-//				} else {
-//					for(int i = 1; i < 5; i++) {
-//						Task auxTask = new Task();
-//						auxTask.setTitle("tarea"+contador);
-//						auxTask.setCreated(new Date());
-//						auxTask.setUserId(user.getId());
-//						Date date = DateUtil.now();
-//						date.setDate(date.getDate()-6);
-//						auxTask.setPlanned(date);
-//						auxTask.setCategoryId(category.getId());
-//						taskService.createTask(auxTask);
-//						contador++;
-//					}
-//				}
-//			}
-//			
-//			MessageToUser.writeGrowlMessageINFO("baseDeDatosReiniciada");
-//			return "exito";
-//			
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//			return "error";
-//		}
-//	}
+	public String reiniciarBaseDeDatos() {
+		
+		try {
+			
+			ReinicioBBDD.reiniciarBBDD(usuarios);
+			
+			MessageToUser.writeGrowlMessageINFO("baseDeDatosReiniciada");
+			
+			listadoUsuarios();
+			return "exito";
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
 }

@@ -36,6 +36,12 @@ public class SimpleTaskService implements TaskService {
 	public Category findCategoryById(Long id) throws BusinessException {
 		return new TaskServiceImpl().findCategoryById(id);
 	}
+	
+	@Override
+	public Category findCategoryByUserIdAndName(Long id, String name)
+			throws BusinessException {
+		return new TaskServiceImpl().findCategoryByUserIdAndName(id, name);
+	}
 
 	@Override
 	public List<Category> findCategoriesByUserId(Long id)
