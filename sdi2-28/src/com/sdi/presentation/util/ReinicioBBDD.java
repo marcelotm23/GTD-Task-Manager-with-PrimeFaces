@@ -33,7 +33,7 @@ public class ReinicioBBDD {
 
 			crearCategorias(taskService, usuarios);
 
-			crearTareasSinCategoria(taskService, usuarios);
+			crearTareas(taskService, usuarios);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,8 +41,7 @@ public class ReinicioBBDD {
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void crearTareasSinCategoria(TaskService taskService,
-			List<User> usuarios) {
+	private static void crearTareas(TaskService taskService, List<User> usuarios) {
 
 		for (User u : usuarios) {
 
@@ -69,49 +68,47 @@ public class ReinicioBBDD {
 				taskService.createTask(auxTask);
 				contadorTarea++;
 			}
-			crearTareasConCategoria(taskService, usuarios, contadorTarea);
+			crearTareasConCategoria(taskService, u, contadorTarea);
 		}
 
 	}
 
 	@SuppressWarnings("deprecation")
 	private static void crearTareasConCategoria(TaskService taskService,
-			List<User> usuarios, int contadorTarea) {
+			User usuario, int contadorTarea) {
 
-		for (User u : usuarios) {
+		int contador = 1;
 
-			int contador = 1;
+		for (int i = 0; i < 6; i++) {
+			Task auxTask = new Task();
+			auxTask.setTitle("tarea" + contadorTarea);
+			auxTask.setCreated(new Date());
+			auxTask.setUserId(usuario.getId());
+			Date date = DateUtil.today();
+			date.setDate(date.getDate() - 6);
+			auxTask.setPlanned(date);
+			Category category = taskService.findCategoryByUserIdAndName(
+					usuario.getId(), "categoria" + contador);
+			auxTask.setCategoryId(category.getId());
+			taskService.createTask(auxTask);
+			if (i == 2)
+				contador++;
+			contadorTarea++;
+		}
 
-			for (int i = 0; i < 6; i++) {
-				Task auxTask = new Task();
-				auxTask.setTitle("tarea" + contadorTarea);
-				auxTask.setCreated(new Date());
-				auxTask.setUserId(u.getId());
-				Date date = DateUtil.today();
-				date.setDate(date.getDate() - 6);
-				auxTask.setPlanned(date);
-				Category category = taskService.findCategoryByUserIdAndName(
-						u.getId(), "categoria" + contador);
-				auxTask.setCategoryId(category.getId());
-				taskService.createTask(auxTask);
-				if (i == 3)
-					contadorTarea++;
-			}
-
-			for (int i = 0; i < 4; i++) {
-				Task auxTask = new Task();
-				auxTask.setTitle("tarea" + contadorTarea);
-				auxTask.setCreated(new Date());
-				auxTask.setUserId(u.getId());
-				Date date = DateUtil.today();
-				date.setDate(date.getDate() - 6);
-				auxTask.setPlanned(date);
-				Category category = taskService.findCategoryByUserIdAndName(
-						u.getId(), "categoria3");
-				auxTask.setCategoryId(category.getId());
-				taskService.createTask(auxTask);
-				contadorTarea++;
-			}
+		for (int i = 0; i < 4; i++) {
+			Task auxTask = new Task();
+			auxTask.setTitle("tarea" + contadorTarea);
+			auxTask.setCreated(new Date());
+			auxTask.setUserId(usuario.getId());
+			Date date = DateUtil.today();
+			date.setDate(date.getDate() - 6);
+			auxTask.setPlanned(date);
+			Category category = taskService.findCategoryByUserIdAndName(
+					usuario.getId(), "categoria3");
+			auxTask.setCategoryId(category.getId());
+			taskService.createTask(auxTask);
+			contadorTarea++;
 		}
 
 	}

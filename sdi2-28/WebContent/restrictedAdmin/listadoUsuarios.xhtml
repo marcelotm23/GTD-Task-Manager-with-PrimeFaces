@@ -11,10 +11,9 @@
 
 	<ui:define name="cuerpo">
 		<p:panel header="#{msgs.tituloListadoUsuarios}">
-			<p:commandButton value="Reiniciar base de datos" id="reiniciarBaseDeDatos"
-				update="tablalistado form-cabecera:growl" 
-				action="#{controller.reiniciarBaseDeDatos}"
-				immediate="true" />
+			<p:commandButton value="#{msgs.botonReinicioBBDD}"
+				id="reiniciarBaseDeDatos" update="tablalistado form-cabecera:growl"
+				action="#{controller.reiniciarBaseDeDatos}" immediate="true" />
 			<p:dataTable id="tablalistado" var="vusuario"
 				value="#{controller.usuarios}" border="1">
 				<p:column sortBy="#{vusuario.email}">
@@ -35,7 +34,16 @@
 					<p:commandLink action="#{controller.eliminarUsuario(vusuario)}"
 						type="submit" value="#{msgs.tablaEliminar}" immediate="true"
 						update="tablalistado form-cabecera:growl">
+						<p:confirm header="#{msgs.tituloConfirmacion}"
+							message="#{msgs.confirmacionMensaje}" icon="ui-icon-alert" />
 					</p:commandLink>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="#{msgs.confirmacionSi}" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{msgs.confirmacionNo}" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
 				</p:column>
 			</p:dataTable>
 		</p:panel>

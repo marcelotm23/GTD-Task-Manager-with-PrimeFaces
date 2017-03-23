@@ -30,7 +30,10 @@ public class BeanLogin implements Serializable {
 		User user = login.findLoggableUser(username, password);
 		if (user != null) {
 			putUserInSession(user);
-			return "exito";
+			if(user.getIsAdmin())
+				return "admin";
+			else
+				return "user";
 		}
 		MessageToUser.writeGrowlMessageERROR("login_form_result_error");
 		return "fallo";

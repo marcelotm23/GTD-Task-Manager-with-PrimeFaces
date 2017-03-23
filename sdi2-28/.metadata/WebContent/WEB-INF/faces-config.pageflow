@@ -2,20 +2,19 @@
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14885803156200" configfile="/sdi2-28/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="*" x="554" y="178" id="pf14897556413350" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14897556413351 pf14897556413352" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="770" y="178" id="pf14897556413353" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14897556413351" path="/error.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="crearCuenta.xhtml" x="770" y="562" id="pf14897556413354" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf149012516954813" inlinks="pf14897556413352 pf149010092209526" path="/crearCuenta.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/listadoTareas.xhtml" id="pf149010052854214" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf149012516954814 pf149012516954815" inlinks="pf149012516954814 pf149012516954816 pf149012516954817 pf14902780531833 pf14902786114664 pf14902786114665 pf14902978007030" path="/restricted/listadoTareas.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf149010052854221" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" outlinks="pf149010092209526 pf14902788576786" inlinks="pf149010052854222 pf14901250496177 pf149012516954813" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="crearCuenta.xhtml" x="770" y="562" id="pf14897556413354" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" outlinks="pf149012516954813" inlinks="pf14897556413352 pf14903034401420" path="/crearCuenta.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/listadoTareas.xhtml" id="pf149010052854214" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf149012516954814 pf149012516954815" inlinks="pf149012516954814 pf149012516954816 pf149012516954817 pf14902780531833 pf14902786114664 pf14902786114665 pf14902978007030" path="/restricted/listadoTareas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf149010052854221" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14902788576786 pf14903034401420 pf14903034401421" inlinks="pf149010052854222 pf14901250496177 pf149012516954813" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="restricted/*" id="pf149010052854225" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf149010052854222 pf14902779751421 pf14902780531833 pf14902786114664 pf14902786114665" path="/restricted/*"/>
   <nodes xsi:type="pageflow:PFPage" name="restrictedAdmin/*" id="pf149012504961710" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14901250496177 pf149012504961711" path="/restrictedAdmin/*"/>
-  <nodes xsi:type="pageflow:PFPage" name="restrictedAdmin/listadoUsuarios.xhtml" id="pf149012504961712" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf149012524645823 pf149012524645824" inlinks="pf149012504961711" path="/restrictedAdmin/listadoUsuarios.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/editarTarea.xhtml" id="pf149012516954919" referenceLink="//@navigationRule.6/@navigationCase.1/@toViewId|" outlinks="pf149012516954816" inlinks="pf149012516954815 pf14902978007031" path="/restricted/editarTarea.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/editForm.xhtml" id="pf149012516954920" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf149012516954817" path="/restricted/editForm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restrictedAdmin/listadoUsuarios.xhtml" id="pf149012504961712" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" outlinks="pf149012524645823 pf149012524645824" inlinks="pf149012504961711 pf14903034401421" path="/restrictedAdmin/listadoUsuarios.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/editarTarea.xhtml" id="pf149012516954919" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf149012516954816" inlinks="pf149012516954815 pf14902978007031" path="/restricted/editarTarea.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/editForm.xhtml" id="pf149012516954920" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf149012516954817" path="/restricted/editForm.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="listadoUsuarios.xhtml" id="pf149012524645825" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" inlinks="pf149012524645823 pf149012524645824" path="/listadoUsuarios.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/listadoTareasInbox.xhtml" id="pf14902779751422" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14902978007030 pf14902978007031" inlinks="pf14902779751421 pf14902788576786" path="/restricted/listadoTareasInbox.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/listadoTareasInbox.xhtml" id="pf14902779751422" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" outlinks="pf14902978007030 pf14902978007031" inlinks="pf14902779751421 pf14902788576786" path="/restricted/listadoTareasInbox.xhtml"/>
   <links id="pf14897556413351" target="pf14897556413353" source="pf14897556413350" outcome="error"/>
   <links id="pf14897556413352" target="pf14897556413354" source="pf14897556413350" outcome="crearCuenta"/>
   <links id="pf149010052854222" target="pf149010052854221" source="pf149010052854225" outcome="exito" fromaction="#{login.logout}"/>
-  <links id="pf149010092209526" target="pf14897556413354" source="pf149010052854221" outcome="registrarse"/>
   <links id="pf14901250496177" target="pf149010052854221" source="pf149012504961710" outcome="exito" fromaction="#{login.logout}"/>
   <links id="pf149012504961711" target="pf149012504961712" source="pf149012504961710" outcome="exito" fromaction="#{controller.listado}"/>
   <links id="pf149012516954814" target="pf149010052854214" source="pf149010052854214" outcome="exito" fromaction="#{controller.finalizarTarea}"/>
@@ -29,7 +28,9 @@
   <links id="pf14902780531833" target="pf149010052854214" source="pf149010052854225" outcome="exito" fromaction="#{controller.mostrarTareasHoy}"/>
   <links id="pf14902786114664" target="pf149010052854214" source="pf149010052854225" outcome="exito" fromaction="#{controller.mostrarTareasSemana}"/>
   <links id="pf14902786114665" target="pf149010052854214" source="pf149010052854225" outcome="exito" fromaction="#{controller.cargarTareasCategoria}"/>
-  <links id="pf14902788576786" target="pf14902779751422" source="pf149010052854221" outcome="exito" fromaction="#{login.verify}"/>
+  <links id="pf14902788576786" target="pf14902779751422" source="pf149010052854221" outcome="user" fromaction="#{login.verify}"/>
   <links id="pf14902978007030" target="pf149010052854214" source="pf14902779751422" outcome="exito" fromaction="#{controller.finalizarTarea}"/>
   <links id="pf14902978007031" target="pf149012516954919" source="pf14902779751422" outcome="editar"/>
+  <links id="pf14903034401420" target="pf14897556413354" source="pf149010052854221" outcome="registrarse"/>
+  <links id="pf14903034401421" target="pf149012504961712" source="pf149010052854221" outcome="admin"/>
 </pageflow:Pageflow>
