@@ -47,7 +47,18 @@ public class BeanControlador implements Serializable {
 	private List<Category> categorias = null;
 	private Date today=DateUtil.today();
 	private List<User> usuarios = null;
+
+
+	private boolean verFinalizadas;
 	
+	public boolean isVerFinalizadas() {
+		return verFinalizadas;
+	}
+
+	public void setVerFinalizadas(boolean verFinalizadas) {
+		this.verFinalizadas = verFinalizadas;
+	}
+
 	public BeanUsuario getUsuario() {
 		return usuario;
 	}
@@ -80,7 +91,6 @@ public class BeanControlador implements Serializable {
 			    Long catId = Long.parseLong(menuItem.getParams().get("catSelecId").get(0));
 				taskService = Services.getTaskService();
 				tareas=taskService.findTasksByCategoryId(catId);
-				setTareasFiltradas(null);
 				return "exito"; 
 
 		} catch (Exception e) {
@@ -129,6 +139,26 @@ public class BeanControlador implements Serializable {
 				resetTablaTareas();
 				taskService = Services.getTaskService();
 				tareas=taskService.findWeekTasksByUserId(usuario.getId());
+				return "exito"; 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // Nos vamos a la vista de error.
+		}
+
+	}
+	public String verTareasFinalizadas() {
+		TaskService taskService;
+		try {
+				resetTablaTareas();
+				taskService = Services.getTaskService();
+				List<Task> tareasFinalizadas=taskService.findFinishedInboxTasksByUserId(usuario.getId());
+				if(verFinalizadas){
+					tareas.addAll(tareasFinalizadas);
+				}else{
+					tareas.removeAll(tareasFinalizadas);
+				}
+				
 				return "exito"; 
 
 		} catch (Exception e) {

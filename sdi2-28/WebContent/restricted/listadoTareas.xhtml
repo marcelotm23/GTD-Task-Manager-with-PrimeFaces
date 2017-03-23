@@ -33,6 +33,11 @@
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
 			<p:panel header="#{msgs.tituloOperacionListado}">
 			<h:form id="formlistado">
+				 <p:inputSwitch value="#{controller.verFinalizadas}" 
+				 onLabel="#{msgs.onVerFinalizadas}" offLabel="#{msgs.offVerFinalizadas}">
+	           		<p:ajax listener="#{controller.verTareasFinalizadas}" 
+	           		update="formlistado:tablalistado" />
+	        	</p:inputSwitch>
 				<p:dataTable id="tablalistado" var="vtarea"
 					value="#{controller.tareas}" border="1"
 					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
