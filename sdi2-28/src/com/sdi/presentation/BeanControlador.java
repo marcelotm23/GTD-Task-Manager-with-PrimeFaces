@@ -129,9 +129,13 @@ public class BeanControlador implements Serializable {
 
 	}
 
-	private void resetTablaTareas() {
+	public void resetTablaTareas() {
 		DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formlistado:tablalistado");
-		dataTable.resetValue();
+		if(dataTable!=null){
+			dataTable.resetValue();
+			//dataTable.reset();
+		}
+		
 	}
 	public String mostrarTareasSemana() {
 		TaskService taskService;

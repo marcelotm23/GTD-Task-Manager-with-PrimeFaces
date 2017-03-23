@@ -15,9 +15,11 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 
 		@Override
 		public Category toObject(ResultSet rs) throws SQLException {
-			return new Category().setId(rs.getLong("id"))
-					.setName(rs.getString("name"))
-					.setUserId(rs.getLong("user_id"));
+			Category category = new Category();
+			category.setId(rs.getLong("id"));
+			category.setName(rs.getString("name"));
+			category.setUserId(rs.getLong("user_id"));
+			return category;
 		}
 	}
 

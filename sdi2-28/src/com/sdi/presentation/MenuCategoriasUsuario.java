@@ -1,6 +1,8 @@
 package com.sdi.presentation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -22,6 +24,15 @@ public class MenuCategoriasUsuario {
 
 	private MenuModel model;
 	private List<Category> categorias;
+	private Map<String, Long> categoriasMap;
+	public List<Category> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Category> categorias) {
+		this.categorias = categorias;
+	}
+
 	private BeanUsuario usuario;
 
 	@PostConstruct
@@ -71,6 +82,10 @@ public class MenuCategoriasUsuario {
 		try {
 			taskService = Services.getTaskService();
 			categorias = taskService.findCategoriesByUserId(usuario.getId());
+			categoriasMap=new HashMap<String, Long>();
+			for(Category cat:categorias){
+				categoriasMap.put(cat.getName(), cat.getId());
+			}
 			return "exito";
 
 		} catch (Exception e) {
@@ -79,9 +94,12 @@ public class MenuCategoriasUsuario {
 		}
 	}
 
-	public void addMessage(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+	public Map<String, Long> getCategoriasMap() {
+		return categoriasMap;
 	}
+
+	public void setCategoriasMap(Map<String, Long> categoriasMap) {
+		this.categoriasMap = categoriasMap;
+	}
+	
 }

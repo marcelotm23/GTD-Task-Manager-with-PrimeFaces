@@ -39,7 +39,7 @@
 		<navigation-case>
 			<from-action>#{login.verify}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/restricted/listadoTareasInbox.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>registrarse</from-outcome>
@@ -58,6 +58,21 @@
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{controller.mostrarTareas}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareasInbox.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{controller.mostrarTareasHoy}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{controller.mostrarTareasSemana}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case> 
+		<navigation-case>
+			<from-action>#{controller.cargarTareasCategoria}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
 		</navigation-case>
@@ -97,6 +112,19 @@
 	<!-- Listado de tareas -->
 	<navigation-rule>
 		<from-view-id>/restricted/listadoTareas.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.finalizarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Listado de tareas de Inbox -->
+	<navigation-rule>
+		<from-view-id>/restricted/listadoTareasInbox.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.finalizarTarea}</from-action>
 			<from-outcome>exito</from-outcome>

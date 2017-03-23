@@ -17,16 +17,21 @@
 		</p:layoutUnit>
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
 			<p:panel header="#{msgs.tituloOperacionListado}">
-			<h:form id="formlistado" styleClass="listadoTareasAncho">
+			<h:form id="formlistado">
+				 <p:inputSwitch value="#{controller.verFinalizadas}" 
+				 onLabel="#{msgs.onVerFinalizadas}" offLabel="#{msgs.offVerFinalizadas}">
+	           		<p:ajax listener="#{controller.verTareasFinalizadas}" 
+	           		update="formlistado:tablalistado" />
+	        	</p:inputSwitch>
 				<p:dataTable id="tablalistado" var="vtarea"
 					value="#{controller.tareas}" border="1"
 					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
 					rows="8" styleClass="listadoTareasAncho" 
 					filteredValue="#{controller.tareasFiltradas}">
-					<p:column sortBy="#{vtarea.obtenerNombreCategoria(vtarea.categoryId)}">
-						<f:facet name="header">#{msgs.tablaTareasCategoria}</f:facet>#{vtarea.obtenerNombreCategoria(vtarea.categoryId)}</p:column>
+					
 					<p:column sortBy="#{vtarea.title}" filterBy="#{vtarea.title}"
-					filterMatchMode="contains" >
+					filterMatchMode="contains" 
+					styleClass="#{not empty vtarea.finished ? 'columnColorDelayed' : ''}">
 						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>#{vtarea.title}</p:column>
 					<p:column sortBy="#{vtarea.comments}">
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>

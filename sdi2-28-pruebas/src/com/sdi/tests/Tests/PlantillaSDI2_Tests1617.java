@@ -19,6 +19,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
 import com.sdi.tests.pageobjects.PO_AltaForm;
+import com.sdi.tests.pageobjects.PO_Login;
 import com.sdi.tests.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
@@ -223,7 +224,9 @@ public class PlantillaSDI2_Tests1617 {
 	// tres páginas.
 	@Test
 	public void prueba16() {
-		assertTrue(false);
+		
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.

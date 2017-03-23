@@ -18,9 +18,8 @@ public class Category {
 		return this;
 	}
 
-	public Category setName(String name) {
+	public void setName(String name) {
 		this.name = name;
-		return this;
 	}
 
 	public Long getUserId() {

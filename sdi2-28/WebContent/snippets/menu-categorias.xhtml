@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:menu>
+			<p:submenu>
+				<p:menuitem value="#{msgs.categoriaInbox}"
+					action="#{controller.mostrarTareas}"
+					actionListener="#{controller.resetTablaTareas}"
+					update="formlistado:tablalistado" icon="ui-icon-home" />
+				<p:menuitem value="#{msgs.categoriaHoy}"
+					action="#{controller.mostrarTareasHoy}"
+					actionListener="#{controller.resetTablaTareas}"
+					update="formlistado:tablalistado" icon="ui-icon-calendar" />
+				<p:menuitem value="#{msgs.categoriaSemana}"
+					action="#{controller.mostrarTareasSemana}"
+					actionListener="#{controller.resetTablaTareas}"
+					update="formlistado:tablalistado" icon="ui-icon-calendar" />
+			</p:submenu>
+		</p:menu>
+		<p:menu model="#{menuCategorias.model}" />
+	</h:form>
+</ui:composition>

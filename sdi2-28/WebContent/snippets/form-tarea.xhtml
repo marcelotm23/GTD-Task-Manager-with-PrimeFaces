@@ -33,7 +33,7 @@
 	  <h:panelGroup>
 			<p:selectOneMenu id="category" value="#{tarea.categoryId}" style="width:150px">
                 <f:selectItem itemLabel="#{msgs.categoriaNinguna}" itemValue="" noSelectionOption="true" />
-                <f:selectItems value="#{controller.categorias}" />
+                <f:selectItems value="#{menuCategorias.categoriasMap}" />
             </p:selectOneMenu>
 			<p:message for="category"/>
 	  </h:panelGroup>  
