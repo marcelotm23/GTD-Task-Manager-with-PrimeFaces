@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -40,7 +41,7 @@ public class PlantillaSDI2_Tests1617 {
 		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 		driver = new FirefoxDriver(ffBinary, firefoxProfile);
-		driver.get("http://localhost:8280/sdi2-28");//CAMBIAR A EXTERNO
+		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
 		// Este código es para ejecutar con una versión instalada de Firex 46.0
 		// driver = new FirefoxDriver();
 		// driver.get("http://localhost:8180/sdi2-n");
@@ -130,12 +131,13 @@ public class PlantillaSDI2_Tests1617 {
 	public void prueba12() {
 
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
 		// Vamos a rellenar el formulario
-		String nombreUsuario=creaNombreUsuarioRandom();
-		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"@prueba12.com",
-				nombreUsuario, "prueba12", "prueba12");
+		String nombreUsuario = creaNombreUsuarioRandom();
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario
+				+ "@prueba12.com", nombreUsuario, "prueba12", "prueba12");
 
 		// Esperamos a que se cargue la pagina de login
 		// concretamente los campos de login
@@ -150,42 +152,53 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba13() {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
 		// Vamos a rellenar el formulario
-		String nombreUsuario="usuario1";
-		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"@prueba13.com",
-				nombreUsuario, "prueba13", "prueba13");
+		String nombreUsuario = "usuario1";
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario
+				+ "@prueba13.com", nombreUsuario, "prueba13", "prueba13");
 
 		// Esperamos a que se cargue la pagina de registro
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 20);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				20);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
-		SeleniumUtils.textoPresentePagina(driver, "Error");
-		SeleniumUtils.textoPresentePagina(driver, "El login del usuario ya está registrado");
+
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
 		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
+
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Error");
+		SeleniumUtils.textoPresentePagina(driver,
+				"El login del usuario ya está registrado");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
 	@Test
 	public void prueba14() {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
 		// Vamos a rellenar el formulario
-		String nombreUsuario=creaNombreUsuarioRandom();
-		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"prueba14.com",
-				nombreUsuario, "prueba14", "prueba14");
+		String nombreUsuario = creaNombreUsuarioRandom();
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario
+				+ "prueba14.com", nombreUsuario, "prueba14", "prueba14");
 
 		// Esperamos a que se cargue la pagina de registro
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 
-		// Comprobamos que aparezca la pantalla de registro con el mensaje de error
-		SeleniumUtils.textoPresentePagina(driver, "El campo \"Correo\" presenta "
-				+ "formato inválido (usuario@servidor.dominio)");
+		// Comprobamos que aparezca la pantalla de registro con el mensaje de
+		// error
+		SeleniumUtils.textoPresentePagina(driver,
+				"El campo \"Correo\" presenta "
+						+ "formato inválido (usuario@servidor.dominio)");
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
@@ -196,23 +209,32 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba15() {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 		SeleniumUtils.textoPresentePagina(driver, "Crear nueva cuenta");
 		// Vamos a rellenar el formulario
-		String nombreUsuario=creaNombreUsuarioRandom();
-		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario+"@prueba15.com",
-				nombreUsuario, "15", "15");
+		String nombreUsuario = creaNombreUsuarioRandom();
+		new PO_AltaForm().rellenaFormulario(driver, nombreUsuario
+				+ "@prueba15.com", nombreUsuario, "15", "15");
 
 		// Esperamos a que se cargue la pagina de registro
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
+				10);
 
-		// Comprobamos que aparezca la pantalla de registro con el mensaje de error
-		SeleniumUtils.textoPresentePagina(driver, "El campo \"Password\" debe "
-				+ "tener números, letras y una longitud miníma de 8 caracteres");
-		SeleniumUtils.textoPresentePagina(driver, "El campo \"Repita la password\" "
-				+ "debe tener números, letras, una longitud miníma de 8 caracteres "
-				+ "y ser equivalente a la anterior");
-		
+		// Comprobamos que aparezca la pantalla de registro con el mensaje de
+		// error
+		SeleniumUtils
+				.textoPresentePagina(
+						driver,
+						"El campo \"Password\" debe "
+								+ "tener números, letras y una longitud miníma de 8 caracteres");
+		SeleniumUtils
+				.textoPresentePagina(
+						driver,
+						"El campo \"Repita la password\" "
+								+ "debe tener números, letras, una longitud miníma de 8 caracteres "
+								+ "y ser equivalente a la anterior");
+
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
@@ -225,57 +247,78 @@ public class PlantillaSDI2_Tests1617 {
 	// tres páginas.
 	@Test
 	public void prueba16() {
-		
+
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		WebElement tablaTareas = driver.findElement(By
-				.id("formlistado:tablalistado_data")); 
-		assertEquals(8, tablaTareas.findElements(By
-				.className("ui-widget-content")).size());
-		//2ºpágina
-		driver.findElement(By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[2]")).click();
+		// Ordeno por título
+		WebElement tarea = null;
+		ArrayList<String> titulosTareas=new ArrayList<String>();
+		
+		for (int i = 0; i < 8; i++) {
+			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
+					+ ":titulo_tarea"));
+			titulosTareas.add(tarea.getText());
+		}
+		// 2ºpágina
+		driver.findElement(
+				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[2]"))
+				.click();
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
-		tablaTareas = driver.findElement(By
-				.id("formlistado:tablalistado_data")); 
-		assertEquals(8, tablaTareas.findElements(By
-				.className("ui-widget-content")).size());
-		//3ºpágina
-		driver.findElement(By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[3]")).click();
+		for (int i = 8; i < 16; i++) {
+			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
+					+ ":titulo_tarea"));
+			titulosTareas.add(tarea.getText());
+		}
+		// 3ºpágina
+		driver.findElement(
+				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[3]"))
+				.click();
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
-		tablaTareas = driver.findElement(By
-				.id("formlistado:tablalistado_data")); 
-		//Debería ser 4
-		assertEquals(4, tablaTareas.findElements(By
-				.className("ui-widget-content")).size());
+		for (int i = 16; i < 20; i++) {
+			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
+					+ ":titulo_tarea"));
+			titulosTareas.add(tarea.getText());
+		}
+		assertEquals(20, titulosTareas.size());
+		for(int i=0; i<titulosTareas.size(); i++){
+			assertTrue(titulosTareas.contains("tarea"+(i+1)));
+		}
+		
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
 	public void prueba17() {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
+				.click();
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
+				.click();
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
+				.click();
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
 	@Test
 	public void prueba18() {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
@@ -438,16 +481,16 @@ public class PlantillaSDI2_Tests1617 {
 	public void prueba38() {
 		assertTrue(false);
 	}
-	
-	public static String creaNombreUsuarioRandom(){
+
+	public static String creaNombreUsuarioRandom() {
 		char[] letras = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
 		for (int i = 0; i < 4; i++) {
-		    char c = letras[random.nextInt(letras.length)];
-		    sb.append(c);
+			char c = letras[random.nextInt(letras.length)];
+			sb.append(c);
 		}
 		return sb.toString();
-		}
+	}
 
 }
