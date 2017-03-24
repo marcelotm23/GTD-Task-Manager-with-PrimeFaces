@@ -24,6 +24,7 @@ public class MenuCategoriasUsuario {
 	private MenuModel model;
 	private List<Category> categorias;
 	private Map<String, Long> categoriasMap;
+
 	public List<Category> getCategorias() {
 		return categorias;
 	}
@@ -49,7 +50,6 @@ public class MenuCategoriasUsuario {
 					.getExternalContext().getSessionMap()
 					.get(new String("LOGGEDIN_USER")));
 
-			
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.put("usuario", usuario);
@@ -81,8 +81,8 @@ public class MenuCategoriasUsuario {
 		try {
 			taskService = Services.getTaskService();
 			categorias = taskService.findCategoriesByUserId(usuario.getId());
-			categoriasMap=new HashMap<String, Long>();
-			for(Category cat:categorias){
+			categoriasMap = new HashMap<String, Long>();
+			for (Category cat : categorias) {
 				categoriasMap.put(cat.getName(), cat.getId());
 			}
 			return "exito";
@@ -100,5 +100,17 @@ public class MenuCategoriasUsuario {
 	public void setCategoriasMap(Map<String, Long> categoriasMap) {
 		this.categoriasMap = categoriasMap;
 	}
-	
+
+	public String obtenerNombreCategoria(Long id) {
+		if (id != null) {
+			for (String catName : categoriasMap.keySet()) {
+				if (id.equals(categoriasMap.get(catName))) {
+					return catName;
+				}
+			}
+			return id.toString();
+		}
+		return "";
+	}
+
 }

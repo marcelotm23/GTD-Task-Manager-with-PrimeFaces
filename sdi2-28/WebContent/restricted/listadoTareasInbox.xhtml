@@ -39,13 +39,13 @@
 						styleClass="#{vtarea.planned lt controller.today ? 'columnColor' : ''}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 						<h:outputText value="#{vtarea.planned}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
 						</h:outputText>
 					</p:column>
 					<p:column sortBy="#{vtarea.finished}">
 						<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
 						<h:outputText value="#{vtarea.finished}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
 						</h:outputText>
 					</p:column>
 					<p:column>
