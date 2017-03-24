@@ -295,7 +295,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
-	public void prueba17() {
+	public void prueba17() throws InterruptedException {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
@@ -305,12 +305,24 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
-				.click();
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
-				.click();
-		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada"))
-				.click();
+		
+		List<WebElement> elementos = 
+				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		
+		//Pinchamos en el criterio de ordenacion
+		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
+		//Ordenación por fecha planeada ascendente
+		elementos.get(2).click();			
+		SeleniumUtils.textoPresentePagina(driver, "tarea1");
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea19");
+		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
+		//Ordenación por fecha planeada descendente
+		elementos.get(2).click();
+		Thread.sleep(500);
+		//Presente una tarea de las más lejanas
+		SeleniumUtils.textoPresentePagina(driver, "tarea19");
+		//No presente una tarea de las más cercanas
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea3");
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
