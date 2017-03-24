@@ -1,6 +1,7 @@
 package com.sdi.tests.Tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
@@ -157,7 +158,7 @@ public class PlantillaSDI2_Tests1617 {
 				nombreUsuario, "prueba13", "prueba13");
 
 		// Esperamos a que se cargue la pagina de registro
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta", 20);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
 		SeleniumUtils.textoPresentePagina(driver, "Error");
@@ -227,18 +228,79 @@ public class PlantillaSDI2_Tests1617 {
 		
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		WebElement tablaTareas = driver.findElement(By
+				.id("formlistado:tablalistado_data")); 
+		assertEquals(8, tablaTareas.findElements(By
+				.className("ui-widget-content")).size());
+		//2ºpágina
+		driver.findElement(By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[2]")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
+		tablaTareas = driver.findElement(By
+				.id("formlistado:tablalistado_data")); 
+		assertEquals(8, tablaTareas.findElements(By
+				.className("ui-widget-content")).size());
+		//3ºpágina
+		driver.findElement(By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[3]")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
+		tablaTareas = driver.findElement(By
+				.id("formlistado:tablalistado_data")); 
+		//Debería ser 4
+		assertEquals(4, tablaTareas.findElements(By
+				.className("ui-widget-content")).size());
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
 	public void prueba17() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
+		driver.findElement(By.id("formlistado:tablalistado:fecha_planeada")).click();
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
 	@Test
 	public void prueba18() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		WebElement tablaTareas = driver.findElement(By
+				.id("formlistado:tablalistado"));
+
+		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
+				.click();
+		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
+				.clear();
+		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
+				.sendKeys("tarea 1");
+		assertEquals(1,
+				tablaTareas.findElements(By.className("ui-widget-content"))
+						.size());
+		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
+				.clear();
+		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
+				.sendKeys("tarea");
+		assertEquals(20,
+				tablaTareas.findElements(By.className("ui-widget-content"))
+						.size());
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
