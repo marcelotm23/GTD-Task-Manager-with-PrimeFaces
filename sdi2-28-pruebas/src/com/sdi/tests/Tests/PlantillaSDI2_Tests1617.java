@@ -327,7 +327,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR18: Funcionamiento correcto del filtrado.
 	@Test
-	public void prueba18() {
+	public void prueba18() throws InterruptedException {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
@@ -337,25 +337,28 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		WebElement tablaTareas = driver.findElement(By
-				.id("formlistado:tablalistado"));
 
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.click();
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.clear();
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
-				.sendKeys("tarea 1");
-		assertEquals(1,
-				tablaTareas.findElements(By.className("ui-widget-content"))
-						.size());
+				.sendKeys("tarea20");
+		Thread.sleep(500);
+		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
+				+ " and contains(@role, 'row')]");
+		List<WebElement> campos = driver.findElements(busqueda);			
+		assertEquals(1, campos.size());
+		assertTrue("Filtrado incorrecto", campos.size()== 1);	
+		Thread.sleep(500);
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.clear();
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.sendKeys("tarea");
-		assertEquals(20,
-				tablaTareas.findElements(By.className("ui-widget-content"))
-						.size());
+		Thread.sleep(500);
+		campos = driver.findElements(busqueda);	
+		assertEquals(8, campos.size());
+		assertTrue("Filtrado incorrecto", campos.size()== 8);	
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
