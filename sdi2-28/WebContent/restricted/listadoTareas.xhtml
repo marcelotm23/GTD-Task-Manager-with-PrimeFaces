@@ -23,7 +23,7 @@
 					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
 					rows="8" styleClass="listadoTareasAncho" 
 					filteredValue="#{controller.tareasFiltradas}">
-					<p:column sortBy="#{vtarea.obtenerNombreCategoria(vtarea.categoryId)}">
+					<p:column sortBy="#{menuCategorias.obtenerNombreCategoria(vtarea.categoryId)}">
 						<f:facet name="header">#{msgs.tablaTareasCategoria}</f:facet>#{menuCategorias.obtenerNombreCategoria(vtarea.categoryId)}</p:column>
 					<p:column sortBy="#{vtarea.title}" filterBy="#{vtarea.title}"
 					filterMatchMode="contains" >
