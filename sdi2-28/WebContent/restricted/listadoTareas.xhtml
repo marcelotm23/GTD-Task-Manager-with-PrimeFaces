@@ -16,6 +16,9 @@
 			<ui:include src="/snippets/menu-categorias.xhtml" />
 		</p:layoutUnit>
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
+			<p:commandButton value="#{msgs.tituloOperacionAnnadir}"
+						id="annadirTarea" type="submit"
+						action="annadir" immediate="true" />
 			<p:panel header="#{msgs.tituloOperacionListado}">
 			<h:form id="formlistado" styleClass="listadoTareasAncho">
 				<p:dataTable id="tablalistado" var="vtarea"

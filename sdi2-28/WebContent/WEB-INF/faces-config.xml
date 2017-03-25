@@ -125,6 +125,10 @@
 			<from-outcome>editar</from-outcome>
 			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>annadir</from-outcome>
+			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	<!-- Listado de tareas de Inbox -->
 	<navigation-rule>
@@ -137,6 +141,10 @@
 		<navigation-case>
 			<from-outcome>editar</from-outcome>
 			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>annadir</from-outcome>
+			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<!-- Listado de tareas de Semana -->
@@ -151,11 +159,25 @@
 			<from-outcome>editar</from-outcome>
 			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>annadir</from-outcome>
+			<to-view-id>/restricted/annadirTarea.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!-- Editar tarea -->
 	<navigation-rule>
 		<from-view-id>/restricted/editarTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.salvaTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Añadir tarea -->
+	<navigation-rule>
+		<from-view-id>/restricted/annadirTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{controller.salvaTarea}</from-action>
 			<from-outcome>exito</from-outcome>

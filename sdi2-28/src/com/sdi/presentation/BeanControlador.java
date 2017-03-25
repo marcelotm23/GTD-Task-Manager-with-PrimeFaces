@@ -245,6 +245,7 @@ public class BeanControlador implements Serializable {
 			// Salvamos o actualizamos la tarea segun sea una operacion de alta
 			// o de edición
 			if (tarea.getId() == null) {
+				tarea.setUserId(usuario.getId());
 				service.createTask(tarea);
 			} else {
 				service.updateTask(tarea);
