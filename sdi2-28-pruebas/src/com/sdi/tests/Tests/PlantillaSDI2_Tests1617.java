@@ -150,7 +150,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR13: Crear una cuenta de usuario normal con login repetido.
 	@Test
-	public void prueba13() {
+	public void prueba13() throws InterruptedException {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
 				10);
@@ -171,11 +171,12 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
 		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
 
-		SeleniumUtils
-				.EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
-		SeleniumUtils.textoPresentePagina(driver, "Error");
-		SeleniumUtils.textoPresentePagina(driver,
-				"El login del usuario ya está registrado");
+//		SeleniumUtils
+//				.EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
+//		SeleniumUtils.textoPresentePagina(driver, "Error");
+//		SeleniumUtils.textoPresentePagina(driver,
+//				"El login del usuario ya está registrado");
+		comprobarMensajeGrowl("Error", "El login del usuario ya está registrado");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
@@ -364,7 +365,18 @@ public class PlantillaSDI2_Tests1617 {
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
 	@Test
 	public void prueba19() {
-		assertTrue(false);
+		
+		
+	}
+
+	private void comprobarMensajeGrowl(String titulo, String mensaje) throws InterruptedException {
+		Thread.sleep(500);
+		By contenidoGrowl = By.xpath("//div[contains(@class, 'ui-growl-message')]");
+		WebElement growl=driver.findElement(contenidoGrowl);
+		WebElement growlTitle=growl.findElement(By.xpath("//span[contains(@class, 'ui-growl-title')]"));
+		WebElement growlMessage=growl.findElement(By.xpath("//p"));
+		assertEquals(titulo, growlTitle.getText());
+		assertEquals(mensaje, growlMessage.getText());
 	}
 
 	// PR20: Funcionamiento correcto de la ordenación por fecha planeada.
