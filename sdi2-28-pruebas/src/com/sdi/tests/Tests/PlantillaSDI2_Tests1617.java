@@ -58,21 +58,42 @@ public class PlantillaSDI2_Tests1617 {
 	// PR01: Autentificar correctamente al administrador.
 	@Test
 	public void prueba01() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de usuarios",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Nombre de usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Estado");
+		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
+		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
+
 	}
 
 	// PR02: Fallo en la autenticación del administrador por introducir mal el
 	// login.
 	@Test
-	public void prueba02() {
-		assertTrue(false);
+	public void prueba02() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "administrador1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
+
+		SeleniumUtils.textoPresentePagina(driver, "Usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
+
+		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
 	}
 
 	// PR03: Fallo en la autenticación del administrador por introducir mal la
 	// password.
 	@Test
-	public void prueba03() {
-		assertTrue(false);
+	public void prueba03() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "admin1", "administrador1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
+
+		SeleniumUtils.textoPresentePagina(driver, "Usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
+
+		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
 	}
 
 	// PR04: Probar que la base de datos contiene los datos insertados con
@@ -85,21 +106,79 @@ public class PlantillaSDI2_Tests1617 {
 	// PR05: Visualizar correctamente la lista de usuarios normales.
 	@Test
 	public void prueba05() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de usuarios",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Nombre de usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Estado");
+		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
+		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
+
+		SeleniumUtils.textoPresentePagina(driver, "user1");
+		SeleniumUtils.textoPresentePagina(driver, "user2");
+		SeleniumUtils.textoPresentePagina(driver, "user3");
+
+		SeleniumUtils.textoPresentePagina(driver, "user1@user.com");
+		SeleniumUtils.textoPresentePagina(driver, "user2@user.com");
+		SeleniumUtils.textoPresentePagina(driver, "user3@user.com");
 	}
 
 	// PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
 	// entrar con el usuario que se desactivado.
 	@Test
-	public void prueba06() {
-		assertTrue(false);
+	public void prueba06() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de usuarios",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Nombre de usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Estado");
+		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
+		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
+
+		driver.findElement(By.id("tablalistado:2:cambiarStatus")).click();
+
+		comprobarMensajeGrowl("Info",
+				"Se ha modificado el estado de un usuario");
+
+		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		new PO_Login().rellenaFormulario(driver, "user3", "user3");
+
+		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
 	}
 
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
 	@Test
-	public void prueba07() {
-		assertTrue(false);
+	public void prueba07() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de usuarios",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Nombre de usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Estado");
+		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
+		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
+
+		driver.findElement(By.id("tablalistado:2:cambiarStatus")).click();
+
+		comprobarMensajeGrowl("Info",
+				"Se ha modificado el estado de un usuario");
+
+		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		new PO_Login().rellenaFormulario(driver, "user3", "user3");
+
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 	}
 
 	// PR08: Ordenar por Login
@@ -171,12 +250,13 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
 		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
 
-//		SeleniumUtils
-//				.EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
-//		SeleniumUtils.textoPresentePagina(driver, "Error");
-//		SeleniumUtils.textoPresentePagina(driver,
-//				"El login del usuario ya está registrado");
-		comprobarMensajeGrowl("Error", "El login del usuario ya está registrado");
+		// SeleniumUtils
+		// .EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
+		// SeleniumUtils.textoPresentePagina(driver, "Error");
+		// SeleniumUtils.textoPresentePagina(driver,
+		// "El login del usuario ya está registrado");
+		comprobarMensajeGrowl("Error",
+				"El login del usuario ya está registrado");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
@@ -227,8 +307,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.textoPresentePagina(
 						driver,
-						"El campo \"Password\" debe "
-								+ "tener números, letras y una longitud miníma de 8 caracteres");
+						"El campo \"Password\" debe tener números, letras y una longitud miníma de 8 caracteres");
 		SeleniumUtils
 				.textoPresentePagina(
 						driver,
@@ -247,7 +326,7 @@ public class PlantillaSDI2_Tests1617 {
 	// categoría y que son las que tienen que. Usar paginación navegando por las
 	// tres páginas.
 	@Test
-	public void prueba16() {
+	public void prueba16() throws InterruptedException {
 
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
@@ -260,8 +339,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 		// Ordeno por título
 		WebElement tarea = null;
-		ArrayList<String> titulosTareas=new ArrayList<String>();
-		
+		ArrayList<String> titulosTareas = new ArrayList<String>();
 		for (int i = 0; i < 8; i++) {
 			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
 					+ ":titulo_tarea"));
@@ -288,10 +366,10 @@ public class PlantillaSDI2_Tests1617 {
 			titulosTareas.add(tarea.getText());
 		}
 		assertEquals(20, titulosTareas.size());
-		for(int i=0; i<titulosTareas.size(); i++){
-			assertTrue(titulosTareas.contains("tarea"+(i+1)));
+		for (int i = 0; i < titulosTareas.size(); i++) {
+			assertTrue(titulosTareas.contains("tarea" + (i + 1)));
 		}
-		
+
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
@@ -306,23 +384,23 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		
-		List<WebElement> elementos = 
-				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
-		
-		//Pinchamos en el criterio de ordenacion
-		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
-		//Ordenación por fecha planeada ascendente
-		elementos.get(2).click();			
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		Thread.sleep(1000); // Esta espera es para poder el efecto de ordenación
+		// Ordenación por fecha planeada ascendente
+		elementos.get(2).click();
 		SeleniumUtils.textoPresentePagina(driver, "tarea1");
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea19");
-		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
-		//Ordenación por fecha planeada descendente
+		Thread.sleep(1000); // Esta espera es para poder el efecto de ordenación
+		// Ordenación por fecha planeada descendente
 		elementos.get(2).click();
-		Thread.sleep(500);
-		//Presente una tarea de las más lejanas
+		Thread.sleep(1000);
+		// Presente una tarea de las más lejanas
 		SeleniumUtils.textoPresentePagina(driver, "tarea19");
-		//No presente una tarea de las más cercanas
+		// No presente una tarea de las más cercanas
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea3");
 	}
 
@@ -345,21 +423,21 @@ public class PlantillaSDI2_Tests1617 {
 				.clear();
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.sendKeys("tarea20");
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
 				+ " and contains(@role, 'row')]");
-		List<WebElement> campos = driver.findElements(busqueda);			
+		List<WebElement> campos = driver.findElements(busqueda);
 		assertEquals(1, campos.size());
-		assertTrue("Filtrado incorrecto", campos.size()== 1);	
-		Thread.sleep(500);
+		assertTrue("Filtrado incorrecto", campos.size() == 1);
+		Thread.sleep(1000);
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.clear();
 		driver.findElement(By.id("formlistado:tablalistado:filtro:filter"))
 				.sendKeys("tarea");
-		Thread.sleep(500);
-		campos = driver.findElements(busqueda);	
+		Thread.sleep(1000);
+		campos = driver.findElements(busqueda);
 		assertEquals(8, campos.size());
-		assertTrue("Filtrado incorrecto", campos.size()== 8);	
+		assertTrue("Filtrado incorrecto", campos.size() == 8);
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
@@ -369,7 +447,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		driver.findElement(By.linkText("Hoy")).click();
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
 		SeleniumUtils.textoPresentePagina(driver, "Categoría");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
@@ -377,36 +455,40 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		
-		List<WebElement> elementos = 
-				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
-		
-		//Pinchamos en el criterio de ordenacion
-		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
-		//Ordenación por categoría ascendente
-		elementos.get(0).click();
-		WebElement primeraCategoriaTarea = 
-				driver.findElement(By.id("formlistado:tablalistado:0:categoria_tarea"));
 
-		assertTrue("La categoría no es vacía", 
-				primeraCategoriaTarea.getText().isEmpty());
-		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
-		//Ordenación por categoría descendente
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		Thread.sleep(1000); // Esta espera es para poder el efecto de ordenación
+		// Ordenación por categoría ascendente
 		elementos.get(0).click();
-		Thread.sleep(500);
-		primeraCategoriaTarea = 
-				driver.findElement(By.id("formlistado:tablalistado:0:categoria_tarea"));
-		assertTrue("La categoría no es categoria3", 
-				primeraCategoriaTarea.getText().equals("categoria3"));
-	
+		WebElement primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText()
+				.isEmpty());
+		Thread.sleep(1000); // Esta espera es para poder el efecto de ordenación
+		// Ordenación por categoría descendente
+		elementos.get(0).click();
+		Thread.sleep(1000);
+		primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		assertTrue("La categoría no es categoria3", primeraCategoriaTarea
+				.getText().equals("categoria3"));
+
 	}
 
-	private void comprobarMensajeGrowl(String titulo, String mensaje) throws InterruptedException {
+	private void comprobarMensajeGrowl(String titulo, String mensaje)
+			throws InterruptedException {
 		Thread.sleep(500);
-		By contenidoGrowl = By.xpath("//div[contains(@class, 'ui-growl-message')]");
-		WebElement growl=driver.findElement(contenidoGrowl);
-		WebElement growlTitle=growl.findElement(By.xpath("//span[contains(@class, 'ui-growl-title')]"));
-		WebElement growlMessage=growl.findElement(By.xpath("//p"));
+		By contenidoGrowl = By
+				.xpath("//div[contains(@class, 'ui-growl-message')]");
+		WebElement growl = driver.findElement(contenidoGrowl);
+		WebElement growlTitle = growl.findElement(By
+				.xpath("//span[contains(@class, 'ui-growl-title')]"));
+		WebElement growlMessage = growl.findElement(By
+				.xpath("//div[contains(@class, 'ui-growl-message')]/p"));
 		assertEquals(titulo, growlTitle.getText());
 		assertEquals(mensaje, growlMessage.getText());
 	}
@@ -418,7 +500,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		driver.findElement(By.linkText("Hoy")).click();
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
 		SeleniumUtils.textoPresentePagina(driver, "Categoría");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
@@ -426,24 +508,24 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		
-		List<WebElement> elementos = 
-				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
-		
-		//Pinchamos en el criterio de ordenacion
-		//Ordenación por fecha planeada ascendente
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		// Ordenación por fecha planeada ascendente
 		elementos.get(3).click();
 		Thread.sleep(500);
-		//No presente una tarea de las más cercanas
+		// No presente una tarea de las más cercanas
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea3");
-		//Presente una tarea de las más cercanas
+		// Presente una tarea de las más cercanas
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		//Ordenación por fecha planeada descendente
+		// Ordenación por fecha planeada descendente
 		elementos.get(3).click();
 		Thread.sleep(500);
-		//No presente una tarea de las más lejanas
+		// No presente una tarea de las más lejanas
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		//Presente una tarea de las más cercanas
+		// Presente una tarea de las más cercanas
 		SeleniumUtils.textoPresentePagina(driver, "tarea3");
 	}
 
@@ -561,14 +643,39 @@ public class PlantillaSDI2_Tests1617 {
 	// autenticado como usuario normal.
 	@Test
 	public void prueba37() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		driver.get("http://localhost:8280/sdi2-28/restrictedAdmin/listadoUsuarios.xhtml");
+
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
 	}
 
 	// PR38: Intento de acceso a un URL privado de usuario normal con un usuario
 	// no autenticado.
 	@Test
 	public void prueba38() {
-		assertTrue(false);
+		driver.get("http://localhost:8280/sdi2-28/restricted/listadoTareasInbox.xhtml");
+
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Usuario:", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		SeleniumUtils.textoPresentePagina(driver,
+				"¿No tienes cuenta? Crea una.");
 	}
 
 	public static String creaNombreUsuarioRandom() {
