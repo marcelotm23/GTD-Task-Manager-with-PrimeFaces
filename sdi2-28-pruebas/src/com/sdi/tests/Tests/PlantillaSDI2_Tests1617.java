@@ -364,9 +364,41 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
 	@Test
-	public void prueba19() {
+	public void prueba19() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(500);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 		
+		List<WebElement> elementos = 
+				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
 		
+		//Pinchamos en el criterio de ordenacion
+		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
+		//Ordenación por categoría ascendente
+		elementos.get(0).click();
+		WebElement primeraCategoriaTarea = 
+				driver.findElement(By.id("formlistado:tablalistado:0:categoria_tarea"));
+
+		assertTrue("La categoría no es vacía", 
+				primeraCategoriaTarea.getText().isEmpty());
+		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
+		//Ordenación por categoría descendente
+		elementos.get(0).click();
+		Thread.sleep(500);
+		primeraCategoriaTarea = 
+				driver.findElement(By.id("formlistado:tablalistado:0:categoria_tarea"));
+		assertTrue("La categoría no es categoria3", 
+				primeraCategoriaTarea.getText().equals("categoria3"));
+	
 	}
 
 	private void comprobarMensajeGrowl(String titulo, String mensaje) throws InterruptedException {
