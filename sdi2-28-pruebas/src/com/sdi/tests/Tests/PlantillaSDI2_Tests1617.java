@@ -413,8 +413,38 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR20: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
-	public void prueba20() {
-		assertTrue(false);
+	public void prueba20() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(500);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		
+		List<WebElement> elementos = 
+				SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		
+		//Pinchamos en el criterio de ordenacion
+		//Ordenación por fecha planeada ascendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		//No presente una tarea de las más cercanas
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea3");
+		//Presente una tarea de las más cercanas
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		//Ordenación por fecha planeada descendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		//No presente una tarea de las más lejanas
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		//Presente una tarea de las más cercanas
+		SeleniumUtils.textoPresentePagina(driver, "tarea3");
 	}
 
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
