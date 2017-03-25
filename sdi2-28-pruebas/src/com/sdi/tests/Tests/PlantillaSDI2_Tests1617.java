@@ -349,7 +349,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(
 				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[2]"))
 				.click();
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
+		Thread.sleep(500);
 		for (int i = 8; i < 16; i++) {
 			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
 					+ ":titulo_tarea"));
@@ -359,7 +359,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(
 				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']/span[3]/span[3]"))
 				.click();
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10);
+		Thread.sleep(500);
 		for (int i = 16; i < 20; i++) {
 			tarea = driver.findElement(By.id("formlistado:tablalistado:" + i
 					+ ":titulo_tarea"));
