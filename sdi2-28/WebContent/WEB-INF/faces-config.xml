@@ -73,7 +73,7 @@
 		<navigation-case>
 			<from-action>#{controller.mostrarTareasSemana}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+			<to-view-id>/restricted/listadoTareasSemana.xhtml</to-view-id>
 		</navigation-case> 
 		<navigation-case>
 			<from-action>#{controller.cargarTareasCategoria}</from-action>
@@ -133,6 +133,19 @@
 			<from-action>#{controller.finalizarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/listadoTareas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>editar</from-outcome>
+			<to-view-id>/restricted/editarTarea.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Listado de tareas de Semana -->
+	<navigation-rule>
+		<from-view-id>/restricted/listadoTareasSemana.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{controller.finalizarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoTareasSemana.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>editar</from-outcome>

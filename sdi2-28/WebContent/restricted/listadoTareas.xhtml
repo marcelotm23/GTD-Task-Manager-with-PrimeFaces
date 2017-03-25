@@ -12,7 +12,7 @@
 
 	<ui:define name="cuerpo">
 		<p:layoutUnit position="west" size="250" minSize="100"
-			header="#{msgs.categoriasMenu}" collapsible="true">
+			header="#{msgs.listasMenu}" collapsible="true">
 			<ui:include src="/snippets/menu-categorias.xhtml" />
 		</p:layoutUnit>
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
@@ -38,7 +38,7 @@
 					<p:column sortBy="#{vtarea.comments}">
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
 					<p:column sortBy="#{vtarea.planned}"
-						styleClass="#{vtarea.planned lt controller.today ? 'columnColor' : ''}">
+						styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 						<h:outputText value="#{vtarea.planned}">
 							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>

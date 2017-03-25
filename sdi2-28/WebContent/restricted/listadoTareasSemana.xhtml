@@ -17,28 +17,29 @@
 		</p:layoutUnit>
 		<p:layoutUnit position="center" styleClass="listadoTareasAncho">
 			<p:panel header="#{msgs.tituloOperacionListado}">
-			<h:form id="formlistado">
-				 <p:inputSwitch value="#{controller.verFinalizadas}" 
-				 onLabel="#{msgs.onVerFinalizadas}" offLabel="#{msgs.offVerFinalizadas}">
-	           		<p:ajax listener="#{controller.verTareasFinalizadas}" 
-	           		update="formlistado:tablalistado" />
-	        	</p:inputSwitch>
+			<h:form id="formlistado" styleClass="listadoTareasAncho">
 				<p:dataTable id="tablalistado" var="vtarea"
 					value="#{controller.tareas}" border="1"
 					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
 					rows="8" styleClass="listadoTareasAncho" 
 					filteredValue="#{controller.tareasFiltradas}">
-					
+					<p:column sortBy="#{menuCategorias.obtenerNombreCategoria(vtarea.categoryId)}"
+					styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
+						<f:facet name="header">#{msgs.tablaTareasCategoria}</f:facet>
+						<h:outputText 
+						value="#{menuCategorias.obtenerNombreCategoria(vtarea.categoryId)}" 
+						id="categoria_tarea"></h:outputText>
+						
+					</p:column>
 					<p:column sortBy="#{vtarea.title}" filterBy="#{vtarea.title}"
-					filterMatchMode="contains" id="filtro"
-					styleClass="#{not empty vtarea.finished ? 'columnColorFinished' : ''}">
+					filterMatchMode="contains" >
 						<f:facet name="header">#{msgs.tablaTareasTitulo}</f:facet>
 						<h:outputText value="#{vtarea.title}" id="titulo_tarea"></h:outputText>
 					</p:column>
 					<p:column sortBy="#{vtarea.comments}">
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
-					<p:column sortBy="#{vtarea.planned}" id="fecha_planeada"
-						styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
+					<p:column sortBy="#{vtarea.planned}"
+					styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 						<h:outputText value="#{vtarea.planned}">
 							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>

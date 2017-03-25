@@ -3,6 +3,7 @@ package com.sdi.presentation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -55,7 +56,10 @@ public class MenuCategoriasUsuario {
 				.put("usuario", usuario);
 		cargarCategoriasUsuario();
 		// Second submenu
-		DefaultSubMenu secondSubmenu = new DefaultSubMenu("");
+		FacesContext context = FacesContext.getCurrentInstance();
+		ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");
+		String i18title = bundle.getString("categoriasMenu");
+		DefaultSubMenu secondSubmenu = new DefaultSubMenu(i18title);
 		DefaultMenuItem item = new DefaultMenuItem();
 
 		if (categorias != null && !categorias.isEmpty()) {
