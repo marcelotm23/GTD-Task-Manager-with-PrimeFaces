@@ -655,8 +655,53 @@ public class PlantillaSDI2_Tests1617 {
 	// PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
 	// son las que deben ser.
 	@Test
-	public void prueba23() {
-		assertTrue(false);
+	public void prueba23() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		
+		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
+				+ " and contains(@role, 'row')]");
+		List<WebElement> rows = driver.findElements(busqueda);
+		
+		//Comprobación del color rojo
+		WebElement categoriaTarea;
+		By tituloTareaBusq;
+		By categoriaBusq=By.className("columnColorDelayed");
+		List<String> titulos = new ArrayList<String>();
+		for(int i=0; i<rows.size(); i++){
+			try {
+				categoriaTarea = rows.get(i).findElement(categoriaBusq);
+			} catch (NoSuchElementException e) {
+				categoriaTarea = null;
+			}
+			//Las veinte primeras tareas debe ser nula la busqueda
+			//ya que como no son retrasadas no tendrán asociada la clase 
+			//para cambiarle el color rojo, en caso contrario no será nula
+			if(i<20){
+				assertNull("Tiene la clase de estilo rojo asociada(fila: "+i+")", categoriaTarea);
+				tituloTareaBusq=By.id("formlistado:tablalistado:"+i+":titulo_tarea");
+				titulos.add(rows.get(i).findElement(tituloTareaBusq).getText());
+			}else{
+				assertNotNull("No tiene la clase de estilo rojo asociada(fila: "+i+")", categoriaTarea);
+			}
+		}
+		//Comprobación de que las tareas no retrasadas son las de 
+		//esta semana y las que tienen que ser
+		//Que son 10 (de la tarea 1 a la 10)
+		assertEquals(20, titulos.size());
+		for(int i=1; i<21; i++){
+			assertTrue("La tarea no es la que tenia que ser", titulos.contains("tarea"+i));
+		}
 	}
 
 	// PR24: Funcionamiento correcto de la ordenación por día.
