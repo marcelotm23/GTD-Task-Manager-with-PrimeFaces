@@ -439,7 +439,7 @@ public class PlantillaSDI2_Tests1617 {
 				20);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
-		Thread.sleep(500);
+		Thread.sleep(800);
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
