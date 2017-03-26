@@ -17,11 +17,17 @@
 			<p:dataTable id="tablalistado" var="vusuario"
 				value="#{controller.usuarios}" border="1">
 				<p:column id="Email" sortBy="#{vusuario.email}">
-					<f:facet name="header">#{msgs.tablaEmail}</f:facet>#{vusuario.email}</p:column>
+					<f:facet name="header">#{msgs.tablaEmail}</f:facet>
+					<h:outputText value="#{vusuario.email}" id="email"></h:outputText>
+				</p:column>
 				<p:column id="Login" sortBy="#{vusuario.login}">
-					<f:facet name="header">#{msgs.tablaLogin}</f:facet>#{vusuario.login}</p:column>
+					<f:facet name="header">#{msgs.tablaLogin}</f:facet>
+					<h:outputText value="#{vusuario.login}" id="login"></h:outputText>
+				</p:column>
 				<p:column id="Status" sortBy="#{vusuario.status}">
-					<f:facet name="header">#{msgs.tablaStatus}</f:facet>#{vusuario.status}</p:column>
+					<f:facet name="header">#{msgs.tablaStatus}</f:facet>
+					<h:outputText value="#{vusuario.status}" id="status"></h:outputText>
+				</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.tablaCambiarStatus}</f:facet>
 					<p:commandLink id="cambiarStatus"
@@ -51,6 +57,6 @@
 		</p:panel>
 	</ui:define>
 	<ui:define name="pie">
-		<ui:include src="/snippets/pie-casa.xhtml" />
+		<ui:include src="/snippets/pie-cerrarSesion.xhtml" />
 	</ui:define>
 </ui:composition>
