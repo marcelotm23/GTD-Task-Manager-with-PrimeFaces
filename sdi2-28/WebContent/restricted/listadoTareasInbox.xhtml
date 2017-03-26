@@ -24,7 +24,8 @@
 				<h:form id="formlistado">
 					<p:inputSwitch value="#{controller.verFinalizadas}"
 						onLabel="#{msgs.onVerFinalizadas}"
-						offLabel="#{msgs.offVerFinalizadas}">
+						offLabel="#{msgs.offVerFinalizadas}"
+						id="ver_finalizadas">
 						<p:ajax listener="#{controller.verTareasFinalizadas}"
 							update="formlistado:tablalistado" />
 					</p:inputSwitch>
@@ -51,7 +52,7 @@
 						</p:column>
 						<p:column sortBy="#{vtarea.finished}">
 							<f:facet name="header">#{msgs.tablaTareasFechaFinalizada}</f:facet>
-							<h:outputText value="#{vtarea.finished}">
+							<h:outputText value="#{vtarea.finished}" id="fechaFinalizada_tarea">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
 							</h:outputText>
 						</p:column>
@@ -65,9 +66,9 @@
 						<p:column>
 							<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
 							<p:commandLink type="submit" value="#{msgs.tablaTareasFinalizar}"
-								action="#{controller.finalizarTarea}"
+								action="#{controller.finalizarTarea('inbox')}"
 								actionListener="#{tarea.setTarea(vtarea)}" immediate="true"
-								update="formlistado:tablalistado">
+								update="formlistado:tablalistado" id="finalizar_tarea">
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>

@@ -65,9 +65,9 @@
 					<p:column>
 						<f:facet name="header">#{msgs.tablaTareasFinalizar}</f:facet>
 						<p:commandLink type="submit" value="#{msgs.tablaTareasFinalizar}"
-							action="#{controller.finalizarTarea}"
+							action="#{controller.finalizarTarea('semana')}"
 							actionListener="#{tarea.setTarea(vtarea)}" immediate="true"
-							update="formlistado:tablalistado">
+							update="formlistado:tablalistado" id="finalizar_tarea">
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
