@@ -377,20 +377,18 @@ public class PlantillaSDI2_Tests1617 {
 		// Vamos a eliminar el user3
 		driver.findElement(By.id("tablalistado:2:eliminar")).click();
 		Thread.sleep(500);
-		
+
 		// Boton de SÍ de la confirmación
 		driver.findElement(By.id("tablalistado:2:j_idt26")).click();
-		
+
 		Thread.sleep(200);
-		comprobarMensajeGrowl("Info",
-				"Se ha eliminado un usuario");
+		comprobarMensajeGrowl("Info", "Se ha eliminado un usuario");
 		SeleniumUtils.textoNoPresentePagina(driver, "user3");
-		
+
 		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
 		new PO_Login().rellenaFormulario(driver, "user3", "user3");
-		
-		comprobarMensajeGrowl("Error",
-				"Usuario o contraseña incorrectos");
+
+		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
 	}
 
 	// PR12: Crear una cuenta de usuario normal con datos válidos.
@@ -953,32 +951,31 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
 		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
 		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
-		
+
 		driver.findElement(By.id("form-pie:j_idt29")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
-		
+
 	}
 
 	// PR34: Salir de sesión desde cuenta de usuario normal.
 	@Test
 	public void prueba34() throws InterruptedException {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas",
-				10);
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Categoría");
 		SeleniumUtils.textoPresentePagina(driver, "Título");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		
+
 		driver.findElement(By.id("form-cabecera:opcionesUsuarios")).click();
 		Thread.sleep(500);
 		driver.findElement(By.id("form-cabecera:cerrarSesion")).click();
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login",
-				10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
 	}
@@ -986,15 +983,118 @@ public class PlantillaSDI2_Tests1617 {
 	// PR35: Cambio del idioma por defecto a un segundo idioma. (Probar algunas
 	// vistas)
 	@Test
-	public void prueba35() {
-		assertTrue(false);
+	public void prueba35() throws InterruptedException {
+		// Probamos al vista del login
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		SeleniumUtils.textoPresentePagina(driver,
+				"¿No tienes cuenta? Crea una.");
+		SeleniumUtils.textoPresentePagina(driver, "Registrarse");
+
+		Thread.sleep(500);
+		// Ponemos el idioma secundario
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:english")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoPresentePagina(driver, "User:");
+		SeleniumUtils.textoPresentePagina(driver, "Password:");
+		SeleniumUtils.textoPresentePagina(driver, "Register");
+
+		// Probamos la vista de usuarios normales
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "List of tasks", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Title");
+		SeleniumUtils.textoPresentePagina(driver, "Comments");
+		SeleniumUtils.textoPresentePagina(driver, "Planned date");
+		SeleniumUtils.textoPresentePagina(driver, "Ended date");
+		SeleniumUtils.textoPresentePagina(driver, "Edit");
+		SeleniumUtils.textoPresentePagina(driver, "Finalize");
+		
+		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "User list", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Email");
+		SeleniumUtils.textoPresentePagina(driver, "Login");
+		SeleniumUtils.textoPresentePagina(driver, "Status");
+		SeleniumUtils.textoPresentePagina(driver, "Change Status");
+		SeleniumUtils.textoPresentePagina(driver, "Delete user");
+		
 	}
 
 	// PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
 	// idioma por defecto. (Probar algunas vistas)
 	@Test
-	public void prueba36() {
-		assertTrue(false);
+	public void prueba36() throws InterruptedException {
+		// Probamos al vista del login
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		SeleniumUtils.textoPresentePagina(driver,
+				"¿No tienes cuenta? Crea una.");
+		SeleniumUtils.textoPresentePagina(driver, "Registrarse");
+
+		Thread.sleep(500);
+		// Ponemos el idioma secundario
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:english")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoPresentePagina(driver, "User:");
+		SeleniumUtils.textoPresentePagina(driver, "Password:");
+		SeleniumUtils.textoPresentePagina(driver, "Register");
+
+		// Volvamos al idioma por defecto
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:spanish")).click();
+		Thread.sleep(500);
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		SeleniumUtils.textoPresentePagina(driver,
+				"¿No tienes cuenta? Crea una.");
+		SeleniumUtils.textoPresentePagina(driver, "Registrarse");
+
+		// Probamos la vista de usuarios normales
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		// Ponemos el idioma secundario
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:english")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoPresentePagina(driver, "Title");
+		SeleniumUtils.textoPresentePagina(driver, "Comments");
+		SeleniumUtils.textoPresentePagina(driver, "Planned date");
+		SeleniumUtils.textoPresentePagina(driver, "Ended date");
+		SeleniumUtils.textoPresentePagina(driver, "Edit");
+		SeleniumUtils.textoPresentePagina(driver, "Finalize");
+
+		// Volvamos al idioma por defecto
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		driver.findElement(By.id("form-cabecera:idiomas")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:spanish")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 	}
 
 	// PR37: Intento de acceso a un URL privado de administrador con un usuario

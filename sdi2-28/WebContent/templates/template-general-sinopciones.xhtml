@@ -31,12 +31,12 @@
 				</tr>
 			</table>
 			<p:menubar>
-				<p:submenu name="options" style="float:right" label="#{msgs.textoIdioma}">
-					<p:menuitem value="#{msgs.enlaceIdiomaES}"
+				<p:submenu id="idiomas" name="options" style="float:right" label="#{msgs.textoIdioma}">
+					<p:menuitem id="spanish" value="#{msgs.enlaceIdiomaES}"
 						actionListener="#{settings.setSpanish}" immediate="true"
 						update="@all">
 					</p:menuitem>
-					<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+					<p:menuitem id="english" value="#{msgs.enlaceIdiomaEN}"
 						actionListener="#{settings.setEnglish}" immediate="true"
 						update="@all">
 					</p:menuitem>
