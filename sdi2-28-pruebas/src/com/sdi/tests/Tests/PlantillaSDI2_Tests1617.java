@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -898,22 +899,73 @@ public class PlantillaSDI2_Tests1617 {
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
 	// lista Inbox.
 	@Test
-	public void prueba27() {
-		assertTrue(false);
+	public void prueba27() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.id("annadirTarea")).click();
+		Thread.sleep(500);
+	    driver.findElement(By.id("form-principal:titulo")).clear();
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba27");
+	    driver.findElement(By.id("form-principal:btnGuardar")).click();
+	    
+	    SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+	    SeleniumUtils.textoPresentePagina(driver, "Prueba27");
 	}
 
 	// PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
 	// comprobar que se muestra en la lista Hoy.
 	@Test
-	public void prueba28() {
-		assertTrue(false);
+	public void prueba28() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.id("annadirTarea")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-principal:titulo")).clear();
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
+	    driver.findElement(By.xpath("//button[@type='button']")).click();
+	    Date today = new Date();
+	    driver.findElement(By.linkText(String.valueOf(today.getDate()))).click();
+	    Thread.sleep(500);
+	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
+	    driver.findElement(By.id("form-principal:category_2")).click();
+	    driver.findElement(By.id("form-principal:btnGuardar")).click();
+	    // Vuelta a la pagina del listado
+	    SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+	    // Voy a la lista Hoy
+	    driver.findElement(By.xpath("//div[@id='j_idt14:j_idt15']/ul/li[3]/a/span[2]")).click();
+	    Thread.sleep(500);
+	    SeleniumUtils.textoPresentePagina(driver, "Prueba28");
 	}
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
 	// a Hoy y comprobar que se muestra en la lista Semana.
 	@Test
-	public void prueba29() {
-		assertTrue(false);
+	public void prueba29() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.id("annadirTarea")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-principal:titulo")).clear();
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
+	    driver.findElement(By.xpath("//button[@type='button']")).click();
+	    Date today = new Date();
+	    driver.findElement(By.linkText(String.valueOf(today.getDate() + 3))).click();
+	    Thread.sleep(500);
+	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
+	    driver.findElement(By.id("form-principal:category_2")).click();
+	    driver.findElement(By.id("form-principal:btnGuardar")).click();
+	    // Vuelta a la pagina del listado
+	    SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+	    // Voy a la lista Semana
+	    driver.findElement(By.xpath("//div[@id='j_idt14:j_idt15']/ul/li[4]/a/span[2]")).click();
+	    Thread.sleep(500);
+	    SeleniumUtils.textoPresentePagina(driver, "Prueba29");
 	}
 
 	// PR30: Editar el nombre, y categoría de una tarea (se le cambia a
