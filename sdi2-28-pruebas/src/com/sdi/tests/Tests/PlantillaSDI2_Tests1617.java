@@ -1,8 +1,12 @@
 package com.sdi.tests.Tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +56,7 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		// driver.quit();
+		 driver.quit();
 	}
 
 	// PRUEBAS
@@ -879,21 +883,166 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR24: Funcionamiento correcto de la ordenación por día.
 	@Test
-	public void prueba24() {
-		assertTrue(false);
+	public void prueba24() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		// Ordenación por fecha planeada ascendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		WebElement primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		WebElement primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería salir sería categoria1
+		assertFalse("La categoría es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("categoria1", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea21
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea11"));
+		assertEquals("tarea21", primerTituloTarea.getText());
+		// Ordenación por fecha planeada descendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería salir vacía
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea1
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea21"));
+		assertEquals("tarea11", primerTituloTarea.getText());
 	}
 
 	// PR25: Funcionamiento correcto de la ordenación por nombre.
 	@Test
-	public void prueba25() {
-		assertTrue(false);
+	public void prueba25() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		// Ordenación por título ascendente
+		elementos.get(1).click();
+		Thread.sleep(500);
+		WebElement primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		WebElement primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería ser vacía
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea21
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea2"));
+		assertEquals("tarea1", primerTituloTarea.getText());
+		// Ordenación por título descendente
+		elementos.get(1).click();
+		Thread.sleep(500);
+		primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería salir vacía
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea9
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea1"));
+		assertEquals("tarea9", primerTituloTarea.getText());
 	}
 
 	// PR26: Confirmar una tarea, inhabilitar el filtro de tareas terminadas, ir
 	// a la pagina donde está la tarea terminada y comprobar que se muestra.
 	@Test
-	public void prueba26() {
-		assertTrue(false);
+	public void prueba26() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		// Inbox
+		SeleniumUtils.textoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		
+		//La tarea7
+		String tituloTarea=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
+		assertEquals("tarea7", tituloTarea);
+		//Finalizamos la tarea
+		driver.findElement(By.id("formlistado:tablalistado:3:finalizar_tarea")).click();
+		Thread.sleep(500);
+		//Ahora ya no figurará en la lista de tareas
+		tituloTarea=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
+		assertNotEquals("tarea7", tituloTarea);
+		//Selección el interruptor para ver las finalizadas
+		driver.findElement(By.id("formlistado:ver_finalizadas")).click();
+		Thread.sleep(500);
+		//Selección de la última página
+		driver.findElement(
+				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']"
+						+ "/span[contains(@class, 'ui-paginator-last')]"))
+				.click();
+		Thread.sleep(800);
+		
+		//Comprobación del color verde
+		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
+				+ " and contains(@role, 'row')]");
+		List<WebElement> rows = driver.findElements(busqueda);
+		WebElement tituloColoreadoTarea=null;
+		WebElement fechaFinalizadaTarea=null;
+		By tituloColoreado=By.className("columnColorFinished");
+		By fechaFinalizadaBusq=By.id("formlistado:tablalistado:19:fechaFinalizada_tarea");
+		String tituloText="";
+		for(int i=0; i<rows.size(); i++){
+			try {
+				tituloColoreadoTarea = rows.get(i).findElement(tituloColoreado);
+				tituloText=tituloColoreadoTarea
+					.findElement(By.id("formlistado:tablalistado:19:titulo_tarea"))
+					.getText();
+				if(tituloText.compareTo("tarea7")==0){
+					fechaFinalizadaTarea=rows.get(i).findElement(fechaFinalizadaBusq);
+					break;
+				}
+			} catch (NoSuchElementException e) {
+				tituloColoreadoTarea = null;
+				fechaFinalizadaTarea=null;
+			}
+		}
+		//La tarea vuelve a figurar en la lista pero en verde
+		//El título
+		assertNotNull(tituloColoreadoTarea);
+		assertEquals("tarea7", tituloText);
+		//La fecha
+		assertNotNull(fechaFinalizadaTarea);
+		assertNotEquals("", fechaFinalizadaTarea.getText());
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
@@ -916,6 +1065,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
 	// comprobar que se muestra en la lista Hoy.
+	@SuppressWarnings("deprecation")
 	@Test
 	public void prueba28() throws InterruptedException {
 		new PO_Login().rellenaFormulario(driver, "user1", "user1");
@@ -943,6 +1093,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
 	// a Hoy y comprobar que se muestra en la lista Semana.
+	@SuppressWarnings("deprecation")
 	@Test
 	public void prueba29() throws InterruptedException {
 		new PO_Login().rellenaFormulario(driver, "user1", "user1");
