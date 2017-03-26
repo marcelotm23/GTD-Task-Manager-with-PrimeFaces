@@ -50,7 +50,7 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		// driver.quit();
+		driver.quit();
 	}
 
 	// PRUEBAS
