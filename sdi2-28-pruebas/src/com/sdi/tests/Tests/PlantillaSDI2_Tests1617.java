@@ -52,7 +52,7 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		// driver.quit();
+		driver.quit();
 	}
 
 	// PRUEBAS
@@ -127,7 +127,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "ENABLED");
 		SeleniumUtils.textoNoPresentePagina(driver, "DISABLED");
 
-		driver.findElement(By.id("form-pie:j_idt32")).click();
+		driver.findElement(By.id("form-pie:cerrarSesion")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		new PO_Login().rellenaFormulario(driver, "user1", "user1");
 		SeleniumUtils
@@ -259,15 +259,16 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
 
 		driver.findElement(By.id("tablalistado:Login")).click();
-
+		
+		Thread.sleep(500);
+		
 		String login = "user1user2user3";
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < 3; i++) {
-			String u = driver
-					.findElement(By.id("tablalistado:" + i + ":login"))
-					.getText();
-			sb.append(u);
+			WebElement e = driver
+					.findElement(By.id("tablalistado:" + i + ":login"));
+			sb.append(e.getText());
 		}
 		assertEquals(login, sb.toString());
 
@@ -303,6 +304,8 @@ public class PlantillaSDI2_Tests1617 {
 
 		driver.findElement(By.id("tablalistado:Email")).click();
 
+		Thread.sleep(500);
+		
 		String email = "user1@user.comuser2@user.comuser3@user.com";
 		StringBuilder sb = new StringBuilder();
 
@@ -380,7 +383,7 @@ public class PlantillaSDI2_Tests1617 {
 		Thread.sleep(500);
 
 		// Boton de SÍ de la confirmación
-		driver.findElement(By.id("tablalistado:2:j_idt26")).click();
+		driver.findElement(By.id("tablalistado:2:si")).click();
 
 		Thread.sleep(200);
 		comprobarMensajeGrowl("Info", "Se ha eliminado un usuario");
@@ -431,17 +434,12 @@ public class PlantillaSDI2_Tests1617 {
 				20);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
-
+		Thread.sleep(500);
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
 		SeleniumUtils.textoPresentePagina(driver, "Repita la contraseña");
 
-		// SeleniumUtils
-		// .EsperaCargaPagina(driver, "id", "form-cabecera:growl", 10);
-		// SeleniumUtils.textoPresentePagina(driver, "Error");
-		// SeleniumUtils.textoPresentePagina(driver,
-		// "El login del usuario ya está registrado");
 		comprobarMensajeGrowl("Error",
 				"El login del usuario ya está registrado");
 	}
@@ -465,8 +463,7 @@ public class PlantillaSDI2_Tests1617 {
 		// Comprobamos que aparezca la pantalla de registro con el mensaje de
 		// error
 		SeleniumUtils.textoPresentePagina(driver,
-				"El campo \"Correo\" presenta "
-						+ "formato inválido (usuario@servidor.dominio)");
+				"El campo \"Correo\" presenta formato inválido (usuario@servidor.dominio)");
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
@@ -493,8 +490,7 @@ public class PlantillaSDI2_Tests1617 {
 		// error
 		SeleniumUtils
 				.textoPresentePagina(
-						driver,
-						"El campo \"Password\" debe tener números, letras y una longitud miníma de 8 caracteres");
+						driver, "El campo \"Password\" debe tener números, letras y una longitud miníma de 8 caracteres");
 		SeleniumUtils
 				.textoPresentePagina(
 						driver,
@@ -951,7 +947,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(By.id("annadirTarea")).click();
 		Thread.sleep(500);
 		driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba29");
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    Date today = new Date();
 	    driver.findElement(By.linkText(String.valueOf(today.getDate() + 3))).click();
@@ -1004,7 +1000,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
 		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
 
-		driver.findElement(By.id("form-pie:j_idt29")).click();
+		driver.findElement(By.id("form-pie:cerrarSesion")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
@@ -1024,6 +1020,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 
+		driver.findElement(By.id("form-cabecera:opcionesUsuarios")).click();
 		driver.findElement(By.id("form-cabecera:opcionesUsuarios")).click();
 		Thread.sleep(500);
 		driver.findElement(By.id("form-cabecera:cerrarSesion")).click();
