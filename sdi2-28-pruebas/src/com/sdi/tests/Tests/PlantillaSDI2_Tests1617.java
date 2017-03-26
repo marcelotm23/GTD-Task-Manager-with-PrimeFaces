@@ -944,13 +944,43 @@ public class PlantillaSDI2_Tests1617 {
 	// PR33: Salir de sesión desde cuenta de administrador.
 	@Test
 	public void prueba33() {
-		assertTrue(false);
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de usuarios",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Correo");
+		SeleniumUtils.textoPresentePagina(driver, "Nombre de usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Estado");
+		SeleniumUtils.textoPresentePagina(driver, "Cambiar estado");
+		SeleniumUtils.textoPresentePagina(driver, "Eliminar usuario");
+		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
+		
+		driver.findElement(By.id("form-pie:j_idt29")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
+		
 	}
 
 	// PR34: Salir de sesión desde cuenta de usuario normal.
 	@Test
-	public void prueba34() {
-		assertTrue(false);
+	public void prueba34() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Listado de tareas",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+		
+		driver.findElement(By.id("form-cabecera:opcionesUsuarios")).click();
+		Thread.sleep(500);
+		driver.findElement(By.id("form-cabecera:cerrarSesion")).click();
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login",
+				10);
+		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
 	}
 
 	// PR35: Cambio del idioma por defecto a un segundo idioma. (Probar algunas

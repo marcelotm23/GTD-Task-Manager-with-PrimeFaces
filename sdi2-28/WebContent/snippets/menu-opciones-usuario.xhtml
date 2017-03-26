@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:submenu label="#{msgs.tituloOpciones}" icon="ui-icon-document">
+	<p:submenu id="opcionesUsuarios" label="#{msgs.tituloOpciones}" icon="ui-icon-document">
 		<p:menuitem value="#{msgs.enlaceListado}"
 			action="#{controller.mostrarTareas}" />
 		<p:separator />
-		<p:menuitem value="#{msgs.enlaceCerrarSesion}"
+		<p:menuitem id="cerrarSesion" value="#{msgs.enlaceCerrarSesion}"
 			action="#{login.logout}" />
 	</p:submenu>
 </ui:composition>
