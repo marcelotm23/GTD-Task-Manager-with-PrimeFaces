@@ -1,7 +1,6 @@
 package com.sdi.tests.Tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -479,19 +479,6 @@ public class PlantillaSDI2_Tests1617 {
 
 	}
 
-	private void comprobarMensajeGrowl(String titulo, String mensaje)
-			throws InterruptedException {
-		Thread.sleep(500);
-		By contenidoGrowl = By
-				.xpath("//div[contains(@class, 'ui-growl-message')]");
-		WebElement growl = driver.findElement(contenidoGrowl);
-		WebElement growlTitle = growl.findElement(By
-				.xpath("//span[contains(@class, 'ui-growl-title')]"));
-		WebElement growlMessage = growl.findElement(By
-				.xpath("//div[contains(@class, 'ui-growl-message')]/p"));
-		assertEquals(titulo, growlTitle.getText());
-		assertEquals(mensaje, growlMessage.getText());
-	}
 
 	// PR20: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
@@ -516,31 +503,153 @@ public class PlantillaSDI2_Tests1617 {
 		// Ordenación por fecha planeada ascendente
 		elementos.get(3).click();
 		Thread.sleep(500);
-		// No presente una tarea de las más cercanas
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea3");
-		// Presente una tarea de las más cercanas
-		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		WebElement primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		WebElement primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería salir sería categoria1
+		assertFalse("La categoría es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("categoria1", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea21
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea1"));
+		assertEquals("tarea21", primerTituloTarea.getText());
 		// Ordenación por fecha planeada descendente
 		elementos.get(3).click();
 		Thread.sleep(500);
-		// No presente una tarea de las más lejanas
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		// Presente una tarea de las más cercanas
-		SeleniumUtils.textoPresentePagina(driver, "tarea3");
+		primeraCategoriaTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:categoria_tarea"));
+		primerTituloTarea = driver.findElement(By
+				.id("formlistado:tablalistado:0:titulo_tarea"));
+		// La primera categoría que debería salir vacía
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertEquals("", primeraCategoriaTarea.getText());
+		// La primera tarea debería ser tarea1
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea21"));
+		assertEquals("tarea1", primerTituloTarea.getText());
 	}
 
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
 	// además las que deben ser.
 	@Test
-	public void prueba21() {
-		assertTrue(false);
+	public void prueba21() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		// Ordenación por fecha planeada ascendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		// Ordenación por fecha planeada descendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
+				+ " and contains(@role, 'row')]");
+		List<WebElement> rows = driver.findElements(busqueda);
+		
+		//Comprobación del color rojo
+		WebElement fechaPlaneadaTarea;
+		By tituloTareaBusq;
+		By fechaPlaneadaBusq=By.className("columnColorDelayed");
+		List<String> titulos = new ArrayList<String>();
+		for(int i=0; i<rows.size(); i++){
+			try {
+				fechaPlaneadaTarea = rows.get(i).findElement(fechaPlaneadaBusq);
+			} catch (NoSuchElementException e) {
+				fechaPlaneadaTarea = null;
+			}
+			//Las diez primeras tareas debe ser nula la busqueda
+			//ya que como no son retrasadas no tendrán asociada la clase 
+			//para cambiarle el color rojo, en caso contrario no será nula
+			if(i<10){
+				assertNull("Tiene la clase de estilo rojo asociada(fila: "+i+")", fechaPlaneadaTarea);
+				tituloTareaBusq=By.id("formlistado:tablalistado:"+i+":titulo_tarea");
+				titulos.add(rows.get(i).findElement(tituloTareaBusq).getText());
+			}else{
+				assertNotNull("No tiene la clase de estilo rojo asociada(fila: "+i+")", fechaPlaneadaTarea);
+			}
+		}
+		//Comprobación de que las tareas no retrasadas son las de hoy y 
+		//las que tienen que ser
+		//Que son 10 (de la tarea 1 a la 10)
+		assertEquals(10, titulos.size());
+		for(int i=1; i<11; i++){
+			assertTrue("La tarea no es la que tenia que ser", titulos.contains("tarea"+i));
+		}
+		
 	}
 
 	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
 	// deben ser.
 	@Test
-	public void prueba22() {
-		assertTrue(false);
+	public void prueba22() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "Ocultar finalizadas");
+		SeleniumUtils.textoPresentePagina(driver, "Categoría");
+		SeleniumUtils.textoPresentePagina(driver, "Título");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha planeada");
+		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
+		SeleniumUtils.textoPresentePagina(driver, "Editar");
+		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
+
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
+
+		// Pinchamos en el criterio de ordenacion
+		// Ordenación por fecha planeada ascendente
+		elementos.get(3).click();
+		Thread.sleep(500);
+		
+		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
+				+ " and contains(@role, 'row')]");
+		List<WebElement> rows = driver.findElements(busqueda);
+		
+		//Comprobación del color rojo
+		WebElement fechaPlaneadaTarea;
+		By tituloTareaBusq;
+		By fechaPlaneadaBusq=By.className("columnColorDelayed");
+		List<String> titulos = new ArrayList<String>();
+		for(int i=0; i<rows.size(); i++){
+			try {
+				fechaPlaneadaTarea = rows.get(i).findElement(fechaPlaneadaBusq);
+			} catch (NoSuchElementException e) {
+				fechaPlaneadaTarea = null;
+			}
+			//Las diez primeras tareas no debe ser nula la busqueda
+			//ya que como son retrasadas tendrán asociada la clase 
+			//para cambiarle el color rojo, en caso contrario si será nula
+			if(i<10){
+				assertNotNull("No tiene la clase de estilo rojo asociada(fila: "+i+")", fechaPlaneadaTarea);
+				tituloTareaBusq=By.id("formlistado:tablalistado:"+i+":titulo_tarea");
+				titulos.add(rows.get(i).findElement(tituloTareaBusq).getText());
+			}else{
+				assertNull("Tiene la clase de estilo rojo asociada(fila: "+i+")", fechaPlaneadaTarea);
+			}
+		}
+		//Comprobación de que las tareas retrasadas son las que tienen que ser
+		//Que son 10 (de la tarea 21 a la 30)
+		assertEquals(10, titulos.size());
+		for(int i=21; i<31; i++){
+			assertTrue("La tarea no es la que tenia que ser", titulos.contains("tarea"+i));
+		}
+		
+		
 	}
 
 	// PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
@@ -687,6 +796,20 @@ public class PlantillaSDI2_Tests1617 {
 			sb.append(c);
 		}
 		return sb.toString();
+	}
+	
+	private void comprobarMensajeGrowl(String titulo, String mensaje)
+			throws InterruptedException {
+		Thread.sleep(500);
+		By contenidoGrowl = By
+				.xpath("//div[contains(@class, 'ui-growl-message')]");
+		WebElement growl = driver.findElement(contenidoGrowl);
+		WebElement growlTitle = growl.findElement(By
+				.xpath("//span[contains(@class, 'ui-growl-title')]"));
+		WebElement growlMessage = growl.findElement(By
+				.xpath("//div[contains(@class, 'ui-growl-message')]/p"));
+		assertEquals(titulo, growlTitle.getText());
+		assertEquals(mensaje, growlMessage.getText());
 	}
 
 }

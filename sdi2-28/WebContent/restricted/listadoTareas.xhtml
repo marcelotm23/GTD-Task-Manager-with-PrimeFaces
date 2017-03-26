@@ -23,8 +23,8 @@
 			<h:form id="formlistado" styleClass="listadoTareasAncho">
 				<p:dataTable id="tablalistado" var="vtarea"
 					value="#{controller.tareas}" border="1"
-					emptyMessage="#{msgs.tablaTareasSinTareas}" paginator="true"
-					rows="8" styleClass="listadoTareasAncho" 
+					emptyMessage="#{msgs.tablaTareasSinTareas}" 
+					styleClass="listadoTareasAncho" 
 					filteredValue="#{controller.tareasFiltradas}">
 					<p:column sortBy="#{menuCategorias.obtenerNombreCategoria(vtarea.categoryId)}">
 						<f:facet name="header">#{msgs.tablaTareasCategoria}</f:facet>
@@ -40,7 +40,7 @@
 					</p:column>
 					<p:column sortBy="#{vtarea.comments}">
 						<f:facet name="header">#{msgs.tablaTareasComentarios}</f:facet>#{vtarea.comments}</p:column>
-					<p:column sortBy="#{vtarea.planned}"
+					<p:column sortBy="#{vtarea.planned}" id="planeada_tarea"
 						styleClass="#{vtarea.planned lt controller.today ? 'columnColorDelayed' : ''}">
 						<f:facet name="header">#{msgs.tablaTareasFechaPlaneada}</f:facet>
 						<h:outputText value="#{vtarea.planned}">
