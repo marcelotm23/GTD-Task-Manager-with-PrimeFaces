@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -33,33 +34,39 @@ import com.sdi.tests.utils.SeleniumUtils;
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlantillaSDI2_Tests1617 {
-	
+
 	private static final String WILDFLY = "http://localhost:8280/sdi2-28";
 
-	WebDriver driver;
+	static WebDriver driver = getDriver();
 	List<WebElement> elementos = null;
 
 	public PlantillaSDI2_Tests1617() {
 	}
 
-	@Before
-	public void run() {
-		// Este código es para ejecutar con la versión portale de Firefox 46.0
+	public static WebDriver getDriver() {
+
 		File pathToBinary = new File("S:\\firefox\\FirefoxPortable.exe");
 		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 		driver = new FirefoxDriver(ffBinary, firefoxProfile);
-		driver.get(WILDFLY);// CAMBIAR A EXTERNO
-		// Este código es para ejecutar con una versión instalada de Firex 46.0
-		// driver = new FirefoxDriver();
-		// driver.get("http://localhost:8180/sdi2-n");
+		driver.get(WILDFLY);
+
+		return driver;
+	}
+
+	@Before
+	public void setUp() {
+		driver.navigate().to(WILDFLY);
 	}
 
 	@After
-	public void end() {
-		// Cerramos el navegador
-		driver.quit();
+	public void tearDown() {
+		driver.manage().deleteAllCookies();
+	}
 
+	@AfterClass
+	static public void end() {
+		driver.quit();
 	}
 
 	// PRUEBAS
@@ -121,7 +128,7 @@ public class PlantillaSDI2_Tests1617 {
 
 		driver.findElement(By.id("reiniciarBaseDeDatos")).click();
 
-		Thread.sleep(500);
+		Thread.sleep(800);
 
 		comprobarMensajeGrowl("Info", "Se ha reiniciado la base de datos");
 
@@ -266,15 +273,15 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Reiniciar base de datos");
 
 		driver.findElement(By.id("tablalistado:Login")).click();
-		
+
 		Thread.sleep(500);
-		
+
 		String login = "user1user2user3";
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < 3; i++) {
-			WebElement e = driver
-					.findElement(By.id("tablalistado:" + i + ":login"));
+			WebElement e = driver.findElement(By.id("tablalistado:" + i
+					+ ":login"));
 			sb.append(e.getText());
 		}
 		assertEquals(login, sb.toString());
@@ -312,7 +319,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(By.id("tablalistado:Email")).click();
 
 		Thread.sleep(500);
-		
+
 		String email = "user1@user.comuser2@user.comuser3@user.com";
 		StringBuilder sb = new StringBuilder();
 
@@ -441,7 +448,7 @@ public class PlantillaSDI2_Tests1617 {
 				20);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
-		Thread.sleep(800);
+		Thread.sleep(1000);
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
@@ -469,8 +476,9 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Comprobamos que aparezca la pantalla de registro con el mensaje de
 		// error
-		SeleniumUtils.textoPresentePagina(driver,
-				"El campo \"Correo\" presenta formato inválido (usuario@servidor.dominio)");
+		SeleniumUtils
+				.textoPresentePagina(driver,
+						"El campo \"Correo\" presenta formato inválido (usuario@servidor.dominio)");
 		SeleniumUtils.textoPresentePagina(driver, "Correo");
 		SeleniumUtils.textoPresentePagina(driver, "Login");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña");
@@ -497,7 +505,8 @@ public class PlantillaSDI2_Tests1617 {
 		// error
 		SeleniumUtils
 				.textoPresentePagina(
-						driver, "El campo \"Password\" debe tener números, letras y una longitud miníma de 8 caracteres");
+						driver,
+						"El campo \"Password\" debe tener números, letras y una longitud miníma de 8 caracteres");
 		SeleniumUtils
 				.textoPresentePagina(
 						driver,
@@ -908,10 +917,12 @@ public class PlantillaSDI2_Tests1617 {
 		WebElement primerTituloTarea = driver.findElement(By
 				.id("formlistado:tablalistado:0:titulo_tarea"));
 		// La primera categoría que debería salir sería categoria1
-		assertFalse("La categoría es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertFalse("La categoría es vacía", primeraCategoriaTarea.getText()
+				.isEmpty());
 		assertEquals("categoria1", primeraCategoriaTarea.getText());
 		// La primera tarea debería ser tarea21
-		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea11"));
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText()
+				.equals("tarea11"));
 		assertEquals("tarea21", primerTituloTarea.getText());
 		// Ordenación por fecha planeada descendente
 		elementos.get(3).click();
@@ -921,10 +932,12 @@ public class PlantillaSDI2_Tests1617 {
 		primerTituloTarea = driver.findElement(By
 				.id("formlistado:tablalistado:0:titulo_tarea"));
 		// La primera categoría que debería salir vacía
-		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText()
+				.isEmpty());
 		assertEquals("", primeraCategoriaTarea.getText());
 		// La primera tarea debería ser tarea1
-		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea21"));
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText()
+				.equals("tarea21"));
 		assertEquals("tarea11", primerTituloTarea.getText());
 	}
 
@@ -956,10 +969,12 @@ public class PlantillaSDI2_Tests1617 {
 		WebElement primerTituloTarea = driver.findElement(By
 				.id("formlistado:tablalistado:0:titulo_tarea"));
 		// La primera categoría que debería ser vacía
-		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText()
+				.isEmpty());
 		assertEquals("", primeraCategoriaTarea.getText());
 		// La primera tarea debería ser tarea21
-		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea2"));
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText()
+				.equals("tarea2"));
 		assertEquals("tarea1", primerTituloTarea.getText());
 		// Ordenación por título descendente
 		elementos.get(1).click();
@@ -969,10 +984,12 @@ public class PlantillaSDI2_Tests1617 {
 		primerTituloTarea = driver.findElement(By
 				.id("formlistado:tablalistado:0:titulo_tarea"));
 		// La primera categoría que debería salir vacía
-		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText().isEmpty());
+		assertTrue("La categoría no es vacía", primeraCategoriaTarea.getText()
+				.isEmpty());
 		assertEquals("", primeraCategoriaTarea.getText());
 		// La primera tarea debería ser tarea9
-		assertFalse("La tarea no es la esperada", primerTituloTarea.getText().equals("tarea1"));
+		assertFalse("La tarea no es la esperada", primerTituloTarea.getText()
+				.equals("tarea1"));
 		assertEquals("tarea9", primerTituloTarea.getText());
 	}
 
@@ -991,55 +1008,60 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Fecha finalizada");
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
-		
-		//La tarea7
-		String tituloTarea=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
+
+		// La tarea7
+		String tituloTarea = driver.findElement(
+				By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
 		assertEquals("tarea7", tituloTarea);
-		//Finalizamos la tarea
-		driver.findElement(By.id("formlistado:tablalistado:3:finalizar_tarea")).click();
+		// Finalizamos la tarea
+		driver.findElement(By.id("formlistado:tablalistado:3:finalizar_tarea"))
+				.click();
 		Thread.sleep(500);
-		//Ahora ya no figurará en la lista de tareas
-		tituloTarea=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
+		// Ahora ya no figurará en la lista de tareas
+		tituloTarea = driver.findElement(
+				By.id("formlistado:tablalistado:3:titulo_tarea")).getText();
 		assertNotEquals("tarea7", tituloTarea);
-		//Selección el interruptor para ver las finalizadas
+		// Selección el interruptor para ver las finalizadas
 		driver.findElement(By.id("formlistado:ver_finalizadas")).click();
 		Thread.sleep(500);
-		//Selección de la última página
+		// Selección de la última página
 		driver.findElement(
 				By.xpath("//div[@id='formlistado:tablalistado_paginator_top']"
 						+ "/span[contains(@class, 'ui-paginator-last')]"))
 				.click();
 		Thread.sleep(800);
-		
-		//Comprobación del color verde
+
+		// Comprobación del color verde
 		By busqueda = By.xpath("//tr[contains(@class, 'ui-widget-content')"
 				+ " and contains(@role, 'row')]");
 		List<WebElement> rows = driver.findElements(busqueda);
-		WebElement tituloColoreadoTarea=null;
-		WebElement fechaFinalizadaTarea=null;
-		By tituloColoreado=By.className("columnColorFinished");
-		By fechaFinalizadaBusq=By.id("formlistado:tablalistado:19:fechaFinalizada_tarea");
-		String tituloText="";
-		for(int i=0; i<rows.size(); i++){
+		WebElement tituloColoreadoTarea = null;
+		WebElement fechaFinalizadaTarea = null;
+		By tituloColoreado = By.className("columnColorFinished");
+		By fechaFinalizadaBusq = By
+				.id("formlistado:tablalistado:19:fechaFinalizada_tarea");
+		String tituloText = "";
+		for (int i = 0; i < rows.size(); i++) {
 			try {
 				tituloColoreadoTarea = rows.get(i).findElement(tituloColoreado);
-				tituloText=tituloColoreadoTarea
-					.findElement(By.id("formlistado:tablalistado:19:titulo_tarea"))
-					.getText();
-				if(tituloText.compareTo("tarea7")==0){
-					fechaFinalizadaTarea=rows.get(i).findElement(fechaFinalizadaBusq);
+				tituloText = tituloColoreadoTarea.findElement(
+						By.id("formlistado:tablalistado:19:titulo_tarea"))
+						.getText();
+				if (tituloText.compareTo("tarea7") == 0) {
+					fechaFinalizadaTarea = rows.get(i).findElement(
+							fechaFinalizadaBusq);
 					break;
 				}
 			} catch (NoSuchElementException e) {
 				tituloColoreadoTarea = null;
-				fechaFinalizadaTarea=null;
+				fechaFinalizadaTarea = null;
 			}
 		}
-		//La tarea vuelve a figurar en la lista pero en verde
-		//El título
+		// La tarea vuelve a figurar en la lista pero en verde
+		// El título
 		assertNotNull(tituloColoreadoTarea);
 		assertEquals("tarea7", tituloText);
-		//La fecha
+		// La fecha
 		assertNotNull(fechaFinalizadaTarea);
 		assertNotEquals("", fechaFinalizadaTarea.getText());
 	}
@@ -1053,13 +1075,13 @@ public class PlantillaSDI2_Tests1617 {
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		driver.findElement(By.id("annadirTarea")).click();
 		Thread.sleep(500);
-	    driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba27");
-	    driver.findElement(By.id("form-principal:btnGuardar")).click();
-	    
-	    SeleniumUtils
-		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-	    SeleniumUtils.textoPresentePagina(driver, "Prueba27");
+		driver.findElement(By.id("form-principal:titulo")).clear();
+		driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba27");
+		driver.findElement(By.id("form-principal:btnGuardar")).click();
+
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Prueba27");
 	}
 
 	// PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
@@ -1073,21 +1095,24 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(By.id("annadirTarea")).click();
 		Thread.sleep(800);
 		driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
-	    driver.findElement(By.xpath("//button[@type='button']")).click();
-	    Date today = new Date();
-	    driver.findElement(By.linkText(String.valueOf(today.getDate()))).click();
-	    Thread.sleep(500);
-	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
-	    driver.findElement(By.id("form-principal:category_2")).click();
-	    driver.findElement(By.id("form-principal:btnGuardar")).click();
-	    // Vuelta a la pagina del listado
-	    SeleniumUtils
-		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-	    // Voy a la lista Hoy
-	    driver.findElement(By.linkText("Hoy")).click();
-	    Thread.sleep(500);
-	    SeleniumUtils.textoPresentePagina(driver, "Prueba28");
+		driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
+		driver.findElement(By.xpath("//button[@type='button']")).click();
+		Date today = new Date();
+		driver.findElement(By.linkText(String.valueOf(today.getDate())))
+				.click();
+		Thread.sleep(500);
+		driver.findElement(
+				By.xpath("//div[@id='form-principal:category']/div[3]"))
+				.click();
+		driver.findElement(By.id("form-principal:category_2")).click();
+		driver.findElement(By.id("form-principal:btnGuardar")).click();
+		// Vuelta a la pagina del listado
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		// Voy a la lista Hoy
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(500);
+		SeleniumUtils.textoPresentePagina(driver, "Prueba28");
 	}
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
@@ -1101,21 +1126,24 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(By.id("annadirTarea")).click();
 		Thread.sleep(500);
 		driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba29");
-	    driver.findElement(By.xpath("//button[@type='button']")).click();
-	    Date today = new Date();
-	    driver.findElement(By.linkText(String.valueOf(today.getDate() + 3))).click();
-	    Thread.sleep(500);
-	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
-	    driver.findElement(By.id("form-principal:category_2")).click();
-	    driver.findElement(By.id("form-principal:btnGuardar")).click();
-	    // Vuelta a la pagina del listado
-	    SeleniumUtils
-		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-	    // Voy a la lista Semana
-	    driver.findElement(By.linkText("Semana")).click();
-	    Thread.sleep(800);
-	    SeleniumUtils.textoPresentePagina(driver, "Prueba29");
+		driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba29");
+		driver.findElement(By.xpath("//button[@type='button']")).click();
+		Date today = new Date();
+		driver.findElement(By.linkText(String.valueOf(today.getDate() + 3)))
+				.click();
+		Thread.sleep(500);
+		driver.findElement(
+				By.xpath("//div[@id='form-principal:category']/div[3]"))
+				.click();
+		driver.findElement(By.id("form-principal:category_2")).click();
+		driver.findElement(By.id("form-principal:btnGuardar")).click();
+		// Vuelta a la pagina del listado
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		// Voy a la lista Semana
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(800);
+		SeleniumUtils.textoPresentePagina(driver, "Prueba29");
 	}
 
 	// PR30: Editar el nombre, y categoría de una tarea (se le cambia a
@@ -1126,35 +1154,40 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-		WebElement tarea4titulo=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea"));
-		WebElement tarea4editar=driver.findElement(By.id("formlistado:tablalistado:3:editar_tarea"));
+		WebElement tarea4titulo = driver.findElement(By
+				.id("formlistado:tablalistado:3:titulo_tarea"));
+		WebElement tarea4editar = driver.findElement(By
+				.id("formlistado:tablalistado:3:editar_tarea"));
 		assertEquals("tarea4", tarea4titulo.getText());
 		assertEquals("Editar", tarea4editar.getText());
-		//Click en editar
+		// Click en editar
 		tarea4editar.click();
 		Thread.sleep(500);
-		//Rellenar el formulario
+		// Rellenar el formulario
 		driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba30");
-	    Thread.sleep(500);
-	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
-	    driver.findElement(By.id("form-principal:category_2")).click();
-	    driver.findElement(By.id("form-principal:btnGuardar")).click();
-	    // Vuelta a la pagina del listado inbox
-	    SeleniumUtils
-		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-	    Thread.sleep(500);
-	    //Comprobación de que la tarea ya no aparece en inbox porque tiene categoría
-	   	SeleniumUtils.textoNoPresentePagina(driver, "Prueba30");
-	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
-	   	//Vamos a la categoría hoy
-	   	driver.findElement(By.linkText("Hoy")).click();
-	   	Thread.sleep(1000);
+		driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba30");
+		Thread.sleep(500);
+		driver.findElement(
+				By.xpath("//div[@id='form-principal:category']/div[3]"))
+				.click();
+		driver.findElement(By.id("form-principal:category_2")).click();
+		driver.findElement(By.id("form-principal:btnGuardar")).click();
+		// Vuelta a la pagina del listado inbox
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		Thread.sleep(500);
+		// Comprobación de que la tarea ya no aparece en inbox porque tiene
+		// categoría
+		SeleniumUtils.textoNoPresentePagina(driver, "Prueba30");
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
+		// Vamos a la categoría hoy
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(1000);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
 		SeleniumUtils.textoPresentePagina(driver, "Prueba30");
-		//Vamos a la categoría semana
-	   	driver.findElement(By.linkText("Semana")).click();
-	   	Thread.sleep(1000);
+		// Vamos a la categoría semana
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
 		SeleniumUtils.textoPresentePagina(driver, "Prueba30");
 	}
@@ -1167,42 +1200,47 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-		//Vamos a la categoría hoy
-	   	driver.findElement(By.linkText("Hoy")).click();
-	   	Thread.sleep(1000);
-		WebElement tarea22titulo=driver.findElement(By.id("formlistado:tablalistado:9:titulo_tarea"));
-		WebElement tarea22editar=driver.findElement(By.id("formlistado:tablalistado:9:editar_tarea"));
-		WebElement tarea22categoria=driver.findElement(By.id("formlistado:tablalistado:9:categoria_tarea"));
+		// Vamos a la categoría hoy
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(1000);
+		WebElement tarea22titulo = driver.findElement(By
+				.id("formlistado:tablalistado:9:titulo_tarea"));
+		WebElement tarea22editar = driver.findElement(By
+				.id("formlistado:tablalistado:9:editar_tarea"));
+		WebElement tarea22categoria = driver.findElement(By
+				.id("formlistado:tablalistado:9:categoria_tarea"));
 		assertEquals("tarea22", tarea22titulo.getText());
 		assertEquals("Editar", tarea22editar.getText());
 		assertEquals("categoria1", tarea22categoria.getText());
-		//Click en editar
+		// Click en editar
 		tarea22editar.click();
 		Thread.sleep(500);
-		//Rellenar el formulario
+		// Rellenar el formulario
 		driver.findElement(By.id("form-principal:titulo")).clear();
-	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba31");
-	    Thread.sleep(500);
-	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
-	    driver.findElement(By.id("form-principal:category_0")).click();
-	    driver.findElement(By.id("form-principal:btnGuardar")).click();
-	    Thread.sleep(500);
-	    // Vuelta a la pagina del listado hoy
-	    SeleniumUtils
-		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
-	    Thread.sleep(500);
-	    //Comprobación de que la tarea ya aparece modificada 
-	   	SeleniumUtils.textoPresentePagina(driver, "Prueba31");
-	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
-	   	//Vamos a la categoría Semana
-	   	driver.findElement(By.linkText("Semana")).click();
-	   	Thread.sleep(1000);
+		driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba31");
+		Thread.sleep(500);
+		driver.findElement(
+				By.xpath("//div[@id='form-principal:category']/div[3]"))
+				.click();
+		driver.findElement(By.id("form-principal:category_0")).click();
+		driver.findElement(By.id("form-principal:btnGuardar")).click();
+		Thread.sleep(500);
+		// Vuelta a la pagina del listado hoy
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		Thread.sleep(500);
+		// Comprobación de que la tarea ya aparece modificada
+		SeleniumUtils.textoPresentePagina(driver, "Prueba31");
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
+		// Vamos a la categoría Semana
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
 		SeleniumUtils.textoPresentePagina(driver, "Prueba31");
-		//Vamos a la categoría Entrada
-	   	driver.findElement(By.linkText("Entrada")).click();
-	   	Thread.sleep(1000);
-	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
+		// Vamos a la categoría Entrada
+		driver.findElement(By.linkText("Entrada")).click();
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
 		SeleniumUtils.textoPresentePagina(driver, "Prueba31");
 	}
 
@@ -1279,15 +1317,14 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Probamos la vista de usuarios normales
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
-		SeleniumUtils
-				.EsperaCargaPagina(driver, "text", "List of tasks", 10);
+		SeleniumUtils.EsperaCargaPagina(driver, "text", "List of tasks", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Title");
 		SeleniumUtils.textoPresentePagina(driver, "Comments");
 		SeleniumUtils.textoPresentePagina(driver, "Planned date");
 		SeleniumUtils.textoPresentePagina(driver, "Ended date");
 		SeleniumUtils.textoPresentePagina(driver, "Edit");
 		SeleniumUtils.textoPresentePagina(driver, "Finalize");
-		
+
 		driver.get(WILDFLY);
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
@@ -1297,7 +1334,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Status");
 		SeleniumUtils.textoPresentePagina(driver, "Change Status");
 		SeleniumUtils.textoPresentePagina(driver, "Delete user");
-		
+
 	}
 
 	// PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
@@ -1327,7 +1364,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.findElement(By.id("form-cabecera:idiomas")).click();
 		Thread.sleep(500);
 		driver.findElement(By.id("form-cabecera:spanish")).click();
-		Thread.sleep(500);
+		Thread.sleep(800);
 		SeleniumUtils.textoPresentePagina(driver, "Usuario:");
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
 		SeleniumUtils.textoPresentePagina(driver,
