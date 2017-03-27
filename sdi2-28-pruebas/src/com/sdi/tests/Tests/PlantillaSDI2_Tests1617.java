@@ -445,7 +445,7 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Esperamos a que se cargue la pagina de registro
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
-				20);
+				10);
 
 		// Comprobamos que aparezca la pantalla de registro con el error
 		Thread.sleep(1000);
@@ -460,7 +460,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
 	@Test
-	public void prueba14() {
+	public void prueba14() throws InterruptedException {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
 				10);
@@ -474,6 +474,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
 				10);
 
+		Thread.sleep(500);
 		// Comprobamos que aparezca la pantalla de registro con el mensaje de
 		// error
 		SeleniumUtils
@@ -487,7 +488,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR15: Crear una cuenta de usuario normal con Password incorrecta.
 	@Test
-	public void prueba15() {
+	public void prueba15() throws InterruptedException {
 		driver.findElement(By.id("form-principal:linkRegistrarse")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
 				10);
@@ -500,7 +501,7 @@ public class PlantillaSDI2_Tests1617 {
 		// Esperamos a que se cargue la pagina de registro
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Crear nueva cuenta",
 				10);
-
+		Thread.sleep(500);
 		// Comprobamos que aparezca la pantalla de registro con el mensaje de
 		// error
 		SeleniumUtils
@@ -1272,7 +1273,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, titulo);
 		//Click en finalizar
 		tareaFinalizar.click();
-		Thread.sleep(800);
+		Thread.sleep(1000);
 		//Ya no estará presente la tarea
 		SeleniumUtils.textoNoPresentePagina(driver, titulo);
 		//En semana
