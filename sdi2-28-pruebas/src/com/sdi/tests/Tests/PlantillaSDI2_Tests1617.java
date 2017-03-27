@@ -1122,16 +1122,88 @@ public class PlantillaSDI2_Tests1617 {
 	// categoría1) de la lista Inbox y comprobar que las tres pseudolista se
 	// refresca correctamente.
 	@Test
-	public void prueba30() {
-		assertTrue(false);
+	public void prueba30() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		WebElement tarea4titulo=driver.findElement(By.id("formlistado:tablalistado:3:titulo_tarea"));
+		WebElement tarea4editar=driver.findElement(By.id("formlistado:tablalistado:3:editar_tarea"));
+		assertEquals("tarea4", tarea4titulo.getText());
+		assertEquals("Editar", tarea4editar.getText());
+		//Click en editar
+		tarea4editar.click();
+		Thread.sleep(500);
+		//Rellenar el formulario
+		driver.findElement(By.id("form-principal:titulo")).clear();
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba30");
+	    Thread.sleep(500);
+	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
+	    driver.findElement(By.id("form-principal:category_2")).click();
+	    driver.findElement(By.id("form-principal:btnGuardar")).click();
+	    // Vuelta a la pagina del listado inbox
+	    SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+	    Thread.sleep(500);
+	    //Comprobación de que la tarea ya no aparece en inbox porque tiene categoría
+	   	SeleniumUtils.textoNoPresentePagina(driver, "Prueba30");
+	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
+	   	//Vamos a la categoría hoy
+	   	driver.findElement(By.linkText("Hoy")).click();
+	   	Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
+		SeleniumUtils.textoPresentePagina(driver, "Prueba30");
+		//Vamos a la categoría semana
+	   	driver.findElement(By.linkText("Semana")).click();
+	   	Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea4");
+		SeleniumUtils.textoPresentePagina(driver, "Prueba30");
 	}
 
 	// PR31: Editar el nombre, y categoría (Se cambia a sin categoría) de una
 	// tarea de la lista Hoy y comprobar que las tres pseudolistas se refrescan
 	// correctamente.
 	@Test
-	public void prueba31() {
-		assertTrue(false);
+	public void prueba31() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user2", "user2");
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		//Vamos a la categoría hoy
+	   	driver.findElement(By.linkText("Hoy")).click();
+	   	Thread.sleep(1000);
+		WebElement tarea22titulo=driver.findElement(By.id("formlistado:tablalistado:9:titulo_tarea"));
+		WebElement tarea22editar=driver.findElement(By.id("formlistado:tablalistado:9:editar_tarea"));
+		WebElement tarea22categoria=driver.findElement(By.id("formlistado:tablalistado:9:categoria_tarea"));
+		assertEquals("tarea22", tarea22titulo.getText());
+		assertEquals("Editar", tarea22editar.getText());
+		assertEquals("categoria1", tarea22categoria.getText());
+		//Click en editar
+		tarea22editar.click();
+		Thread.sleep(500);
+		//Rellenar el formulario
+		driver.findElement(By.id("form-principal:titulo")).clear();
+	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba31");
+	    Thread.sleep(500);
+	    driver.findElement(By.xpath("//div[@id='form-principal:category']/div[3]")).click();
+	    driver.findElement(By.id("form-principal:category_0")).click();
+	    driver.findElement(By.id("form-principal:btnGuardar")).click();
+	    Thread.sleep(500);
+	    // Vuelta a la pagina del listado hoy
+	    SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+	    Thread.sleep(500);
+	    //Comprobación de que la tarea ya aparece modificada 
+	   	SeleniumUtils.textoPresentePagina(driver, "Prueba31");
+	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
+	   	//Vamos a la categoría Semana
+	   	driver.findElement(By.linkText("Semana")).click();
+	   	Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
+		SeleniumUtils.textoPresentePagina(driver, "Prueba31");
+		//Vamos a la categoría Entrada
+	   	driver.findElement(By.linkText("Entrada")).click();
+	   	Thread.sleep(1000);
+	   	SeleniumUtils.textoNoPresentePagina(driver, "tarea22");
+		SeleniumUtils.textoPresentePagina(driver, "Prueba31");
 	}
 
 	// PR32: Marcar una tarea como finalizada. Comprobar que desaparece de las
