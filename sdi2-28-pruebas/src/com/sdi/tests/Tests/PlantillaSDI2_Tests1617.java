@@ -33,6 +33,8 @@ import com.sdi.tests.utils.SeleniumUtils;
 //Ordenamos las pruebas por el nombre del método
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlantillaSDI2_Tests1617 {
+	
+	private static final String WILDFLY = "http://localhost:8280/sdi2-28";
 
 	WebDriver driver;
 	List<WebElement> elementos = null;
@@ -47,7 +49,7 @@ public class PlantillaSDI2_Tests1617 {
 		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 		driver = new FirefoxDriver(ffBinary, firefoxProfile);
-		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		driver.get(WILDFLY);// CAMBIAR A EXTERNO
 		// Este código es para ejecutar con una versión instalada de Firex 46.0
 		// driver = new FirefoxDriver();
 		// driver.get("http://localhost:8180/sdi2-n");
@@ -145,7 +147,7 @@ public class PlantillaSDI2_Tests1617 {
 
 		comprobarTareasInbox();
 
-		driver.get("http://localhost:8280/sdi2-28"); // CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		new PO_Login().rellenaFormulario(driver, "user2", "user2");
 		SeleniumUtils
@@ -158,7 +160,7 @@ public class PlantillaSDI2_Tests1617 {
 
 		comprobarTareasInbox();
 
-		driver.get("http://localhost:8280/sdi2-28"); // CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		new PO_Login().rellenaFormulario(driver, "user3", "user3");
 		SeleniumUtils
@@ -213,7 +215,7 @@ public class PlantillaSDI2_Tests1617 {
 		comprobarMensajeGrowl("Info",
 				"Se ha modificado el estado de un usuario");
 
-		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		new PO_Login().rellenaFormulario(driver, "user3", "user3");
 
 		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
@@ -238,7 +240,7 @@ public class PlantillaSDI2_Tests1617 {
 		comprobarMensajeGrowl("Info",
 				"Se ha modificado el estado de un usuario");
 
-		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		new PO_Login().rellenaFormulario(driver, "user3", "user3");
 
 		SeleniumUtils
@@ -394,7 +396,7 @@ public class PlantillaSDI2_Tests1617 {
 		comprobarMensajeGrowl("Info", "Se ha eliminado un usuario");
 		SeleniumUtils.textoNoPresentePagina(driver, "user3");
 
-		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		new PO_Login().rellenaFormulario(driver, "user3", "user3");
 
 		comprobarMensajeGrowl("Error", "Usuario o contraseña incorrectos");
@@ -1214,7 +1216,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Edit");
 		SeleniumUtils.textoPresentePagina(driver, "Finalize");
 		
-		driver.get("http://localhost:8280/sdi2-28");// CAMBIAR A EXTERNO
+		driver.get(WILDFLY);
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Login", 10);
 		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "User list", 10);
@@ -1312,7 +1314,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.textoPresentePagina(driver, "Editar");
 		SeleniumUtils.textoPresentePagina(driver, "Finalizar");
 
-		driver.get("http://localhost:8280/sdi2-28/restrictedAdmin/listadoUsuarios.xhtml");
+		driver.get(WILDFLY + "/restrictedAdmin/listadoUsuarios.xhtml");
 
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
@@ -1329,7 +1331,7 @@ public class PlantillaSDI2_Tests1617 {
 	// no autenticado.
 	@Test
 	public void prueba38() {
-		driver.get("http://localhost:8280/sdi2-28/restricted/listadoTareasInbox.xhtml");
+		driver.get(WILDFLY + "/restricted/listadoTareasInbox.xhtml");
 
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Usuario:", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Contraseña:");
