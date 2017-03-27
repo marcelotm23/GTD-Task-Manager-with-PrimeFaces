@@ -1069,7 +1069,7 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 		driver.findElement(By.id("annadirTarea")).click();
-		Thread.sleep(500);
+		Thread.sleep(800);
 		driver.findElement(By.id("form-principal:titulo")).clear();
 	    driver.findElement(By.id("form-principal:titulo")).sendKeys("Prueba28");
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
@@ -1083,7 +1083,7 @@ public class PlantillaSDI2_Tests1617 {
 	    SeleniumUtils
 		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 	    // Voy a la lista Hoy
-	    driver.findElement(By.xpath("//div[@id='j_idt14:j_idt15']/ul/li[3]/a/span[2]")).click();
+	    driver.findElement(By.linkText("Hoy")).click();
 	    Thread.sleep(500);
 	    SeleniumUtils.textoPresentePagina(driver, "Prueba28");
 	}
@@ -1111,8 +1111,8 @@ public class PlantillaSDI2_Tests1617 {
 	    SeleniumUtils
 		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
 	    // Voy a la lista Semana
-	    driver.findElement(By.xpath("//div[@id='j_idt14:j_idt15']/ul/li[4]/a/span[2]")).click();
-	    Thread.sleep(500);
+	    driver.findElement(By.linkText("Semana")).click();
+	    Thread.sleep(800);
 	    SeleniumUtils.textoPresentePagina(driver, "Prueba29");
 	}
 
