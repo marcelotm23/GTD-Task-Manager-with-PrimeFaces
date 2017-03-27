@@ -1247,8 +1247,47 @@ public class PlantillaSDI2_Tests1617 {
 	// PR32: Marcar una tarea como finalizada. Comprobar que desaparece de las
 	// tres pseudolistas.
 	@Test
-	public void prueba32() {
-		assertTrue(false);
+	public void prueba32() throws InterruptedException {
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		SeleniumUtils
+		.EsperaCargaPagina(driver, "text", "Listado de tareas", 10);
+		//En inbox
+		WebElement tareaTitulo=driver.findElement(By.id("formlistado:tablalistado:0:titulo_tarea"));
+		WebElement tareaFinalizar=driver.findElement(By.id("formlistado:tablalistado:0:finalizar_tarea"));
+		String titulo = tareaTitulo.getText();
+		assertEquals("Finalizar", tareaFinalizar.getText());
+		SeleniumUtils.textoPresentePagina(driver, titulo);
+		//Click en finalizar
+		tareaFinalizar.click();
+		Thread.sleep(800);
+		//Ya no estará presente la tarea
+		SeleniumUtils.textoNoPresentePagina(driver, titulo);
+		//En hoy
+		driver.findElement(By.linkText("Hoy")).click();
+		Thread.sleep(1000);
+		tareaTitulo=driver.findElement(By.id("formlistado:tablalistado:0:titulo_tarea"));
+		tareaFinalizar=driver.findElement(By.id("formlistado:tablalistado:0:finalizar_tarea"));
+		titulo = tareaTitulo.getText();
+		assertEquals("Finalizar", tareaFinalizar.getText());
+		SeleniumUtils.textoPresentePagina(driver, titulo);
+		//Click en finalizar
+		tareaFinalizar.click();
+		Thread.sleep(800);
+		//Ya no estará presente la tarea
+		SeleniumUtils.textoNoPresentePagina(driver, titulo);
+		//En semana
+		driver.findElement(By.linkText("Semana")).click();
+		Thread.sleep(1000);
+		tareaTitulo=driver.findElement(By.id("formlistado:tablalistado:0:titulo_tarea"));
+		tareaFinalizar=driver.findElement(By.id("formlistado:tablalistado:0:finalizar_tarea"));
+		titulo = tareaTitulo.getText();
+		assertEquals("Finalizar", tareaFinalizar.getText());
+		SeleniumUtils.textoPresentePagina(driver, titulo);
+		//Click en finalizar
+		tareaFinalizar.click();
+		Thread.sleep(800);
+		//Ya no estará presente la tarea
+		SeleniumUtils.textoNoPresentePagina(driver, titulo);
 	}
 
 	// PR33: Salir de sesión desde cuenta de administrador.
